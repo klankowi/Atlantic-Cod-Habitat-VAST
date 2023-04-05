@@ -1,0 +1,68 @@
+$par
+  ln_H_input   ln_H_input   L_omega1_z L_epsilon1_z    logkappa1   L_omega2_z L_epsilon2_z 
+  0.15915557   0.09617021   2.12284215   0.87778466  -3.88533983   0.57620698   0.92419533 
+   logkappa2    logSigmaM 
+ -2.40217740  -0.16888045 
+
+$objective
+[1] 30055.16
+attr(,"logarithm")
+[1] TRUE
+
+$iterations
+[1] 2
+
+$evaluations
+function gradient 
+       7        3 
+
+$time_for_MLE
+Time difference of 41.80187 secs
+
+$max_gradient
+[1] 1.106787e-08
+
+$Convergence_check
+[1] "There is no evidence that the model is not converged"
+
+$number_of_coefficients
+ Total  Fixed Random 
+ 41799      9  41790 
+
+$AIC
+[1] 60128.32
+attr(,"logarithm")
+[1] TRUE
+
+$diagnostics
+         Param starting_value     Lower         MLE     Upper final_gradient
+1   ln_H_input     0.15916389 -5.000000  0.15915557  5.000000   1.711563e-09
+2   ln_H_input     0.09616944 -5.000000  0.09617021  5.000000   1.034504e-09
+3   L_omega1_z     2.12284428      -Inf  2.12284215       Inf  -4.615458e-09
+4 L_epsilon1_z     0.87778522      -Inf  0.87778466       Inf   9.438708e-10
+5    logkappa1    -3.88534255 -6.004945 -3.88533983 -1.848221  -1.106787e-08
+6   L_omega2_z     0.57621043      -Inf  0.57620698       Inf   2.678291e-09
+7 L_epsilon2_z     0.92419715      -Inf  0.92419533       Inf  -5.743708e-09
+8    logkappa2    -2.40217376 -6.004945 -2.40217740 -1.848221   8.517404e-09
+9    logSigmaM    -0.16888124      -Inf -0.16888045 10.000000  -3.633744e-09
+
+$SD
+sdreport(.) result
+                Estimate  Std. Error
+ln_H_input    0.15915557 0.093336814
+ln_H_input    0.09617021 0.087531470
+L_omega1_z    2.12284215 0.204218053
+L_epsilon1_z  0.87778466 0.032449108
+logkappa1    -3.88533983 0.076731098
+L_omega2_z    0.57620698 0.087181279
+L_epsilon2_z  0.92419533 0.110562521
+logkappa2    -2.40217740 0.189709233
+logSigmaM    -0.16888045 0.009286902
+Maximum gradient component: 1.106787e-08 
+
+$time_for_sdreport
+Time difference of 1.068177 mins
+
+$time_for_run
+Time difference of 332.9161 secs
+
