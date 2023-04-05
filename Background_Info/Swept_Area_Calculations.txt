@@ -1,0 +1,89 @@
+Swept area = velocity (m/min) * duration (min) * headrope length (m) * wing spread as fraction of headrope length
+							OR
+Swept area = length of path (m) * wing spread (m)
+							OR
+Swept area = length of path (m) * 2/3 footrope length (m)
+
+#### Trawl surveys ####
+
+# NEFSC BTS
+	3 knots (92.6 meters/min) for 20 mins duration
+	18.288 headrope, 30.48 footrope
+	Depth variable wing spread between 8 and 15 m
+	Average area swept provided: 0.0384 sq km
+		- NEFSC (2015) Operation assessment of 20 northeast groundfish stocks, updated through 2014
+		- Polis et al. (2014) Northeast fisheries science center bottom trawl survey protocols from the NOAA ship Henry B. Bigelow
+
+# MASS DMF Industry
+	HAS NETMIND DATA TO MEASURE NET GEOMETRY
+	3 knots (92.6 meters/ min) for 30 mins duration
+	25 m headrope,  16.15 m spread based on lower wing spread
+	Averages to 0.0449 sq km
+		- Hoffman et al. (2003) Implementing the Industry-based survey for Gulf of Main Pilot Study
+		- Hoffman et al. (2012) Results of an Industry-based survey for Gulf of Maine Cod, May 2006 - December 2007
+
+# MASS DMF Inshore
+	2.5 knots (77.1667 meters/ min) for 20 mins duration
+	11.8872 m headrope, 15.5448 footrope, unknown spread
+	Assuming 2/3 footrope value, spread is probably 10.3632 m (this seems long given headrope)
+	Based on other 3/4 in North Atlantic type otter trawls, spread is probably 8.5 m
+	Averages to 0.0132 sq km
+		- King et al. (2010) Massachusetts Division of Marine Fisheries trawl survey effort, list of species, and bottom temperature trends, 1978 - 2007
+	
+# ASMFC Shrimp trawl
+	HAS NETMIND DATA TO MEASURE NET GEOMETRY
+	2.0 knots (61.7333 meters/min) for 15 mins duration
+	18.288 m headrope, 13 m spread (0.711)
+	Averages to 0.0120 sq km
+		- Clark et al. (1999) Research vessel survey data collection and management for northern shrimp
+		- Trawl dimensions provided by Kathy Sosebee (Presentation to Cod RTSA WG April 8 2022)
+
+# DFO Survey
+	HAS SCANMAR DATA TO MEASURE NET GEOMETRY
+	3.5 knots (108.033 meters/ min) for 30 mins duration
+	22.86 m headrope, 32.31 m footrope, 12.50 m spread
+	Provided average: 0.0404 sq km; Calculated average: 0.0405 sq km. using provided.
+		- Greenlaw et al. (2010) A geodatabase of historical and contemporary oceanographic datasets for investigating the role of the physical environment...
+		- Benoit (2017) Trends in the biomass, spatial distribution and size composition of snow crab (Chionoecetes opilio) based on the multi-species bottom...
+
+# URI GSO
+	2 knots (61.7333 meters/min) for 30 mins duration
+	11.9 m headrope, 6.5 m spread (noted as "effective opening" in Collie et al. 2008)
+	Averages to 0.0120 sq km
+		- Collie et al. (2008) Long-term shifts in the species composition of a coastal fish community
+
+# ME-NH Inshore Trawl
+	HAS NETMIND DATA TO MEASURE NET GEOMETRY
+	2.2-2.3 (69.45 meters/min) knots for 20 mins duration
+	17.6276m headrope, 21.336 m footrope
+	Assuming 2/3 footrope value, spread is probably 14.224 m
+	No provided measurements of headrope length or spread.
+	Provided: 0.0148 sq km; Calculated: 0.0198 sq km.
+		- Tanaka and Chen (2016) Modeling spatiotemporal variability of the bioclimate envelope of Homarus americanus in the coastal waters of Maine and New Hampshire
+		- Sherman et al. (2005) Maine-New Hampshire inshore groundfish trawl survey procedures and protocols
+
+# RI DEM Trawl
+	2.5 knots (77.1667) for 20 mins duration
+	6.7 m "effective opening" (Langan et al. 2020) 
+	Averages to 0.0103 sq km
+		- Langan et al. (2020) Abundance and distribution of Atlantic cod (Gadus morhua) in a warming southern New England
+
+#### Hook and line surveys ####
+
+# NEFSC BLLS
+	1 nmi (1852 m) groundline baited with 1000 #12 hooks, frozen Illex squid
+	6 ft betwen hooks
+	2 hour soak time
+		- McElroy et al. (2019) Design and implementation of a cooperative research Gulf of Maine bottom longline survey
+
+# Eastern Gulf of Maine sentinel
+	Several gears used but only jigs included in analysis
+	5 minute drops at 5 different sites within each station
+	2 rods with 3 unbaited hooks each
+	36 random inshore and 12 stratified random offshore.
+		- Linner et al. (2020) Eastern gulf of maine sentinel survey 2010 - 2020 Report
+	
+	
+	
+	
+	
