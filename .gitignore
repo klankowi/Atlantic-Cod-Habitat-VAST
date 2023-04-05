@@ -5,3 +5,5 @@
 *.Ruserdata
 schema.ini
 .Rproj.user
+VAST_runs/refine_effort/parameter_estimates.RData
+VAST_runs/refine_effort/refine_effort.RData
