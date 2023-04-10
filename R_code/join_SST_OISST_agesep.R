@@ -19,13 +19,13 @@ library(data.table)
 library(beepr)
 
 #list of SST dataframes
-SSTdfs <- list.files(here("data-raw/gridded/sst_data/"), pattern = "*.rds")
+SSTdfs <- list.files(here("Data/Density_Covariates/SST/"), pattern = "*.rds")
 
 # Create empty tibble to fill
 stn_OISST <- tibble()
 
 # Load station data
-load(here("data/RData_Storage/surveys_habitat_agesep.RData"))
+load(here("Data/VAST_input/surveys_habitat_agesep.RData"))
 stations <- sfheaders::sf_to_df(survs_sf, fill=TRUE)
 stations <- dplyr::select(stations, -c(sfg_id, point_id))
 head(stations)  
@@ -56,7 +56,7 @@ for(df in SSTdfs){
   getTxtProgressBar(pb)
   
   # Call annual .rds OISST file
-  sstdf <- readRDS(paste0(here("data-raw/gridded/sst_data/", df)))
+  sstdf <- readRDS(paste0(here("Data/Density_Covariates/SST/", df)))
   
   # Create string of sampled years (removes cod data prior to 1982)
   stationsyr <- stations %>%
@@ -94,7 +94,7 @@ for(df in SSTdfs){
 }
 
 # Save output
-saveRDS(stn_OISST, here("data/RData_Storage/stn_OISST_agesep.rds"))
+# saveRDS(stn_OISST, here("data/RData_Storage/stn_OISST_agesep.rds"))
 
 # Read in station data and station-OISST
 stn_OISST_merge <- stn_OISST %>%
@@ -112,7 +112,7 @@ stn_OISST_merge <- stn_OISST %>%
 agg_stn_all_OISST <- left_join(stations, stn_OISST_merge)
 
 # Save output
-saveRDS(agg_stn_all_OISST, here("data/RData_Storage/agg_stn_all_OISST_agesep.rds"))
+saveRDS(agg_stn_all_OISST, here("Data/VAST_inputs/agg_stn_all_OISST_agesep.rds"))
 beep(4)
 
 #### Visualizations ####

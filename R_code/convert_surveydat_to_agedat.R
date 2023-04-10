@@ -2,16 +2,17 @@ rm(list=ls())
 
 # Libraries and operators
 library(tidyverse)
+library(here)
 '%notin%' <- function(x,y)!('%in%'(x,y))
-source(here("utilities/true_seasons_func.R"))
+source(here("R_code/utilities/true_seasons_func.R"))
 
 #### Read in data
 # Survey data
-surv <- read.csv(here("data/Dataframes/Survey_Data.csv"))
+surv <- read.csv(here("Data/Survey_Data/Survey_Data.csv"))
 surv <- subset(surv, YEAR >=1982)
 
 # Bio data
-bioda <- read.csv(here("data/Dataframes/Bio_Data.csv"))
+bioda <- read.csv(here("Data/Survey_Data/Bio_Data.csv"))
 bioda <- subset(bioda, YEAR>=1982)
 
 # Append haul_id and date to bio data
@@ -131,4 +132,5 @@ for(f in 1:length(unique(bioda$SURVEY))){
 surv.final <- do.call(rbind, surv.list)
 surv.final <- surv.final[with(surv.final, order(SURVEY, HAUL_ID, AGE)),]
 row.names(surv.final) <- NULL
-write.csv(surv.final, 'Survey_Data_AgeSep.csv', row.names=F)
+head(surv.final)
+write.csv(surv.final, here('Data/Survey_Data/Survey_Data_AgeSep.csv'), row.names=F)

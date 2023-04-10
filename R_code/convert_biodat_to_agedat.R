@@ -41,7 +41,7 @@ theme_set(theme(panel.grid.major = element_line(color='lightgray'),
 
 #### Read in data ####
 # Survey data
-surv <- read.csv(here("data/Dataframes/Survey_Data.csv"))
+surv <- read.csv(here("Data/Survey_Data/Survey_Data.csv"))
 surv <- subset(surv, YEAR >=1982)
 surv <- dplyr::select(surv, -SEASON, -TRUE_SEASON)
 # Must have spatial information
@@ -63,7 +63,7 @@ surv$SEASON <- factor(surv$SEASON, levels = c("SPRING", "FALL"))
 str(surv)
 
 # Bio data
-bioda <- read.csv(here("data/Dataframes/Bio_Data.csv"))
+bioda <- read.csv(here("Data/Survey_Data/Bio_Data.csv"))
 bioda <- subset(bioda, YEAR>=1982)
 bioda <- dplyr::select(bioda, -SEASON, -TRUE_SEASON)
 
@@ -661,5 +661,5 @@ summary(test$RESPONSE)
 
 # Save.
 write.csv(test,
-          here("data/Dataframes/Bio_Data_Agesep3.csv"),
+          here("Data/Survey_Data/Bio_Data_Agesep.csv"),
           row.names=F)

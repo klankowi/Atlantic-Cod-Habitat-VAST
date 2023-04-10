@@ -21,10 +21,10 @@ library(beepr, quietly=T, verbose=F)
 
 # Load data
 # Load rugosity shapefile
-load(here("data/RData_Storage/rugosity_wgs.RData"))
+load(here("Data/Density_Covariates/Rugosity/rugosity_wgs.RData"))
 
 # Load sediment shapefile
-sed <- st_read(here("data/GIS/Sediment_Krig_1K_Polygons.shp"),
+sed <- st_read(here("Data/GIS/Sediment_Krig_1K_Polygons.shp"),
                quiet=TRUE)
 
 # Convert to sf
@@ -39,7 +39,7 @@ st_crs(rugos_sf); st_crs(sed_sf)
 sed_sf <- st_transform(sed_sf, crs = st_crs(rugos_sf))
 
 # Add survey stations
-survs <- read.csv(here("data/Dataframes/Bio_Data_Agesep.csv"))
+survs <- read.csv(here("Data/Survey_Data/Bio_Data_Agesep.csv"))
 
 # Remove NA values (cannot be sf object), Convert to sf
 survs.n0 <- survs[is.na(survs$LON)==FALSE,]
@@ -50,7 +50,7 @@ survs_sf <- st_as_sf(survs.n0, coords = c('LON', 'LAT'))
 st_crs(survs_sf) <- st_crs(rugos_sf)
 
 # Add stock areas
-strat_sf <- st_read(here("data/GIS/codstox.shp"),
+strat_sf <- st_read(here("Data/GIS/codstox.shp"),
                  quiet=T)
 strat_sf <- st_cast(strat_sf, "POLYGON")
 strat_sf <- st_make_valid(strat_sf)
@@ -93,5 +93,5 @@ head(survs_sf)
 
 # Great. Save this.
 save(survs_sf, 
-     file = here("data/RData_Storage/surveys_habitat_agesep2.RData"))
+     file = here("Data/VAST_input/surveys_habitat_agesep.RData"))
 beep(2)

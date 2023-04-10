@@ -33,7 +33,7 @@ theme_set(theme(panel.grid.major = element_line(color='lightgray'),
 
 #### Add sample information and covars ####
 # Load data
-surveys <- read.csv(here("data/Dataframes/Bio_Data_Agesep4.csv"))
+surveys <- read.csv(here("Data/Survey_Data/Bio_Data_Agesep.csv"))
 
 # Remove data from 2022 (incomplete)
 ex <- subset(surveys, YEAR < 2022)
@@ -48,7 +48,7 @@ ex <- subset(ex, SURVEY !='Sentinel')
 nrow(ex[is.na(ex$RESPONSE)==TRUE,])
 
 # Add environmental data
-env <- readRDS(here("data/RData_Storage/agg_stn_all_OISST.RDS"))
+env <- readRDS(here("Data/VAST_input/agg_stn_all_OISST.RDS"))
 env <- sfheaders::sf_to_df(env, fill=T)
 env <- dplyr::select(env,
                      HAUL_ID, cobble_P, gravel_P, rock_P, mud_P, sand_P,
@@ -56,7 +56,7 @@ env <- dplyr::select(env,
 ex2 <- left_join(ex, env, by="HAUL_ID")
 
 # Add annoying rugosity data
-rugos <- readRDS(here("data/RData_Storage/agg_stn_all_OISST_agesep2.RDS"))
+rugos <- readRDS(here("Data/VAST_input/agg_stn_all_OISST_agesep.RDS"))
 rugos <- sfheaders::sf_to_df(rugos, fill=T)
 rugos <- dplyr::select(rugos, HAUL_ID, rugos)
 rugos <- unique(rugos)
@@ -160,7 +160,7 @@ scaled.covars <- data.frame(
 str(scaled.covars)
 
 #### Make settings ####
-user_region <- readRDS(here('data/RData_Storage/user_region_all.rds'))
+user_region <- readRDS(here('Data/VAST_input/user_region_all.rds'))
 user_region$STRATA <- 'All'
 user_region$Id <- NULL; user_region$row <- NULL
 user_region <- user_region[with(user_region, order(Lon, Lat)),]
@@ -175,17 +175,17 @@ rm(covars, ex, ex2, surveys, surveys2, sus, badtab,
 rm(df, env, rugos)
 gc()
 
-setwd(here('data/RData_Storage'))
+#setwd(here('data/RData_Storage'))
 #save.image('shortcut_VAST_data2.RData')
 
 #### Start from here ####
 #m(list=ls())
-gc()
+#gc()
 library(VAST)
 library(here)
 library(tidyverse)
 library(beepr)
-setwd(here('data/RData_Storage'))
+#setwd(here('data/RData_Storage'))
 #save.image('shortcut_VAST_data.RData')
 #load(here('data/RData_Storage/shortcut_VAST_data2.RData'))
 
@@ -297,7 +297,7 @@ plot_clusters(fit=fit,
               year_labels = fit$year_labels,
               category_names = fit$category_names,
               map_list = map_list,
-              working_dir = "C:/Users/klankowicz/Documents/GitHub/VAST-earlyattempts/VAST_runs/refine_effort/",
+              working_dir = "C:/Users/klankowicz/Documents/GitHub/Atlantic-Cod-Habitat-VAST/VAST_runs/refine_effort/",
               file_name = "Class-D_gct",
               file_name2 = "Class-D_gct-averages",
               replace_Inf_with_NA = TRUE,
