@@ -33,7 +33,7 @@ theme_set(theme(panel.grid.major = element_line(color='lightgray'),
 
 #### Add sample information and covars ####
 # Load data
-surveys <- read.csv(here("Data/Survey_Data/Bio_Data_Agesep.csv"))
+surveys <- read.csv(here("Data/VAST_input/cod_agesep_VASTdata.csv"))
 
 # Remove data from 2022 (incomplete)
 ex <- subset(surveys, YEAR < 2022)
@@ -86,8 +86,10 @@ colnames(nao) <- c('DATE', 'nao')
 nao$DATE <- as.POSIXct(nao$DATE, format='%Y-%m-%d')
 nao$DATE <- as.Date(nao$DATE)
 
+ex4 <- ex
+
 ex4$DATE <- as.POSIXct(ex4$DATE, 
-                       format='%m/%d/%Y %H:%M')
+                       format='%m/%d/%Y')
 ex4$DATE <- as.Date(ex4$DATE)
 ex4 <- left_join(ex4, nao, by=c("DATE"))
 summary(ex4$nao)
@@ -120,239 +122,10 @@ colnames(gsi) <- c('yrmo', 'gsi')
 ex4 <- left_join(ex4, gsi, by=c('yrmo'))
 summary(ex4$gsi)
 
-# Add bottom temp
+# Remove missing h_bt
+ex4 <- ex4 %>% 
+  drop_na(h_bt)
 
-
-#### Finalize sampling data inputs ####
-# Save sampling data
-survs <- dplyr::select(ex4,
-                       LON, LAT, AREA_SWEPT,
-                       TIME, SURVEY, RESPONSE, 
-                       AGEGROUP)
-survs$COD_N <- as_units(survs$COD_N, 'counts')
-survs$swept <- as_units(survs$AREA_SWEPT, 'km^2')
-#survs$swept <- survs$AREA_SWEPT
-survs$vessel <- as.numeric(as.factor(survs$SURVEY)) - 1
-# vessel    survey
-# 0         ASMFC Shrimp Trawl  
-# 1         DFO Trawl  
-# 2         GSO Trawl  
-# 3         MADMF Industry  
-# 4         MADMF Inshore Trawl  
-# 5         ME-NH Inshore Trawl  
-# 6         NEFSC BLLS   
-# 7         NEFSC BTS 
-# 8         RIDEM Trawl  
-# 9         Sentinel   
-# 10        SMAST Video Trawl   
-
-#survs$Data_type <- factor(survs$Data_type, levels=c("Count", "Biomass_KG"))
-
-survs$AGE <- as.numeric(factor(survs$AGEGROUP, levels=c(
-  'Age0-2', 
-  'Age2-5', 
-  'Age5+',
-  'Unknown'
-  )
-  )) - 1
-# Age 2 - 5: 0
-# Age 5+   : 1
-table(survs$AGE)
-
-survs <- dplyr::select(survs, LON, LAT, TIME, RESPONSE, 
-                       AGE, 
-                       vessel, swept)
-names(survs) <- c('Lon', 'Lat', 'Year', 'Response_variable', 
-                  'Age', 
-                  'vessel', 'swept')
-survs$Response_variable <- as_units(survs$Response_variable, 'counts')
-#table(survs$Year)
-str(survs)
-
-# Save covariates
-covars <- dplyr::select(ex4,
-                        LON, LAT, TIME, cobble_P, gravel_P,
-                        mud_P, rock_P, sand_P, rugos, BATHY.DEPTH, oisst,
-                        nao, amo)
-covars$BATHY.DEPTH[covars$BATHY.DEPTH < 0] <- 
-  covars$BATHY.DEPTH[covars$BATHY.DEPTH < 0] * -1
-names(covars) <- c('Lon', 'Lat', 'Year', names(covars)[4:ncol(covars)])
-table(covars$Year)
-
-# Test correlation
-# Create correlation matrix
-df_cormat <- dplyr::select(covars, BATHY.DEPTH, rugos, sand_P, rock_P, mud_P,
-                           gravel_P, cobble_P, oisst, nao, amo)
-model.matrix(~0+., data=df_cormat) %>%
-  cor(use="all.obs", method="spearman") %>%
-  ggcorrplot(show.diag = F, type="lower", lab=TRUE, lab_size=3)
-
-# Rescale covariates to have mean 0 and SD 1 (author rec)
-scaled.covars <- covars[,4:ncol(covars)] %>% 
-  mutate(across(where(is.numeric), scale))
-scaled.covars <- cbind(covars[,1:3], scaled.covars)
-summary(scaled.covars)
-scaled.covars <- data.frame(
-  Lon         = as.numeric(scaled.covars$Lon),
-  Lat         = as.numeric(scaled.covars$Lat),
-  Year        = as.numeric(scaled.covars$Year),
-  cobble_P    = as.numeric(scaled.covars$cobble_P),
-  gravel_P    = as.numeric(scaled.covars$gravel_P),
-  mud_P       = as.numeric(scaled.covars$mud_P),
-  rock_P      = as.numeric(scaled.covars$rock_P),
-  sand_P      = as.numeric(scaled.covars$sand_P),
-  rugos       = as.numeric(scaled.covars$rugos),
-  BATHY.DEPTH = as.numeric(scaled.covars$BATHY.DEPTH),
-  oisst       = as.numeric(scaled.covars$oisst),
-  nao         = as.numeric(scaled.covars$nao),
-  amo         = as.numeric(scaled.covars$amo)
-)
-str(scaled.covars)
-
-#### Make settings ####
-user_region <- readRDS(here('Data/VAST_input/user_region_all.rds'))
-user_region$STRATA <- 'All'
-user_region$Id <- NULL; user_region$row <- NULL
-user_region <- user_region[with(user_region, order(Lon, Lat)),]
-row.names(user_region) <- NULL
-head(user_region)
-strata_use <- data.frame('STRATA' = c("All"))
-
-# Remove intermediates
-rm(covars, ex, ex2, surveys, surveys2, sus, badtab,
-   surveys.list, i, `%notin%`, df_cormat, temp, temp.list, f, sacrifices,
-   alllocs, badtab2, ex.f, ex5, shit, bads, checktab, j, reponses, responses)
-rm(df, env, rugos)
-gc()
-
-#setwd(here('data/RData_Storage'))
-#save.image('shortcut_VAST_data2.RData')
-
-#### Start from here ####
-#m(list=ls())
-#gc()
-library(VAST)
-library(here)
-library(tidyverse)
-library(beepr)
-#setwd(here('data/RData_Storage'))
-#save.image('shortcut_VAST_data.RData')
-#load(here('data/RData_Storage/shortcut_VAST_data2.RData'))
-
-setwd(here("VAST_runs/refine_effort"))
-
-#### Run model ####
-# Subsample
-#survs <- survs[survs$Year < 1993,]
-#scaled.covars <- scaled.covars[scaled.covars$Year < 1993,]
-
-#### Year subset for testing ####
-#survs <- subset(survs, Year > 70)
-#survs$Year <- as.numeric(as.factor(survs$Year)) -1
-
-#scaled.covars <- subset(scaled.covars, Year > 70) 
-#scaled.covars$Year <- as.integer(scaled.covars$Year)
-#scaled.covars$Year <- as.integer(as.factor(scaled.covars$Year)) -1
-
-
-#year.labs <-  c(seq(2017, 2021, 1), seq(2017, 2021, 1))
-#year.labs <- year.labs[order(year.labs)]
-#seas.labs <- rep(c('Spring', 'Fall'), 5)
-#year.labs <- paste0(year.labs, " ", seas.labs)
-
-# Set year labels
-year.labs <- c(seq(1982, 2021, 1), seq(1982, 2021, 1))
-year.labs <- year.labs[order(year.labs)]
-seas.labs <- rep(c('Spring', 'Fall'), 40)
-year.labs <- paste0(year.labs, " ", seas.labs)
-cat.labs <- c('Small', 'Medium', 'Large', 'Unknown')
-
-# Make settings
-settings <- make_settings(
-  n_x = 400,
-  purpose = "index2",
-  Region = "User",
-  fine_scale = TRUE,
-  bias.correct = FALSE,
-  knot_method = "grid",
-  max_cells = 10000
-)
-
-# Change `ObsModel` settings
-# Value 1: Delta-lognormal using bias-corrected-mean and log-coeff of var
-# Value 2: Poisson-link delta-model" using log-link for numbers density and 
-#          log-link for biomass per number
-settings$ObsModel[1] <- 4
-settings$ObsModel[2] <- 1
-
-fit = fit_model( 
-  # Adjust newton steps
-    #newtonsteps = 0,
-
-  # Call settings
-    settings = settings, 
-    
-  # Call survey data info
-    Lat_i = survs[,'Lat'], 
-    Lon_i = survs[,'Lon'], 
-    t_i = survs[,'Year'],
-    b_i = survs[,'Response_variable'],
-    a_i = survs[,'swept'],
-    v_i = survs[,'vessel'],
-    c_iz = survs[,'Age'],
-    #e_i = as.numeric(survs[,'e_i'])-1,
-  
-  # Call catchability info
-   #Q1_formula = Q1_formula,
-   #catchability_data  = catchability_data,
-  
-  # Call covariate info
-    X1_formula = ~ gravel_P + cobble_P + mud_P + sand_P + # rock_P +
-                   BATHY.DEPTH + oisst + rugos,
-    X2_formula = ~ gravel_P + cobble_P + mud_P + sand_P + # rock_P +
-                   BATHY.DEPTH + oisst + rugos,
-    covariate_data = scaled.covars,
-  
-  # Call spatial 
-    input_grid=user_region,
-  
-  # Set naming conventions
-    category_names = cat.labs,
-    year_labels = year.labs,
-  
-  # Tell model to run
-    build_model = TRUE,
-    run_model = TRUE
-    )
-
-  
-beep(8)
-
-#### Plot results ####
-
-save.image('refine_effort.RData')
-
-plot( fit )
-beep(8)
-
-map_list = make_map_info(Region = fit$settings$Region, 
-                         spatial_list = fit$spatial_list, 
-                         Extrapolation_List = fit$extrapolation_list)
-
-plot_clusters(fit=fit,
-              var_name = "D_gct",
-              transform_var = log,
-              k=4,
-              method='ward',
-              year_labels = fit$year_labels,
-              category_names = fit$category_names,
-              map_list = map_list,
-              working_dir = "C:/Users/klankowicz/Documents/GitHub/Atlantic-Cod-Habitat-VAST/VAST_runs/refine_effort/",
-              file_name = "Class-D_gct",
-              file_name2 = "Class-D_gct-averages",
-              replace_Inf_with_NA = TRUE,
-              size_threshold = 1e+20,
-              col = viridisLite::viridis,
-              yaxis_log = TRUE
-              
-)
+# Save
+write.csv(ex4, row.names = F,
+          here('Data/VAST_input/cod_agesep_VASTdata.csv'))
