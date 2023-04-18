@@ -1,0 +1,46 @@
+---
+title: 'Atlantic Cod (*Gadus morhua*) VAST model Technical Document'
+author: Katie Lankowicz
+date: "DRAFT `r format(Sys.time(), '%d %B, %Y')`"
+output:
+  pdf_document: default
+  html_document:
+    code_fold: hide
+link-citations: yes
+csl: fishery-bulletin.csl
+always_allow_html: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE,
+                      message = FALSE,
+                      warning = FALSE)
+
+library(tidyverse)
+library(here)
+library(DT)
+library(pdftools)
+library(patchwork)
+library(ggiraph)
+
+library(webshot)
+if(is.null(webshot:::find_phantom())){webshot::install_phantomjs()}
+
+options(DT.options = list(pageLength = 100))
+
+```
+
+# RELEVANT SURVEY WORK AND SUPPORTING DATA
+
+## Northeast Fisheries Science Center (NEFSC)
+
+
+## NEFSC Results
+
+### Bluefish as prey; NEFSC bottom trawl survey
+
+```{r}
+plot(cars$speed, cars$dist)
+
+```
+
