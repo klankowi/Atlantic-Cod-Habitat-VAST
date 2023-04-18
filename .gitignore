@@ -9,3 +9,4 @@ VAST_runs/refine_effort/parameter_estimates.RData
 VAST_runs/refine_effort/refine_effort.RData
 Data/Density_Covariates/Bottom_temp/hubert/bottom_temp_combined_product_1959_2020.nc
 Model_Refinement/Old/
+Data/Density_Covariates/Bottom_temp/Old
