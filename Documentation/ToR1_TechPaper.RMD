@@ -1,5 +1,5 @@
 ---
-title: 'Atlantic Cod (*Gadus morhua*) VAST model Technical Document'
+title: 'Atlantic Cod VAST model Technical Document'
 author: Katie Lankowicz
 date: "DRAFT `r format(Sys.time(), '%d %B, %Y')`"
 output:
@@ -9,6 +9,9 @@ output:
 link-citations: yes
 csl: fishery-bulletin.csl
 always_allow_html: true
+header-includes:
+    - \usepackage{setspace}\onehalfspacing
+    - \usepackage{float}
 ---
 
 ```{r setup, include=FALSE}
@@ -22,6 +25,30 @@ library(DT)
 library(pdftools)
 library(patchwork)
 library(ggiraph)
+library(TMB)
+library(units)
+library(VAST)
+library(here)
+library(tidyverse)
+library(beepr)
+library(sf)
+library(rgdal)
+library(sp)
+library(ggcorrplot)
+# Add unitless back as possible unit (removed in units package update Mar 2023)
+install_unit(symbol='unitless', def='unitless', name='unitless')
+# Set GGplot auto theme
+theme_set(theme(panel.grid.major = element_line(color='lightgray'),
+                panel.grid.minor = element_blank(),
+                panel.background = element_blank(),
+                panel.border = element_rect(color='black', size=1, fill=NA),
+                legend.position = "bottom",
+                axis.text.x=element_text(size=12),
+                axis.text.y=element_text(size=12),
+                axis.title.x=element_text(size=14),
+                axis.title.y=element_text(size=14, angle=90, vjust=2),
+                plot.title=element_text(size=14, hjust = 0, vjust = 1.2),
+                plot.caption=element_text(hjust=0, face='italic', size=12)))
 
 library(webshot)
 if(is.null(webshot:::find_phantom())){webshot::install_phantomjs()}
@@ -30,17 +57,695 @@ options(DT.options = list(pageLength = 100))
 
 ```
 
-# RELEVANT SURVEY WORK AND SUPPORTING DATA
+# Motivation
+Atlantic cod (_Gadus morhua_) are an ecologically, economically, and culturally critical part of New England's groundfish fishery. However, the fishery has been under a disaster declaration since 2012 due to historically low abundance and rapidly declining stocks. The Northeast Fishery Science Center's (NEFSC) twice-annual bottom trawl survey has been an important tool to assess groundfish stocks from Cape Hatteras, NC to Nova Scotia since the early 1960s. Through its 60+ year history, the survey has mostly sampled offshore areas deeper than 18m and with relatively smooth and soft bottom habitat. Though the survey has wide spatial and temporal coverage, there is concern among fishers that it does not adequately sample areas of high habitat complexity (cobble or boulder fields) that likely host dense populations of cod, particularly younger age classes. Many state and academic institutions conduct annual trawl surveys that may help to fill data gaps for groundfish stocks in shallower inshore waters. In 2016, the NEFSC launched a cooperative bottom longline survey to explore groundfish abundance and distribution in areas with high-complexity bottom habitat.
 
-## Northeast Fisheries Science Center (NEFSC)
+The goal of this project is to build a joint index of abundance and map spatial density for Atlantic cod using all relevant state and federal groundfish survey data. This goal will be addressed using Vector Autoregressive Spatio-Temporal (VAST) models. VAST estimates spatial density of multiple categories of a target organism conditioned on "density covariates" and controlling for "catchability covariates." We will utilize bottom habitat substrate type and rugosity data, among other habitat and environmental covariates, to explore patterns in cod habitat use. We can further examine spatial overlap between groundfish survey operations and groundfish commercial fishing operations. Products from this modeling effort will be provided to the Atlantic Cod Stock Assessment Research Track working group.
 
 
-## NEFSC Results
+# Survey Data
+Eleven surveys of groundfish abundance are currently available for use. Overall spatial coverage runs along the coast from Lubec, Maine to Cape Hatteras, North Carolina and spans the four defined cod spatial stock areas: Eastern Gulf of Maine, Western Gulf of Maine (spring and winter spawners), Georges Bank, and Southern New England. Overall temporal coverage spans from 1959 - 2022. Included surveys are:
 
-### Bluefish as prey; NEFSC bottom trawl survey
+* NEFSC Cooperative Bottom Longline Survey (longline)
+* Eastern Gulf of Maine Sentinel Survey (jigging)
+* SMAST Video Trawl Survey (combined trawl-camera)
+* NEFSC Bottom Trawl Survey (trawl)
+* DFO Bottom Trawl Survey (trawl)
+* University of Rhode Island GSO Trawl Survey (trawl)
+* Massachusetts DMF Industry-based survey (trawl)
+* Massachusetts DMF Inshore Trawl Survey (trawl)
+* Maine-New Hampshire Inshore Trawl Survey (trawl)
+* Rhode Island DEM Trawl Survey (trawl)
+* ASMFC Shrimp Trawl Survey (trawl)
 
-```{r}
-plot(cars$speed, cars$dist)
+These surveys utilize different gears, have variable spatial extents, are taken over multiple temporal periods, and are of variable temporal length (as in, number of years in which the survey has occurred). All surveys report number of cod and total weight (kg) of cod caught per tow, and some surveys process all or a portion of the catch to provide further biological detail.
+
+# Spatial extent 
+The NEFSC bottom trawl survey extends through Cape Hatteras, North Carolina, but the spatial range of Atlantic cod is likely further north of this point. For the purposes of this model, the spatial extent of interest will be American waters on the continental shelf from the northern edge of the Gulf of Maine through the mouth of the Chesapeake Bay.
+
+```{r total spatial extent, echo=F, fig.pos = "H"}
+coast <- ecodata::coast
+coast <- st_transform(coast, "EPSG:4326")
+region <- st_read(here("Data/GIS/cod_region_wgs.shp"), quiet = T)
+
+ggplot() +
+  geom_sf(data=coast,fill='gray') +
+  geom_sf(data=region, fill=alpha('lightblue', 0.7)) +
+  coord_sf(xlim=c(-77, -65),
+           ylim=c(36, 46)) +
+  xlab('Longitude') + ylab('Latitude') +
+  labs(caption = "Figure 1: Spatial extent for cod density models")
+
+rm(region)
 
 ```
+
+## Strata
+There is evidence that the relationships between various environmental covariates and cod spatial density vary among what are known to be distinct cod biological stock spatial areas (see Linner & Chen 2022). The model will therefore be run with each stock area as separate spatial strata-- metrics of spatial dynamics, indices of abundance, and habitat associations can later be described for each stock area.
+
+```{r spatial strata, echo=F, fig.pos="H"}
+strats <- st_read(here("Data/GIS/cod_all_strata.shp"), quiet=T)
+coast <- ecodata::coast
+coast <- st_transform(coast, "EPSG:4326")
+ggplot() +
+  geom_sf(data=coast,fill='gray') +
+  geom_sf(data=strats, aes(fill=STRATA),
+          alpha=0.7) +
+  coord_sf(xlim=c(-77, -65),
+           ylim=c(36, 46)) +
+  xlab('Longitude') + ylab('Latitude') +
+  labs(caption = "Figure 2: Cod stock areas")
+
+rm(strats)
+
+```
+
+## VAST input
+VAST requires spatial gridpoints to which it will later extrapolate organism density. This process will be outlined below.
+
+```{r vast grid, echo=T, eval=F}
+# Load shapefile of desired extrapolation region
+shpsplit <- readOGR(here("Data/GIS/cod_all_strata.shp"))
+head(shpsplit@data)
+
+# Load again, strip strata
+shp.all <- readOGR(here("Data/GIS/cod_region_wgs.shp"))
+head(shp.all@data)
+shp.all@data <- dplyr::select(shp.all@data, 
+                              OBJECTID, area_km)
+colnames(shp.all@data) <- c('STRATA', 'area_km')
+shp.all@data$STRATA <- 'ALL'
+
+# Combine
+shp <- rbind(shpsplit, shp.all)
+
+# Transform to unprojected lat-lon
+sps <- spTransform(shp, 
+                   CRS("+proj=longlat +datum=WGS84 +no_defs +ellps=WGS84"))
+
+# Find UTM
+lon <- sum(bbox(sps)[1,])/2
+utmzone <- floor((lon + 180)/6)+1
+crs_LL <- CRS('+proj=longlat +ellps=WGS84 +no_defs')
+sps@proj4string <- crs_LL
+
+# Convert the final in polygon to UTM
+crs_UTM <- CRS(paste0("+proj=utm +zone=",utmzone," +ellps=WGS84 +datum=WGS84 
+                      +units=m +no_defs "))
+region_polygon <- spTransform(sps, crs_UTM)
+region_polygon_sf <- st_as_sf(region_polygon)
+
+# Construct the extrapolation grid for VAST using sf package
+# Size of grid **in meters** (since working in UTM). Controls
+# the resolution of the grid.
+cell_size <- 1000
+
+# This step is slow at high resolutions
+region_grid <- st_make_grid(region_polygon_sf, 
+                            cellsize = cell_size,
+                            what = "centers")
+
+# Convert region_grid to Spatial Points to SpatialPointsDataFrame
+region_grid <- as(region_grid, "Spatial")
+region_grid_sp <- as(region_grid, "SpatialPointsDataFrame")
+
+# combine shapefile data (region_polygon) with Spatial Points
+# (region_grid_spatial) & place in SpatialPointsDataFrame data
+# (this provides you with your strata identifier (here called
+# Id) in your data frame))
+region_grid_sp@data <- over(region_grid, region_polygon)
+table(region_grid_sp@data$STRATA)
+pulldat <- region_grid_sp
+pulldat$STRATA[!is.na(pulldat$STRATA)] <- 'ALL'
+
+test <- rbind(region_grid_sp, pulldat)
+table(test@data$STRATA)
+nrow(pulldat@data) + nrow(region_grid_sp@data) == nrow(test@data)
+
+#region_grid_sp <- subset(region_grid_sp, is.na(region_grid_sp@data$OBJECTID)==FALSE)
+
+# Convert back to lon/lat coordinates as that is what VAST uses
+region_grid_LL <- as.data.frame(spTransform(test, crs_LL))
+region_df <- with(region_grid_LL,
+                  data.frame(Lon=coords.x1,
+                             Lat=coords.x2, 
+                             STRATA,
+                             Area_km2=( (cell_size/1000)^2),
+                             row=1:nrow(region_grid_LL)))
+
+# Filter out the grid that does not overlap (outside extent)
+region <- subset(region_df, is.na(STRATA)==FALSE)
+
+```
+
+The outcome is a dataframe with spatial locations for the center of each grid cell, the strata in which the grid cell exists, and the spatial area of the grid cell in square kilometers.
+
+```{r show region, eval=T, echo=F}
+user_region <- readRDS(here('Data/VAST_input/VAST_regions/user_region_wstrata.rds'))
+str(user_region)
+```
+
+# Temporal extent
+Though some surveys were initiated in the 1950s and 60s, the time period of interest to this study begins in 1982. Some studies have provided full data from 2022, and others have not. For this reason, the model will cease after 2021.
+
+## Seasonality
+Time steps in the model will not be annual, they will be seasonal. "Spring" months will be March through August, "Fall" months will be January, February, and September through December. This distinction is made to capture the seasonal spawning movements of adult cod. 
+
+# Covariates
+VAST allows for the effects of both density and catchability covariates to be included in modeling efforts. Catchability covariates are processes one would expect to affect the ability to observe the target organism without necessarily affecting the distribution of the organism. Density covariates are processes that directly affect the distribution of the target organism, regardless of ability to observe it. Both covariates affect the catch rate of the target organism, but only density covariates are used to predict target organism density within the spatial domain. Therefore, VAST "controls for" catchability covariates and "conditions on" density covariates. VAST is unable to distinguish whether potential covariates should be treated as catchability or density covariates; this must be decided with theoretical insight from an analyst. 
+
+In this model, catchability covariates will not be used. Instead, the effects of differences in sampling design on ability to observe cod will be included as vessel effects. This will be discussed in more detail in the Model Structure section.
+
+## Potential density covariates
+The model will test the effects of several potential density covariates. As explained earlier, these are environmental and habitat characteristics that are expected to shape the distribution of cod.
+
+### Sediment data
+Probability of mud, sand, gravel, cobble, and rock substrate existing in 1km by 1km grid cells through the entire continental shelf was provided by Brad Harris and Felipe Restrepo at Alaska Pacific University. These data are a expansion on SASI data, which previously provided polygons of distinct sediment grain types within the same spatial extent.
+
+```{r sediment plots, echo=F, fig.pos="H"}
+# Load sediments
+load('C:/Users/klankowicz/Documents/GitHub/VAST-earlyattempts/data/RData_Storage/sediment_grids.RData')
+rm(c, cent.vals, closed.areas, grid_noNA, hard, hospital_names,
+   in.hard, in.soft, in.mix, mix, soft, temp, substrates, wss,
+   hospital_labeller, i, surveys)
+
+# Reshape grid
+gridold <- grid
+grid <- dplyr::select(grid, cobble, gravel, mud, sand, rock, 
+                      cluster, Cell, outcome, geometry)
+grid <- st_transform(grid, crs="EPSG:4326")
+grid <- rbind(grid, grid, grid, grid, grid)
+grid$value[1:1980] <- grid$cobble[1:1980]
+grid$sed.ty[1:1980] <- 'cobble'
+
+grid$value[1981:3960] <- grid$gravel[1:1980]
+grid$sed.ty[1981:3960] <- 'gravel'
+
+grid$value[3961:5940] <- grid$mud[1:1980]
+grid$sed.ty[3961:5940] <- 'mud'
+
+grid$value[5941:7920] <- grid$sand[1:1980]
+grid$sed.ty[5941:7920] <- 'sand'
+
+grid$value[7921:9900] <- grid$rock[1:1980]
+grid$sed.ty[7921:9900] <- 'rock'
+
+coast <- ecodata::coast
+coast <- st_transform(coast, "EPSG:4326")
+
+sed <- ggplot() +
+  geom_sf(data=grid, col=NA, aes(fill=value)) +
+  scale_fill_viridis_c(option='viridis',
+                       na.value = NA,
+                       direction = 1,
+                       begin=0.2, end=1) +
+  geom_sf(data=coast) +
+  coord_sf(xlim=c(-77, -65),
+           ylim=c(36, 46)) +
+  facet_wrap(vars(sed.ty))+
+  xlab('Longitude') + ylab('Latitude') +
+  labs(caption = "Figure 3: Sediment probability")
+
+sed$labels$fill <- 'Probability'
+
+plot(sed)
+
+rm(grid, gridold, sed)
+```
+
+### Rugosity
+Rugosity data comes from a dataset created by Kevin Friedland. Rugosity is calculated for grid cells with a 15 arc-second resolution. For visualization purposes, rugosity is then collected into two categorical variables -- smooth and rough. Smooth habitat represents the area within each NEFSC bottom trawl survey strata that has a rugosity value below the 70th percentile for that strata. Rough habitat represents the 70-100th percentile rugosity area within the strata. In the model, the continuous and unitless value of rugosity is used as the input.
+
+```{r rugosity, echo=F, fig.pos="H"}
+# Load rugosity
+rugos <- st_read(paste0("C:/Users/klankowicz/Box/Katie Lankowicz/",
+                        "Data_Analysis/Cod/GIS/Rugosity_15as_F.shp"),
+                 quiet=T)
+rugos <- st_transform(rugos, "EPSG:4326")
+rugos <- dplyr::select(rugos, rugosity, COND, geometry)
+
+coast <- ecodata::coast
+coast <- st_transform(coast, "EPSG:4326")
+
+rug <- ggplot() +
+  geom_sf(data=rugos, col=NA, 
+          aes(fill=as.factor(COND))) +
+  geom_sf(data=coast) +
+  coord_sf(xlim=c(-77, -65),
+           ylim=c(36, 46))+
+  xlab('Longitude') + ylab('Latitude') +
+  labs(caption = 'Figure 4: Rugosity')
+rug$labels$fill <- 'Bottom type'
+plot(rug)
+
+rm(rugos, rug)
+
+```
+
+### Bathymetry
+Most surveys recorded depth at which the various gears were deployed. However, this model uses maximum water depth at the point of observation as a spatial covariate. Depth was interpolated from GEBCO 15 arc-second bathymetry.
+
+```{r bathy, echo=F, fig.pos="H"}
+# If you're interested in adding a bathymetry layer
+library(marmap, quietly=T, verbose=F)
+library(raster, quietly=T, verbose=F)
+# Pull NOAA bathymetry data
+Bathy <- getNOAA.bathy(lon1 = -78, lon2 = -65,
+                       lat1 = 35, lat2 = 47, 
+                       resolution = 1)
+# Ignore any error messages, it still produces what we want.
+
+# Now do a bit of data wrangling so we can plot it:
+# Convert data to matrix
+Bathy_Final <- as.matrix(Bathy)
+class(Bathy_Final) <- "matrix"
+
+# Reshape for plotting
+BathyData <- Bathy_Final %>%
+  as.data.frame() %>% 
+  rownames_to_column(var = "lon") %>%
+  gather(lat, value, -1) %>%
+  mutate_all(funs(as.numeric))
+
+# Set depth breaks and colors
+dbreaks <- c(seq(0, 20, 2),
+             seq(20, 40, 4),
+             seq(40, 70, 5),
+             seq(70, 100, 10),
+             seq(100, 200, 20),
+             seq(200, 400, 50),
+             seq(400, 1000, 100),
+             seq(1000, 2000, 200),
+             seq(2000, 4000, 500),
+             seq(4000, 7000, 1000))
+dbreaks <- unique(dbreaks) * -1
+dcol <- colorRampPalette(c("#DEF5E5", "#40498E"))
+dcol <- dcol(length(dbreaks))
+
+coast <- ecodata::coast
+coast <- st_transform(coast, "EPSG:4326")
+
+dep <- ggplot() +
+  geom_contour_filled(data = BathyData, aes(x = lon, y = lat, z = value),
+                      breaks = dbreaks) + 
+  scale_fill_manual(values =  dcol) +
+  geom_sf(data=coast) +
+  coord_sf(xlim=c(-77, -65),
+           ylim=c(36, 46)) +
+  theme(legend.position = 'n') +
+  xlab('Longitude') + ylab('Latitude') +
+  labs(caption = 'Figure 5: Bathymetry')
+plot(dep)
+
+```
+
+### Sea Surface Temperature
+The previous density covariates were temporally stationary. The following measures of temperature are temporally dynamic. For sea surface temperature, OISST values were pulled from NOAA data sources and extracted at observation locations. OISST values were compared to field measurements, when available, and the two were found to be generally similar. The following plot describes overall differences between field-measured SST and OISST when both measures were available for the same observation.
+
+```{r oisst, echo=F, fig.pos="H"}
+agg_stn_all_OISST <- readRDS("C:/Users/klankowicz/Documents/GitHub/VAST-earlyattempts/Data/RData_Storage/agg_stn_all_OISST_agesep.rds")
+
+# Create dataset of comparisons
+comparesst <- agg_stn_all_OISST %>%
+  dplyr::filter(YEAR>1981)%>%
+  dplyr::select(SURFACE.TEMP, oisst, declon, declat, SURVEY) %>%
+  na.omit()
+
+coast <- ecodata::coast
+coast <- st_transform(coast, "EPSG:4326")
+
+# Plot
+ggplot(comparesst, aes(x=SURFACE.TEMP, y=oisst, color=SURVEY, fill=SURVEY)) +
+  geom_point(alpha=0.8, pch=16)+
+  geom_abline(intercept = 0, slope = 1) +
+  labs(x = "Field surface temperature (deg C)",
+       y = "OISST (deg C)",
+       caption = "Figure 6: Comparison of field-measured SST to OISST")
+```
+
+
+### Bottom Temperature
+Bottom temperature data were provided by Hubert du Pontavice. Bottom temperature within approximately 5' by 5' grid cells (in decimal degrees) were calculated at a daily timestep for 1982 to 2020. Because cod observation data were collected through 2021, bottom temperature data for this year were simply copied from 2020. This may not be accurate, and it may be better to exclude 2021 data in future efforts. Temperature data were provided as a conglomerate NCDF file for 1959-2020 and had some data wrapping errors-- meaning, from 1993 onwards, results that should have made up the eastern edge of the spatial range were instead the western edge. This problem was fixed. Further, the bottom temperature product did not extend to the inshore strata included in the model. To fix this issue, bottom temperature was interpolated to the inshore strata from the existing data.
+
+```{r bottom temp, echo=F, fig.pos="H"}
+bt <- brick(here('Data/Density_Covariates/Bottom_temp/hubert/extended_grd/1982.GRD'))
+bt <- bt[[1]]
+bt <- as.data.frame(bt, xy=TRUE)
+colnames(bt) <- c('x', 'y', 'Bottom_temp')
+bt <- st_as_sf(bt, coords=c('x', 'y'))
+st_crs(bt) <- st_crs(coast)
+bt <- bt[!is.na(bt$Bottom_temp),]
+
+coast <- ecodata::coast
+coast <- st_transform(coast, "EPSG:4326")
+
+ggplot() +
+  geom_sf(data=bt,
+          aes(col=Bottom_temp)) +  
+  geom_sf(data=coast, fill='gray') +
+  coord_sf(xlim=c(-77, -65),
+           ylim=c(36, 46)) +
+  labs(caption = "Figure 7: Bottom temperature on 1 January 1982")
+```
+
+### Climate Indices
+Several climate indices have been demonstrated to have a relationship to cod abundance and distribution. Previous works have shown Gulf Stream Index (GSI) to be a particularly strong identifier. For this model, we have access to high temporal-scale NAO and AMO data. NAO data are provided at a daily timestep within the model, whereas AMO was provided at a monthly timestep. Both were basin-wide indices, meaning the value does not change between spatial locations within the region.
+
+
+## Collinearity
+Potential spatial covariates were tested for collinearity. High correlations were found between two pairs: cobble and rock probability within 1km grid cells, and OISST and bottom temperature. Probability of rock and OISST were removed as covariates. For the first pair, rock was removed as bottom sample grabs (the bulk of sediment samples that make up the dataset) are more likely able to accurately characterize cobble distribution than larger boulders. For the second pair, OISST was removed as cod are groundfish and therefore more likely to be affected by bottom temperature than surface temperature. Once these two collinear relationships were addressed, the remainder of density covariates were not correlated and therefore were included in the model.
+
+```{r collinearity, echo=F, fig.pos="H"}
+# Load data
+surveys <- read.csv(here("Data/VAST_input/cod_agesep_VASTdata.csv"))
+
+# Save covariates
+covars <- dplyr::select(surveys,
+                        LON, LAT, TIME, 
+                        cobble_P, gravel_P, mud_P, sand_P, rock_P, 
+                        rugos, BATHY.DEPTH, h_bt, oisst,
+                        nao, amo)
+covars$BATHY.DEPTH[covars$BATHY.DEPTH < 0] <- 
+  covars$BATHY.DEPTH[covars$BATHY.DEPTH < 0] * -1
+names(covars) <- c('Lon', 'Lat', 'Year', names(covars)[4:ncol(covars)])
+
+# Test correlation
+# Create correlation matrix
+df_cormat <- dplyr::select(covars,                         
+                           cobble_P, gravel_P, mud_P, sand_P, rock_P,
+                           rugos, BATHY.DEPTH, h_bt, oisst,
+                           nao, amo)
+model.matrix(~0+., data=df_cormat) %>%
+  cor(use="all.obs", method="spearman") %>%
+  ggcorrplot(show.diag = F, type="lower", lab=TRUE, lab_size=3)
+
+# Save covariates
+covars <- dplyr::select(surveys,
+                        LON, LAT, TIME, 
+                        cobble_P, gravel_P, mud_P, sand_P, rock_P, 
+                        rugos, BATHY.DEPTH, h_bt, oisst,
+                        nao, amo)
+covars$BATHY.DEPTH[covars$BATHY.DEPTH < 0] <- 
+  covars$BATHY.DEPTH[covars$BATHY.DEPTH < 0] * -1
+names(covars) <- c('Lon', 'Lat', 'Year', names(covars)[4:ncol(covars)])
+
+# Test correlation
+# Create correlation matrix
+df_cormat <- dplyr::select(covars,                         
+                           cobble_P, gravel_P, mud_P, sand_P, #rock_P,
+                           rugos, BATHY.DEPTH, h_bt, #oisst,
+                           nao, amo)
+model.matrix(~0+., data=df_cormat) %>%
+  cor(use="all.obs", method="spearman") %>%
+  ggcorrplot(show.diag = F, type="lower", lab=TRUE, lab_size=3)
+
+```
+
+## Covariate selection
+Density covariates were selected for inclusion into the final model by running a subset of the original observation data (last 5 years of NEFSC bottom trawl data) with some combination of variables as spatial density inputs, then comparing models using AIC. The model with the lowest AIC was the model that included spatial density terms for all potential covariates.
+
+```{r covars, echo=F, fig.pos="H"}
+covar.combo <- c('seds', 'rugos', 'bathy', 'bottom', 'nao', 'amo')
+covar.combo <- do.call("c", lapply(seq_along(covar.combo), 
+                                   function(i) combn(covar.combo, i, FUN = list)))
+for(i in 1:length(covar.combo)){
+  temp <- covar.combo[[i]]
+  use <- length(temp)
+  temp2 <- temp[[1]]
+  
+  if(use > 1){
+    for(j in 2:use){
+      temp2 <- paste0(temp2, temp[[j]])
+    }
+  }
+
+  covar.combo[[i]] <- temp2
+  #rm(temp, use, temp2)
+}
+covar.combo <- do.call(rbind, covar.combo)
+
+mod.covar <- c("base", covar.combo[1:63])
+# Model selection for covariates
+# Set folder 
+outdir <- here("Model_Refinement/Covariate_Selection2")
+# List folders in outer folder
+moddirs <- list.dirs(outdir) 
+# Remove top level folder
+moddirs <- moddirs[-c(1)]
+# keep folder name
+modnames <- mod.covar
+
+# function to apply extracting info
+getmodinfo <- function(d.name){
+  # read settings
+  modpath <- stringr::str_split(d.name, "/", simplify = TRUE)
+  modname <- modpath[length(modpath)]
+  
+  settings <- read.table(file.path(d.name, "settings.txt"), comment.char = "",
+                         fill = TRUE, header = FALSE)
+  
+  n_x <- as.numeric(as.character(settings[(which(settings[,1]=="$n_x")+1),2]))
+  grid_size_km <- as.numeric(as.character(settings[(
+    which(settings[,1]=="$grid_size_km")+1),2]))
+  max_cells <- as.numeric(as.character(settings[(
+    which(settings[,1]=="$max_cells")+1),2]))
+  use_anisotropy <- as.character(settings[(
+    which(settings[,1]=="$use_anisotropy")+1),2])
+  fine_scale <- as.character(settings[(
+    which(settings[,1]=="$fine_scale")+1),2])
+  bias.correct <- as.character(settings[(
+    which(settings[,1]=="$bias.correct")+1),2])
+  
+  #FieldConfig
+  if(settings[(which(settings[,1]=="$FieldConfig")+1),1]=="Component_1"){
+    omega1 <- as.character(settings[(which(settings[,1]=="$FieldConfig")+2),2])
+    omega2 <- as.character(settings[(which(settings[,1]=="$FieldConfig")+3),1])
+    epsilon1 <- as.character(settings[(
+      which(settings[,1]=="$FieldConfig")+4),2])
+    epsilon2 <- as.character(settings[(
+      which(settings[,1]=="$FieldConfig")+5),1])
+    beta1 <- as.character(settings[(which(settings[,1]=="$FieldConfig")+6),2])
+    beta2 <- as.character(settings[(which(settings[,1]=="$FieldConfig")+7),1])
+  }
+  
+  if(settings[(which(settings[,1]=="$FieldConfig")+1),1]=="Omega1"){
+    omega1 <- as.character(settings[(which(settings[,1]=="$FieldConfig")+3),1])
+    omega2 <- as.character(settings[(which(settings[,1]=="$FieldConfig")+4),1])
+    epsilon1 <- as.character(settings[(
+      which(settings[,1]=="$FieldConfig")+3),2])
+    epsilon2 <- as.character(settings[(
+      which(settings[,1]=="$FieldConfig")+4),2])
+    beta1 <- "IID"
+    beta2 <- "IID"
+  }
+  
+  
+  #RhoConfig
+  rho_beta1 <- as.numeric(as.character(settings[(
+    which(settings[,1]=="$RhoConfig")+3),1]))
+  rho_beta2 <- as.numeric(as.character(settings[(
+    which(settings[,1]=="$RhoConfig")+3),2]))
+  rho_epsilon1 <- as.numeric(as.character(settings[(
+    which(settings[,1]=="$RhoConfig")+4),1]))
+  rho_epsilon2 <- as.numeric(as.character(settings[(
+    which(settings[,1]=="$RhoConfig")+4),2]))
+  
+  # read parameter estimates, object is called parameter_Estimates
+  load(file.path(d.name, "parameter_estimates.RData"))
+  
+  AIC <- parameter_estimates$AIC[1]  
+  converged <- parameter_estimates$Convergence_check[1]
+  fixedcoeff <- unname(parameter_estimates$number_of_coefficients[2])
+  randomcoeff <- unname(parameter_estimates$number_of_coefficients[3])
+  
+  
+  # return model atributes as a dataframe
+  out <- data.frame(modname = modname,
+                    n_x = n_x,
+                    grid_size_km = grid_size_km,
+                    max_cells = max_cells,
+                    use_anisotropy = use_anisotropy,
+                    fine_scale =  fine_scale,
+                    bias.correct = bias.correct,
+                    omega1 = omega1,
+                    omega2 = omega2,
+                    epsilon1 = epsilon1,
+                    epsilon2 = epsilon2,
+                    beta1 = beta1,
+                    beta2 = beta2,
+                    rho_epsilon1 = rho_epsilon1,
+                    rho_epsilon2 = rho_epsilon2,
+                    rho_beta1 = rho_beta1,
+                    rho_beta2 = rho_beta2,
+                    AIC = AIC,
+                    converged = converged,
+                    fixedcoeff = fixedcoeff,
+                    randomcoeff = randomcoeff
+  )
+  return(out)
+}
+
+# combine into one table for comparison
+modselect <- purrr::map_dfr(moddirs, getmodinfo)
+
+# Build table to compare models
+modselect.cov <- modselect %>%
+  filter(n_x == 200) %>%
+  mutate(deltaAIC = AIC-min(AIC)) %>%
+  dplyr::select(modname, deltaAIC, fixedcoeff,
+         randomcoeff, use_anisotropy, 
+         omega1, omega2, epsilon1, epsilon2, 
+         beta1, beta2, AIC) %>%
+  arrange(AIC)
+
+# Print table
+DT::datatable(modselect.cov, rownames = FALSE, 
+              options= list(pageLength = 25, scrollX = TRUE))
+```
+
+# Model settings
+Model settings were also explored using model selection. Models were tested for different values in the Field Configuration (testing the use of spatial and temporal variation), anisotropy, and overdispersion. The best model used anisotropy, spatial and temporal effects.
+
+## Settings selection
+
+```{r settings selection, echo=F, fig.pos="H"}
+# Set directory 
+outdir <- here("Model_Refinement/Model_Structure")
+# Call file names
+moddirs <- list.dirs(outdir) 
+# Remove name of upper level file
+moddirs <- moddirs[-1]
+# keep folder name
+modnames <- list.dirs(outdir, full.names = FALSE)
+
+# function to apply extracting info
+getmodinfo <- function(d.name){
+  # read settings
+  modpath <- stringr::str_split(d.name, "/", simplify = TRUE)
+  modname <- modpath[length(modpath)]
+  
+  settings <- read.table(file.path(d.name, "settings.txt"), comment.char = "",
+                         fill = TRUE, header = FALSE)
+  
+  n_x <- as.numeric(as.character(settings[(which(settings[,1]=="$n_x")+1),2]))
+  grid_size_km <- as.numeric(as.character(settings[(
+    which(settings[,1]=="$grid_size_km")+1),2]))
+  max_cells <- as.numeric(as.character(settings[(
+    which(settings[,1]=="$max_cells")+1),2]))
+  use_anisotropy <- as.character(settings[(
+    which(settings[,1]=="$use_anisotropy")+1),2])
+  fine_scale <- as.character(settings[(
+    which(settings[,1]=="$fine_scale")+1),2])
+  bias.correct <- as.character(settings[(
+    which(settings[,1]=="$bias.correct")+1),2])
+  
+  #FieldConfig
+  if(settings[(which(settings[,1]=="$FieldConfig")+1),1]=="Component_1"){
+    omega1 <- as.character(settings[(which(settings[,1]=="$FieldConfig")+2),2])
+    omega2 <- as.character(settings[(which(settings[,1]=="$FieldConfig")+3),1])
+    epsilon1 <- as.character(settings[(
+      which(settings[,1]=="$FieldConfig")+4),2])
+    epsilon2 <- as.character(settings[(
+      which(settings[,1]=="$FieldConfig")+5),1])
+    beta1 <- as.character(settings[(which(settings[,1]=="$FieldConfig")+6),2])
+    beta2 <- as.character(settings[(which(settings[,1]=="$FieldConfig")+7),1])
+  }
+  
+  if(settings[(which(settings[,1]=="$FieldConfig")+1),1]=="Omega1"){
+    omega1 <- as.character(settings[(which(settings[,1]=="$FieldConfig")+3),1])
+    omega2 <- as.character(settings[(which(settings[,1]=="$FieldConfig")+4),1])
+    epsilon1 <- as.character(settings[(
+      which(settings[,1]=="$FieldConfig")+3),2])
+    epsilon2 <- as.character(settings[(
+      which(settings[,1]=="$FieldConfig")+4),2])
+    beta1 <- "IID"
+    beta2 <- "IID"
+  }
+  
+  #RhoConfig
+  rho_beta1 <- as.numeric(as.character(settings[(
+    which(settings[,1]=="$RhoConfig")+3),1]))
+  rho_beta2 <- as.numeric(as.character(settings[(
+    which(settings[,1]=="$RhoConfig")+3),2]))
+  rho_epsilon1 <- as.numeric(as.character(settings[(
+    which(settings[,1]=="$RhoConfig")+4),1]))
+  rho_epsilon2 <- as.numeric(as.character(settings[(
+    which(settings[,1]=="$RhoConfig")+4),2]))
+  
+  # read parameter estimates, object is called parameter_Estimates
+  load(file.path(d.name, "parameter_estimates.RData"))
+  
+  AIC <- parameter_estimates$AIC[1]  
+  converged <- parameter_estimates$Convergence_check[1]
+  fixedcoeff <- unname(parameter_estimates$number_of_coefficients[2])
+  randomcoeff <- unname(parameter_estimates$number_of_coefficients[3])
+  
+  # return model atributes as a dataframe
+  out <- data.frame(modname = modname,
+                    n_x = n_x,
+                    grid_size_km = grid_size_km,
+                    max_cells = max_cells,
+                    use_anisotropy = use_anisotropy,
+                    fine_scale =  fine_scale,
+                    bias.correct = bias.correct,
+                    omega1 = omega1,
+                    omega2 = omega2,
+                    epsilon1 = epsilon1,
+                    epsilon2 = epsilon2,
+                    beta1 = beta1,
+                    beta2 = beta2,
+                    rho_epsilon1 = rho_epsilon1,
+                    rho_epsilon2 = rho_epsilon2,
+                    rho_beta1 = rho_beta1,
+                    rho_beta2 = rho_beta2,
+                    AIC = AIC,
+                    converged = converged,
+                    fixedcoeff = fixedcoeff,
+                    randomcoeff = randomcoeff
+  )
+  return(out)
+}
+
+# Pull models
+modselect <- purrr::map_dfr(moddirs, getmodinfo)
+
+# Build table to compare models
+modselect.200 <- modselect %>%
+  filter(n_x == 200) %>%
+  mutate(converged2 = case_when(str_detect(converged, 
+                                           "no evidence") ~ "likely",
+                                str_detect(converged, 
+                                           "is likely not") ~ "unlikely",
+                                TRUE ~ as.character(NA))) %>%
+  mutate(deltaAIC = AIC-min(AIC)) %>%
+  dplyr::select(modname, deltaAIC, fixedcoeff,
+         randomcoeff, use_anisotropy, 
+         omega1, omega2, epsilon1, epsilon2, 
+         beta1, beta2, AIC, converged2) %>%
+  arrange(AIC)
+
+# Print table
+DT::datatable(modselect.200, rownames = FALSE, 
+              options= list(pageLength = 25, scrollX = TRUE))
+```
+
+## Distribution functions
+Error distributions for the first and second linear predictors (presence and abundance, respectively), were set depending on the advice of the author. The author suggests using delta-lognormal distribution for the first linear predictor and alternative Poisson-link delta models for density within each patch for catch (abundance or count) data. 
+
+## Knots and maximum cells
+It has been said that selection of knots and grid cells is "an art, not a science." For now, 200 knot locations will be used to make the SPDE grid on which VAST is run. Default number of grid cells on which data are extrapolated is 2000. In or VAST region, we have made more than 400,000 grid cell locations; for now, we will stick to the default of 2000 locations. 
+
+# Final model
+
+## Model inputs
+
+### Age/Size categories
+
+### Vessel effects
+
+### Effort
+
+# Results
+
+
 
