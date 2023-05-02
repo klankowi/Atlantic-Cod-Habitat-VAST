@@ -10,3 +10,5 @@ VAST_runs/refine_effort/refine_effort.RData
 Data/Density_Covariates/Bottom_temp/hubert/bottom_temp_combined_product_1959_2020.nc
 Model_Refinement/Old/
 Data/Density_Covariates/Bottom_temp/Old
+VAST_runs/refine_effort2/refine_effort2.RData
+VAST_runs/refine_effort_onlysmalls/only_smalls.RData
