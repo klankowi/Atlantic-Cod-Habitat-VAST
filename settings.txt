@@ -2,7 +2,7 @@ $Version
 [1] "VAST_v14_0_1"
 
 $n_x
-[1] 50
+[1] 400
 
 $Region
 [1] "User"
@@ -37,26 +37,26 @@ Eta1 Eta2
    0    0 
 
 $ObsModel
-[1] 4 1
+[1] 2 1
 
 $vars_to_correct
 [1] "Index_cyl" "Index_ctl"
 
 $Options
            Calculate_Range   Calculate_effective_area treat_nonencounter_as_zero 
-                      TRUE                       TRUE                       TRUE 
+                      TRUE                       TRUE                      FALSE 
 
 $grid_size_km
 [1] 25
 
 $max_cells
-[1] 10000
+[1] 4000
 
 $knot_method
 [1] "grid"
 
 $Method
-[1] "Mesh"
+[1] "Barrier"
 
 $use_anisotropy
 [1] TRUE

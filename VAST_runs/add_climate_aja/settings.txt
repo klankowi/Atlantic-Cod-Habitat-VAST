@@ -50,7 +50,7 @@ $grid_size_km
 [1] 25
 
 $max_cells
-[1] 10000
+[1] 2000
 
 $knot_method
 [1] "grid"
