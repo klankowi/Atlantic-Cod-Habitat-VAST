@@ -77,6 +77,7 @@ str(ex4)
 table(ex4$YEAR)
 
 #### Finalize sampling data inputs ####
+ex4 <- subset(ex4, STOCK %in% c('SNE', 'WGOM') )
 # Save sampling data
 survs <- dplyr::select(ex4,
                        LON, LAT, AREA_SWEPT,
