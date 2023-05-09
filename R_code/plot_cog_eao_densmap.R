@@ -31,7 +31,7 @@ theme_set(theme(plot.margin = unit(c(0.5,0.5,0.5,0.5), "cm"),
                 plot.caption=element_text(hjust=0, face='italic', size=12)))
 
 # Load data
-load(here('VAST_runs/refine_effort/refine_effort.RData'))
+load(here('VAST_runs/add_climate_aja3/add_climate_aja3.Rdata'))
 rm(list=setdiff(ls(), c("fit", "%notin%", "year.labs")))
 
 # Create objects needed to plot
@@ -44,31 +44,45 @@ CogName = "mean_Z_ctm"
 EffectiveName = "effective_area_ctl"
 
 # Set labels
-category_names = c('Small', 'Medium', 'Large', 'Unknown') 
+category_names = c('Small', 'Medium', 'Large') 
 
 ###############################################################################
 ####                     Seasonal Center of gravity                        ####
 ###############################################################################
 # Pull data
-SD_mean_Z_ctm = array(NA, dim = c(unlist(TmbData[c("n_c", "n_t", "n_m")]), 2), 
-                      dimnames = list(NULL, NULL, NULL,
+SD_mean_Z_ctm = array(NA, dim = c(unlist(TmbData[c("n_c", "n_t", "n_m", "n_l")]), 2), 
+                      dimnames = list(NULL, NULL, NULL, NULL,
                                       c("Estimate", "Std. Error")))
 # Pull standard error
 SD_mean_Z_ctm[] = SD[which(rownames(SD) == CogName), 
                            c("Estimate", "Std. Error")]
 # Name dimensions      
-names(dim(SD_mean_Z_ctm)) <- c('Category', 'Time', 'Dimension', 'Est.Err')
+names(dim(SD_mean_Z_ctm)) <- c('Category', 'Time', 'Dimension', 
+                               'Strata',
+                               'Est.Err')
 # Separate sizes      
-SD_mean_Z_ctm_small <- SD_mean_Z_ctm[1,,,]
-SD_mean_Z_ctm_medium <- SD_mean_Z_ctm[2,,,]
-SD_mean_Z_ctm_large <- SD_mean_Z_ctm[3,,,]
-SD_mean_Z_ctm_unknown <- SD_mean_Z_ctm[4,,,]
+SD_mean_Z_ctm_small <- SD_mean_Z_ctm[1,,,,]
+SD_mean_Z_ctm_medium <- SD_mean_Z_ctm[2,,,,]
+SD_mean_Z_ctm_large <- SD_mean_Z_ctm[3,,,,]
 # Concatenate sizes to list, name
 size.list.cog <- list(SD_mean_Z_ctm_small, SD_mean_Z_ctm_medium,
-                      SD_mean_Z_ctm_large, SD_mean_Z_ctm_unknown)
-names(size.list.cog) <- c('Small', 'Medium', 'Large', 'Unknown')  
-rm(SD_mean_Z_ctm, SD_mean_Z_ctm_large, SD_mean_Z_ctm_unknown,
+                      SD_mean_Z_ctm_large)
+names(size.list.cog) <- c('Small', 'Medium', 'Large')  
+rm(SD_mean_Z_ctm, SD_mean_Z_ctm_large,
    SD_mean_Z_ctm_small, SD_mean_Z_ctm_medium)
+
+for(i in 1:length(size.list.cog)){
+  size.list.cog[[i]] <- list(
+    size.list.cog[[i]][,,1,],
+    size.list.cog[[i]][,,2,],
+    size.list.cog[[i]][,,3,],
+    size.list.cog[[i]][,,4,],
+    size.list.cog[[i]][,,5,]
+  )
+  names(size.list.cog[[i]]) <- c(
+    'EGOM', 'GBK', 'SNE', 'WGOM', 'ALL'
+  )
+}
 
 ###############################################################################
 ####                   Seasonal Effective area occupied                    ####
@@ -92,30 +106,44 @@ SD_effective_area_ctl[] = SD[which(rownames(SD) ==
 # Name dimensions
 names(dim(SD_effective_area_ctl)) <- c('Category', 
                                        'Time', 
-                                       'Dimension', 
+                                       'Strata', 
                                        'Est.Err')
 # Separate sizes      
 SD_effective_area_ctl_small <- SD_effective_area_ctl[1,,,]
 SD_effective_area_ctl_medium <- SD_effective_area_ctl[2,,,]
 SD_effective_area_ctl_large <- SD_effective_area_ctl[3,,,]
-SD_effective_area_ctl_unknown <- SD_effective_area_ctl[4,,,]
 # Concatenate sizes to list, name
 size.list.eao <- list(SD_effective_area_ctl_small, SD_effective_area_ctl_medium,
-                      SD_effective_area_ctl_large, SD_effective_area_ctl_unknown)
-names(size.list.eao) <- c('Small', 'Medium', 'Large', 'Unknown')       
+                      SD_effective_area_ctl_large)
+names(size.list.eao) <- c('Small', 'Medium', 'Large')       
 rm(SD_effective_area_ctl, SD_effective_area_ctl_large, 
-   SD_effective_area_ctl_small, SD_effective_area_ctl_unknown,
-   SD_effective_area_ctl_medium)
+   SD_effective_area_ctl_small, SD_effective_area_ctl_medium)
+
+for(i in 1:length(size.list.eao)){
+  size.list.eao[[i]] <- list(
+    size.list.eao[[i]][,1,],
+    size.list.eao[[i]][,2,],
+    size.list.eao[[i]][,3,],
+    size.list.eao[[i]][,4,],
+    size.list.eao[[i]][,5,]
+  )
+  names(size.list.eao[[i]]) <- c(
+    'EGOM', 'GBK', 'SNE', 'WGOM', 'ALL'
+  )
+}
+
 rm(SD, Sdreport, TmbData, CogName, EffectiveName, SD_log_effective_area_ctl)
+
+strata_names <- c('EGOM', 'GBK', 'SNE', 'WGOM', 'ALL')
 
 ###############################################################################
 ####                       Plot EAO and COG together                       ####
 ###############################################################################
 # Loop through sizes, split into seasons
 for(i in 1:length(size.list.cog)){ # Number of sizes
-  #for(j in 1:dim(season.list.cog[[i]])[1]){ # Number of categories
+  for(j in 1:length(size.list.cog[[i]])){ # Number of strata
     # COG
-    cog <- as.data.frame(size.list.cog[[i]][,,])
+    cog <- as.data.frame(size.list.cog[[i]][[j]][,,])
     colnames(cog) <- c('easting', 'northing', 'e.sd', 'n.sd')
     cog$YearSeas <- year.labs
     cog <- separate(cog, YearSeas, 
@@ -126,7 +154,7 @@ for(i in 1:length(size.list.cog)){ # Number of sizes
     rm(cog)
     
     # EAO
-    eao <- as.data.frame(size.list.eao[[i]][,])
+    eao <- as.data.frame(size.list.eao[[i]][[j]][,])
     colnames(eao) <- c('area.occ', 'sd.err')
     eao$YearSeas <- year.labs
     eao <- separate(eao, YearSeas, 
@@ -146,7 +174,7 @@ for(i in 1:length(size.list.cog)){ # Number of sizes
                       ymax=northing+n.sd,
                       x=Year),
                   fill=alpha('#00BFC4', 0.2)) +
-      ylim(c(4600,4825)) +
+      #ylim(c(4600,4825)) +
       ylab("Northing (km)") +
       xlab("")
     
@@ -157,7 +185,7 @@ for(i in 1:length(size.list.cog)){ # Number of sizes
                       ymax=easting+e.sd,
                       x=Year),
                   fill=alpha('#00BFC4', 0.2)) +
-      ylim(c(300, 700)) +
+      #ylim(c(300, 700)) +
       ylab("Easting (km)")+
       xlab("")
     
@@ -168,13 +196,15 @@ for(i in 1:length(size.list.cog)){ # Number of sizes
                       ymax=area.occ+sd.err,
                       x=Year),
                   fill=alpha('#00BFC4', 0.2)) +
-      ylim(c(-5000, 75000)) +
+      #ylim(c(-5000, 75000)) +
       ylab(bquote("Area Occupied km "^2))
+    
+    plotname <- paste0('Spring, ', strata_names[j])
     
     
     # Arrange to plot
     spring <- ggarrange(northing, easting, arr.occ, nrow=3)
-    spring <- annotate_figure(spring, top = text_grob('Spring',
+    spring <- annotate_figure(spring, top = text_grob(paste0(plotname),
                                                       color='black',
                                                       face='bold',
                                                       size=14,
@@ -191,7 +221,7 @@ for(i in 1:length(size.list.cog)){ # Number of sizes
                       ymax=northing+n.sd,
                       x=Year),
                   fill=alpha('#F8766D', 0.2)) +
-      ylim(c(4600,4825)) +
+      #ylim(c(4600,4825)) +
       ylab(" ") +
       xlab("")
     
@@ -202,7 +232,7 @@ for(i in 1:length(size.list.cog)){ # Number of sizes
                       ymax=easting+e.sd,
                       x=Year),
                   fill=alpha('#F8766D', 0.2)) +
-      ylim(c(300, 700)) +
+      #ylim(c(300, 700)) +
       ylab(" ")+
       xlab("")
     
@@ -213,13 +243,14 @@ for(i in 1:length(size.list.cog)){ # Number of sizes
                       ymax=area.occ+sd.err,
                       x=Year),
                   fill=alpha('#F8766D', 0.2)) +
-      ylim(c(-5000, 75000)) +
+      #ylim(c(-5000, 75000)) +
       ylab(" ")
     
+    plotname <- paste0('Fall, ', strata_names[j])
     
     # Arrange to plot
     fall <- ggarrange(northing, easting, arr.occ, nrow=3)
-    fall <- annotate_figure(fall, top = text_grob('Fall',
+    fall <- annotate_figure(fall, top = text_grob(paste0(plotname),
                                                       color='black',
                                                       face='bold',
                                                       size=14,
@@ -237,8 +268,10 @@ for(i in 1:length(size.list.cog)){ # Number of sizes
     #plot(both)
     ggsave(both,
            filename=paste0(here(), "/Plot_Output/location.info.",
-                           category_names[i], '.png'),
+                           category_names[i], "_",
+                           strata_names[j],'.png'),
            width = 10, height = 8, units='in')
+  }
 }
 
 ###############################################################################
