@@ -12,3 +12,5 @@ Model_Refinement/Old/
 Data/Density_Covariates/Bottom_temp/Old
 VAST_runs/refine_effort2/refine_effort2.RData
 VAST_runs/refine_effort_onlysmalls/only_smalls.RData
+VAST_runs/add_climate_aja3/add_climate_aja3.RData
+VAST_runs/add_climate_aja3/parameter_estimates.RData
