@@ -45,25 +45,33 @@ EffectiveName = "effective_area_ctl"
 
 # Set labels
 category_names = c('Small', 'Medium', 'Large') 
+strata_names   = c('EGOM', 'GBK', 'SNE', 'WGOM', 'ALL')
 
 ###############################################################################
 ####                     Seasonal Center of gravity                        ####
 ###############################################################################
 # Pull data
-SD_mean_Z_ctm = array(NA, dim = c(unlist(TmbData[c("n_c", "n_t", "n_m", "n_l")]), 2), 
-                      dimnames = list(NULL, NULL, NULL, NULL,
+SD_mean_Z_ctm = array(NA, dim = c(unlist(TmbData[c("n_c", 
+                                                   "n_t", 
+                                                   "n_m"#, 
+                                                   #"n_l"
+                                                   )]), 
+                                  2), 
+                      dimnames = list(NULL, NULL, NULL, #NULL,
                                       c("Estimate", "Std. Error")))
 # Pull standard error
 SD_mean_Z_ctm[] = SD[which(rownames(SD) == CogName), 
                            c("Estimate", "Std. Error")]
 # Name dimensions      
-names(dim(SD_mean_Z_ctm)) <- c('Category', 'Time', 'Dimension', 
-                               'Strata',
+names(dim(SD_mean_Z_ctm)) <- c('Category', 
+                               'Time', 
+                               'Location', 
+                               #'Strata',
                                'Est.Err')
 # Separate sizes      
-SD_mean_Z_ctm_small <- SD_mean_Z_ctm[1,,,,]
-SD_mean_Z_ctm_medium <- SD_mean_Z_ctm[2,,,,]
-SD_mean_Z_ctm_large <- SD_mean_Z_ctm[3,,,,]
+SD_mean_Z_ctm_small <- SD_mean_Z_ctm[1,,,]
+SD_mean_Z_ctm_medium <- SD_mean_Z_ctm[2,,,]
+SD_mean_Z_ctm_large <- SD_mean_Z_ctm[3,,,]
 # Concatenate sizes to list, name
 size.list.cog <- list(SD_mean_Z_ctm_small, SD_mean_Z_ctm_medium,
                       SD_mean_Z_ctm_large)
@@ -71,18 +79,18 @@ names(size.list.cog) <- c('Small', 'Medium', 'Large')
 rm(SD_mean_Z_ctm, SD_mean_Z_ctm_large,
    SD_mean_Z_ctm_small, SD_mean_Z_ctm_medium)
 
-for(i in 1:length(size.list.cog)){
-  size.list.cog[[i]] <- list(
-    size.list.cog[[i]][,,1,],
-    size.list.cog[[i]][,,2,],
-    size.list.cog[[i]][,,3,],
-    size.list.cog[[i]][,,4,],
-    size.list.cog[[i]][,,5,]
-  )
-  names(size.list.cog[[i]]) <- c(
-    'EGOM', 'GBK', 'SNE', 'WGOM', 'ALL'
-  )
-}
+# for(i in 1:length(size.list.cog)){
+#   size.list.cog[[i]] <- list(
+#     size.list.cog[[i]][,,1,],
+#     size.list.cog[[i]][,,2,],
+#     size.list.cog[[i]][,,3,],
+#     size.list.cog[[i]][,,4,],
+#     size.list.cog[[i]][,,5,]
+#   )
+#   names(size.list.cog[[i]]) <- c(
+#     'EGOM', 'GBK', 'SNE', 'WGOM', 'ALL'
+#   )
+# }
 
 ###############################################################################
 ####                   Seasonal Effective area occupied                    ####
@@ -141,28 +149,55 @@ strata_names <- c('EGOM', 'GBK', 'SNE', 'WGOM', 'ALL')
 ###############################################################################
 # Loop through sizes, split into seasons
 for(i in 1:length(size.list.cog)){ # Number of sizes
-  for(j in 1:length(size.list.cog[[i]])){ # Number of strata
+  # wholecog <- data.frame(
+  #   easting=NA,
+  #   northing=NA,
+  #   e.sd=NA,
+  #   n.sd=NA,
+  #   Year=NA,
+  #   Strata=NA,
+  #   Season=NA
+  # )
+  #for(j in 1:length(size.list.cog[[i]])){ # Number of strata
     # COG
-    cog <- as.data.frame(size.list.cog[[i]][[j]][,,])
+    cog <- as.data.frame(size.list.cog[[i]][,,])
     colnames(cog) <- c('easting', 'northing', 'e.sd', 'n.sd')
     cog$YearSeas <- year.labs
     cog <- separate(cog, YearSeas, 
                                 into = c("Year", "Season"), sep = " (?=[^ ]+$)")
     cog$Year <- as.numeric(cog$Year)
+    #cog$Strata <- strata_names[j]
+    #wholecog <- rbind(wholecog, cog)
+  #}
+  #wholecog <- wholecog[!is.na(wholecog$easting),]
+    
     spring.cog <- subset(cog, Season == 'Spring')
     fall.cog <- subset(cog, Season == 'Fall')
     rm(cog)
     
     # EAO
-    eao <- as.data.frame(size.list.eao[[i]][[j]][,])
-    colnames(eao) <- c('area.occ', 'sd.err')
-    eao$YearSeas <- year.labs
-    eao <- separate(eao, YearSeas, 
-                           into = c("Year", "Season"), sep = " (?=[^ ]+$)")
-    eao$Year <- as.numeric(eao$Year)
-    spring.eao <- subset(eao, Season == 'Spring')
-    fall.eao <- subset(eao, Season == 'Fall')
-    rm(eao)
+    wholeeao <- data.frame(
+      area.occ=NA,
+      sd.err=NA,
+      Year=NA,
+      Strata=NA,
+      Season=NA
+    )
+    for(j in 1:length(size.list.eao[[i]])){ # Number of strata
+      eao <- as.data.frame(size.list.eao[[i]][[j]][,])
+      colnames(eao) <- c('area.occ', 'sd.err')
+      eao$YearSeas <- year.labs
+      eao <- separate(eao, YearSeas, 
+                             into = c("Year", "Season"), sep = " (?=[^ ]+$)")
+      eao$Year <- as.numeric(eao$Year)
+      eao$Strata <- strata_names[j]
+      wholeeao <- rbind(wholeeao, eao)
+    }
+    wholeeao <- wholeeao[!is.na(wholeeao$area.occ),]
+    
+    spring.eao <- subset(wholeeao, Season == 'Spring')
+    fall.eao <- subset(wholeeao, Season == 'Fall')
+    rm(wholeeao)
     
     # Both Spring
     SD_plotting.spring <- merge(spring.cog, spring.eao, by=c("Year", "Season"))
@@ -171,8 +206,8 @@ for(i in 1:length(size.list.cog)){ # Number of sizes
     northing <- ggplot(SD_plotting.spring) +
       geom_line(aes(x=Year, y=northing), col='#00BFC4', lwd=1) +
       geom_ribbon(aes(ymin=northing-n.sd,
-                      ymax=northing+n.sd,
-                      x=Year),
+                     ymax=northing+n.sd,
+                     x=Year),
                   fill=alpha('#00BFC4', 0.2)) +
       #ylim(c(4600,4825)) +
       ylab("Northing (km)") +
@@ -191,15 +226,15 @@ for(i in 1:length(size.list.cog)){ # Number of sizes
     
     # Plot effective area occupied
     arr.occ <- ggplot(SD_plotting.spring) +
-      geom_line(aes(x=Year, y=area.occ), col='#00BFC4', lwd=1) +
+      geom_line(aes(x=Year, y=area.occ, col=Strata), lwd=1) +
       geom_ribbon(aes(ymin=area.occ-sd.err,
                       ymax=area.occ+sd.err,
-                      x=Year),
-                  fill=alpha('#00BFC4', 0.2)) +
+                      x=Year, fill=Strata),
+                  alpha=0.2) +
       #ylim(c(-5000, 75000)) +
       ylab(bquote("Area Occupied km "^2))
     
-    plotname <- paste0('Spring, ', strata_names[j])
+    plotname <- paste0('Spring')
     
     
     # Arrange to plot
