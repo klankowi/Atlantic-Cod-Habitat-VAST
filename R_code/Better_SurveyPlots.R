@@ -50,22 +50,23 @@ Winter <- "#0476D0"
 
 #### Index time series ####
 # Set GGplot auto theme
-theme_set(theme(panel.grid.major = element_blank(),
+theme_set(theme(plot.margin = unit(c(0.5,0.5,0.5,0.5), "cm"),
+                panel.grid.major = element_blank(),
                 panel.grid.minor = element_blank(),
                 panel.background = element_blank(),
                 
                 axis.line = element_line(colour = "black"),
                 legend.position = "n",
                 
-                axis.text.x=element_text(size=22),
-                axis.text.y=element_text(size=22),
-                axis.title.x=element_text(size=24),
-                axis.title.y=element_text(size=24, angle=90, vjust=2),
-                legend.text=element_text(size=16),
+                axis.text.x=element_text(size=20),
+                axis.text.y=element_text(size=20),
+                axis.title.x=element_text(size=22),
+                axis.title.y=element_text(size=22, angle=90, vjust=2),
+                legend.text=element_text(size=14),
                 
-                plot.title=element_text(size=22, hjust = 0, vjust = 1.2),
+                plot.title=element_text(size=20, hjust = 0, vjust = 1.2),
                 
-                strip.text.x = element_text(size = 22)))
+                strip.text.x = element_text(size = 20)))
 
 # Remove instances of 1 sample
 indd <- subset(indd, INDEX_NAME !="SMAST Video Trawl_STELLWAGEN_FALL_A1+")
@@ -120,8 +121,53 @@ for(f in 1:length(unique(indd$SURVEY))){
            title=paste0(survo)) +
       #scale_color_manual(values = linecolors) +
       #scale_fill_manual(values=linecolors) +
-      scale_y_continuous(labels=scaleFUN) +
-      facet_wrap2(vars(test.list$NAME), scales="free_y", ncol=1, nrow=2)
+      scale_y_continuous(labels=scaleFUN) #+
+      #facet_wrap2(vars(test.list$NAME), scales="free_y", ncol=1, nrow=2)
+    
+    if(length(unique(test.list$NAME)) >1){
+      p <- ggplot(test.list, aes(x=YEAR, y=INDEX_NO)) + 
+        geom_ribbon(aes(ymin=CI_LO_NO, ymax=CI_HI_NO), fill=test.list$COLOR, 
+                    alpha=0.2, linetype=0) +
+        geom_line(lwd=1, col=test.list$COLOR) +
+        labs(x="Year",
+             y="Index (No/ tow)", 
+             title=paste0(survo)) +
+        #scale_color_manual(values = linecolors) +
+        #scale_fill_manual(values=linecolors) +
+        scale_y_continuous(labels=scaleFUN) +
+        facet_wrap2(vars(test.list$NAME), scales="free_y", ncol=1, nrow=2)
+    }
+    
+    if(f==3){
+      ggsave(paste0('C:/Users/klankowicz/Desktop/Index_New_Plots/',
+                    survo, " ", stocko,
+                    '.png'),
+             p)
+      rm(p)
+      
+      next()
+    }
+    
+    if(max(test.list$YEAR) == 2021 &
+       is.na(test.list$INDEX_NO[test.list$YEAR == 2020]) &
+       !is.na(test.list$INDEX_NO[test.list$YEAR == 2021]) &
+       f!= 3){
+
+      p <- ggplot(test.list, aes(x=YEAR, y=INDEX_NO)) +
+        geom_ribbon(aes(ymin=CI_LO_NO, ymax=CI_HI_NO), fill=test.list$COLOR,
+                    alpha=0.2, linetype=0) +
+        geom_line(lwd=1, col=test.list$COLOR) +
+        geom_point(data=test.list[test.list$YEAR == 2021,],
+                   aes(x=YEAR, y=INDEX_NO),
+                   col=test.list$COLOR[test.list$YEAR == 2021]) +
+        labs(x="Year",
+             y="Index (No/ tow)",
+             title=paste0(survo)) +
+        #scale_color_manual(values = linecolors) +
+        #scale_fill_manual(values=linecolors) +
+        scale_y_continuous(labels=scaleFUN) #+
+        #facet_wrap2(vars(test.list$NAME), scales="free_y", ncol=1, nrow=2)
+    }
     
     if(nrow(test.list[is.na(test.list$INDEX_KG)==TRUE,]) > 0 &
        nrow(test.list[is.na(test.list$INDEX_KG)==FALSE,]) == 0){
@@ -138,17 +184,41 @@ for(f in 1:length(unique(indd$SURVEY))){
     if(nrow(test.list[is.na(test.list$INDEX_KG)==FALSE,]) > 0){
       p <- p+theme(axis.title.x = element_blank())
       
-      q <- ggplot(test.list, aes(x=YEAR, y=INDEX_KG)) + 
-        geom_ribbon(aes(ymin=CI_LO_KG, ymax=CI_HI_KG), fill=test.list$COLOR, 
-                    alpha=0.2, linetype=0) +
-        geom_line(lwd=1, col=test.list$COLOR) +
-        labs(x="Year",
-             y="Index (Kg/ tow)") +
-        #scale_color_manual(values = linecolors) +
-        #scale_fill_manual(values=linecolors) +
-        scale_y_continuous(labels=scaleFUN) +
-        facet_wrap2(vars(test.list$NAME), scales="free_y", ncol=2)+ 
-        theme(strip.background = element_blank(), strip.text.x = element_blank())
+      if(length(unique(test.list$NAME)) >1){
+        q <- ggplot(test.list, aes(x=YEAR, y=INDEX_KG)) + 
+          geom_ribbon(aes(ymin=CI_LO_KG, ymax=CI_HI_KG), fill=test.list$COLOR, 
+                      alpha=0.2, linetype=0) +
+          geom_line(lwd=1, col=test.list$COLOR) +
+          labs(x="Year",
+               y="Index (Kg/ tow)") +
+          #scale_color_manual(values = linecolors) +
+          #scale_fill_manual(values=linecolors) +
+          scale_y_continuous(labels=scaleFUN) +
+          facet_wrap2(vars(test.list$NAME), scales="free_y", ncol=2)+ 
+          theme(strip.background = element_blank(), strip.text.x = element_blank())
+      }
+      
+      if(max(test.list$YEAR) == 2021 &
+         is.na(test.list$INDEX_NO[test.list$YEAR == 2020]) &
+         !is.na(test.list$INDEX_NO[test.list$YEAR == 2021])){
+        
+          q <- ggplot(test.list, aes(x=YEAR, y=INDEX_KG)) + 
+            geom_ribbon(aes(ymin=CI_LO_KG, ymax=CI_HI_KG), fill=test.list$COLOR, 
+                        alpha=0.2, linetype=0) +
+            geom_line(lwd=1, col=test.list$COLOR) +
+            labs(x="Year",
+                 y="Index (Kg/ tow)") +
+            geom_point(data=test.list[test.list$YEAR == 2021,],
+                       aes(x=YEAR, y=INDEX_KG),
+                       col=test.list$COLOR[test.list$YEAR == 2021]) +
+            #scale_color_manual(values = linecolors) +
+            #scale_fill_manual(values=linecolors) +
+            scale_y_continuous(labels=scaleFUN) +
+            #facet_wrap2(vars(test.list$NAME), scales="free_y", ncol=2)+ 
+            theme(strip.background = element_blank(), strip.text.x = element_blank())
+      }
+      
+
       
       tmp <- arrangeGrob((p),(q),ncol=1)
       ggsave(paste0('C:/Users/klankowicz/Desktop/Index_New_Plots/',
