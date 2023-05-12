@@ -70,6 +70,7 @@ theme_set(theme(plot.margin = unit(c(0.5,0.5,0.5,0.5), "cm"),
 
 # Remove instances of 1 sample
 indd <- subset(indd, INDEX_NAME !="SMAST Video Trawl_STELLWAGEN_FALL_A1+")
+
 # Indices
 for(f in 1:length(unique(indd$SURVEY))){
   survo <- unique(indd$SURVEY)[f]
@@ -112,6 +113,241 @@ for(f in 1:length(unique(indd$SURVEY))){
       }
     }
     
+    if(unique(test.list$SURVEY) == 'ASMFC Shrimp Trawl'){
+      keepers <- test.list
+      keepers$COLOR[keepers$YEAR != 2021] <- NA
+      
+      p <- ggplot(test.list, aes(x=YEAR, y=INDEX_NO)) +
+        geom_ribbon(aes(ymin=CI_LO_NO, ymax=CI_HI_NO), fill=test.list$COLOR, 
+                    alpha=0.2, linetype=0) +
+        geom_line(lwd=1, col=test.list$COLOR) +
+        geom_point(data=keepers,
+                   aes(x=YEAR, y=INDEX_NO, col=COLOR)) +
+        scale_color_manual(na.value='transparent',
+                           values = rev(unique(test.list$COLOR))) +
+        labs(x="Year",
+             y="Index (No/ tow)",
+             title=paste0(survo)) +
+        scale_y_continuous(labels=scaleFUN) +
+        facet_wrap2(vars(test.list$NAME), scales="free_y", ncol=2, nrow=2)
+      
+      p <- p+theme(axis.title.x = element_blank())
+      
+      q <- ggplot(test.list, aes(x=YEAR, y=INDEX_KG)) + 
+        geom_ribbon(aes(ymin=CI_LO_KG, ymax=CI_HI_KG), fill=test.list$COLOR, 
+                    alpha=0.2, linetype=0) +
+        geom_line(lwd=1, col=test.list$COLOR) +
+        labs(x="Year",
+             y="Index (Kg/ tow)") +
+        geom_point(data=test.list[test.list$YEAR == 2021,],
+                   aes(x=YEAR, y=INDEX_KG),
+                   col=test.list$COLOR[test.list$YEAR == 2021]) +
+        scale_y_continuous(labels=scaleFUN) +
+        theme(strip.background = element_blank(), strip.text.x = element_blank())
+      
+      tmp <- arrangeGrob((p),(q),ncol=1)
+      ggsave(paste0('C:/Users/klankowicz/Desktop/Index_New_Plots/',
+                    survo, " ", stocko,
+                    '.png'),
+             tmp)
+      
+      rm(p,q,tmp)
+    }
+    
+    if(unique(test.list$SURVEY) == 'DFO Trawl'){
+
+      p <- ggplot(test.list, aes(x=YEAR, y=INDEX_NO)) +
+        geom_ribbon(aes(ymin=CI_LO_NO, ymax=CI_HI_NO), fill=test.list$COLOR, 
+                    alpha=0.2, linetype=0) +
+        geom_line(lwd=1, col=test.list$COLOR) +
+        scale_color_manual(na.value='transparent',
+                           values = rev(unique(test.list$COLOR))) +
+        labs(x="Year",
+             y="Population size",
+             title=paste0(survo)) 
+      
+      ggsave(paste0('C:/Users/klankowicz/Desktop/Index_New_Plots/',
+                    survo, " ", stocko,
+                    '.png'),
+             p,
+             width = 3012, height = 1020, units='px')
+      
+      rm(p)
+    }
+    
+    if(unique(test.list$SURVEY) == 'MADMF Industry'){
+      
+      keepers <- test.list
+      keepers$COLOR[keepers$YEAR != 2021] <- NA
+      
+      p <- ggplot(test.list, aes(x=YEAR, y=INDEX_NO)) +
+        geom_ribbon(aes(ymin=CI_LO_NO, ymax=CI_HI_NO), fill=test.list$COLOR, 
+                    alpha=0.2, linetype=0) +
+        geom_line(lwd=1, col=test.list$COLOR) +
+        geom_point(data=keepers,
+                   aes(x=YEAR, y=INDEX_NO, col=COLOR)) +
+        scale_color_manual(na.value='transparent',
+                           values = rev(unique(test.list$COLOR))) +
+        labs(x="Year",
+             y="Index (No/ tow)",
+             title=paste0(survo)) +
+        scale_y_continuous(labels=scaleFUN) +
+        facet_wrap2(vars(test.list$NAME), scales="free_y", ncol=2, nrow=2)
+      
+      ggsave(paste0('C:/Users/klankowicz/Desktop/Index_New_Plots/',
+                    survo, " ", stocko,
+                    '.png'),
+             p,
+             width = 3012, height = 1020, units='px')
+      
+      rm(p)
+    }
+    
+    if(unique(test.list$SURVEY) == 'MADMF Inshore Trawl' &
+       unique(test.list$STOCK) == 'SNE'){
+      
+      keepers <- test.list
+      keepers$COLOR[keepers$YEAR != 2021] <- NA
+      
+      p <- ggplot(test.list, aes(x=YEAR, y=INDEX_NO)) +
+        geom_ribbon(aes(ymin=CI_LO_NO, ymax=CI_HI_NO), fill=test.list$COLOR, 
+                    alpha=0.2, linetype=0) +
+        geom_line(lwd=1, col=test.list$COLOR) +
+        geom_point(data=test.list[test.list$YEAR == 2021,],
+                   aes(x=YEAR, y=INDEX_NO), col=Spring) +
+        labs(x="Year",
+             y="Index (No/ tow)",
+             title=paste0(survo)) +
+        scale_y_continuous(labels=scaleFUN)
+      
+      ggsave(paste0('C:/Users/klankowicz/Desktop/Index_New_Plots/',
+                    survo, " ", stocko,
+                    '.png'),
+             p,
+             width = 3012, height = 1020, units='px')
+      
+      rm(p)
+    }
+    
+    if(unique(test.list$SURVEY) == 'MADMF Inshore Trawl' &
+       unique(test.list$STOCK) == 'WGOM'){
+      
+      keepers <- test.list
+      keepers$COLOR[keepers$YEAR != 2021] <- NA
+      
+      test.list$SEASONAGE <- paste0(test.list$SEASON, ' ', test.list$AGES)
+      
+      p <- ggplot(test.list, aes(x=YEAR, y=INDEX_NO)) +
+        geom_ribbon(aes(ymin=CI_LO_NO, ymax=CI_HI_NO), fill=test.list$COLOR, 
+                    alpha=0.2, linetype=0) +
+        geom_line(lwd=1, col=test.list$COLOR) +
+        geom_point(data=test.list[test.list$YEAR == 2021,],
+                   aes(x=YEAR, y=INDEX_NO, col=rev(COLOR))) +
+        labs(x="Year",
+             y="Index (No/ tow)",
+             title=paste0(survo)) +
+        scale_y_continuous(labels=scaleFUN) +
+        facet_wrap2(vars(SEASONAGE), scales='free_y')
+      
+      ggsave(paste0('C:/Users/klankowicz/Desktop/Index_New_Plots/',
+                    survo, " ", stocko,
+                    '.png'),
+             p,
+             width = 3012*2, height = 1020*2, units='px')
+      
+      rm(p)
+    }
+    
+    if(unique(test.list$SURVEY) == 'ME-NH Inshore Trawl' &
+       unique(test.list$STOCK) == 'EGOM'){
+      
+      keepers <- test.list
+      keepers$COLOR[keepers$YEAR != 2021] <- NA
+      
+      test.list$SEASONAGE <- paste0(test.list$SEASON, ' ', test.list$AGES)
+      
+      p <- ggplot(test.list, aes(x=YEAR, y=INDEX_NO)) +
+        geom_ribbon(aes(ymin=CI_LO_NO, ymax=CI_HI_NO), fill=test.list$COLOR, 
+                    alpha=0.2, linetype=0) +
+        geom_line(lwd=1, col=test.list$COLOR) +
+        geom_point(data=test.list[test.list$YEAR == 2021,],
+                   aes(x=YEAR, y=INDEX_NO, col=rev(COLOR))) +
+        labs(x="Year",
+             y="Index (No/ tow)",
+             title=paste0(survo)) +
+        scale_y_continuous(labels=scaleFUN) +
+        facet_wrap2(vars(SEASONAGE), scales='free_y')
+      
+      q <- ggplot(test.list, aes(x=YEAR, y=INDEX_KG)) + 
+        geom_ribbon(aes(ymin=CI_LO_KG, ymax=CI_HI_KG), fill=test.list$COLOR, 
+                    alpha=0.2, linetype=0) +
+        geom_line(lwd=1, col=test.list$COLOR) +
+        labs(x="Year",
+             y="Index (Kg/ tow)") +
+        geom_point(data=test.list[test.list$YEAR == 2021,],
+                   aes(x=YEAR, y=INDEX_KG),
+                   col=test.list$COLOR[test.list$YEAR == 2021]) +
+        facet_wrap2(vars(SEASONAGE), scales='free_y')
+        scale_y_continuous(labels=scaleFUN) +
+        theme(strip.background = element_blank(), strip.text.x = element_blank())
+      
+      tmp <- arrangeGrob((p),(q),ncol=1)
+      ggsave(paste0('C:/Users/klankowicz/Desktop/Index_New_Plots/',
+                    survo, " ", stocko,
+                    '.png'),
+             tmp,
+             width = 3012*2, height = 1020*2, units='px'
+             )
+      
+      rm(p,q,tmp)
+    }
+    
+    if(unique(test.list$SURVEY) == 'ME-NH Inshore Trawl' &
+       unique(test.list$STOCK) == 'WGOM'){
+      
+      keepers <- test.list
+      keepers$COLOR[keepers$YEAR != 2021] <- NA
+      
+      test.list$SEASONAGE <- paste0(test.list$SEASON, ' ', test.list$AGES)
+      
+      p <- ggplot(test.list, aes(x=YEAR, y=INDEX_NO)) +
+        geom_ribbon(aes(ymin=CI_LO_NO, ymax=CI_HI_NO), fill=test.list$COLOR, 
+                    alpha=0.2, linetype=0) +
+        geom_line(lwd=1, col=test.list$COLOR) +
+        geom_point(data=test.list[test.list$YEAR == 2021,],
+                   aes(x=YEAR, y=INDEX_NO, col=rev(COLOR))) +
+        labs(x="Year",
+             y="Index (No/ tow)",
+             title=paste0(survo)) +
+        scale_y_continuous(labels=scaleFUN) +
+        facet_wrap2(vars(SEASONAGE), scales='free_y')
+      
+      q <- ggplot(test.list, aes(x=YEAR, y=INDEX_KG)) + 
+        geom_ribbon(aes(ymin=CI_LO_KG, ymax=CI_HI_KG), fill=test.list$COLOR, 
+                    alpha=0.2, linetype=0) +
+        geom_line(lwd=1, col=test.list$COLOR) +
+        labs(x="Year",
+             y="Index (Kg/ tow)") +
+        geom_point(data=test.list[test.list$YEAR == 2021,],
+                   aes(x=YEAR, y=INDEX_KG),
+                   col=test.list$COLOR[test.list$YEAR == 2021]) +
+        facet_wrap2(vars(SEASONAGE), scales='free_y') +
+        scale_y_continuous(labels=scaleFUN) +
+        theme(strip.background = element_blank(), strip.text.x = element_blank())
+      
+      tmp <- arrangeGrob((p),(q),ncol=1)
+      ggsave(paste0('C:/Users/klankowicz/Desktop/Index_New_Plots/',
+                    survo, " ", stocko,
+                    '.png'),
+             tmp,
+             width = 3012*2, height = 1020*2, units='px'
+      )
+      
+      rm(p,q,tmp)
+    }
+    
+    
+    # Base plot
     p <- ggplot(test.list, aes(x=YEAR, y=INDEX_NO)) + 
       geom_ribbon(aes(ymin=CI_LO_NO, ymax=CI_HI_NO), fill=test.list$COLOR, 
                   alpha=0.2, linetype=0) +
@@ -121,8 +357,8 @@ for(f in 1:length(unique(indd$SURVEY))){
            title=paste0(survo)) +
       #scale_color_manual(values = linecolors) +
       #scale_fill_manual(values=linecolors) +
-      scale_y_continuous(labels=scaleFUN) #+
-      #facet_wrap2(vars(test.list$NAME), scales="free_y", ncol=1, nrow=2)
+      scale_y_continuous(labels=scaleFUN) +
+      facet_wrap2(vars(test.list$NAME), scales="free_y", ncol=2, nrow=2)
     
     if(length(unique(test.list$NAME)) >1){
       p <- ggplot(test.list, aes(x=YEAR, y=INDEX_NO)) + 
@@ -135,7 +371,7 @@ for(f in 1:length(unique(indd$SURVEY))){
         #scale_color_manual(values = linecolors) +
         #scale_fill_manual(values=linecolors) +
         scale_y_continuous(labels=scaleFUN) +
-        facet_wrap2(vars(test.list$NAME), scales="free_y", ncol=1, nrow=2)
+        facet_wrap2(vars(test.list$NAME), scales="free_y", ncol=2, nrow=2)
     }
     
     if(f==3){
@@ -148,25 +384,30 @@ for(f in 1:length(unique(indd$SURVEY))){
       next()
     }
     
-    if(max(test.list$YEAR) == 2021 &
-       is.na(test.list$INDEX_NO[test.list$YEAR == 2020]) &
-       !is.na(test.list$INDEX_NO[test.list$YEAR == 2021]) &
-       f!= 3){
+    truthfulness <- max(test.list$YEAR) == 2021 &
+      is.na(test.list$INDEX_NO[test.list$YEAR == 2020]) &
+      !is.na(test.list$INDEX_NO[test.list$YEAR == 2021]) &
+      f!= 3
+    
+    if(length(table(truthfulness[TRUE])) >= 1){
+      
+      keepers <- test.list
+      keepers$COLOR[keepers$YEAR != 2021] <- NA
 
       p <- ggplot(test.list, aes(x=YEAR, y=INDEX_NO)) +
-        geom_ribbon(aes(ymin=CI_LO_NO, ymax=CI_HI_NO), fill=test.list$COLOR,
+        geom_ribbon(aes(ymin=CI_LO_NO, ymax=CI_HI_NO), fill=test.list$COLOR, 
                     alpha=0.2, linetype=0) +
         geom_line(lwd=1, col=test.list$COLOR) +
-        geom_point(data=test.list[test.list$YEAR == 2021,],
-                   aes(x=YEAR, y=INDEX_NO),
-                   col=test.list$COLOR[test.list$YEAR == 2021]) +
+        geom_point(data=keepers,
+                   aes(x=YEAR, y=INDEX_NO, col=COLOR)) +
+        scale_color_manual(na.value='transparent',
+                           values = rev(unique(test.list$COLOR))) +
         labs(x="Year",
              y="Index (No/ tow)",
              title=paste0(survo)) +
-        #scale_color_manual(values = linecolors) +
-        #scale_fill_manual(values=linecolors) +
-        scale_y_continuous(labels=scaleFUN) #+
-        #facet_wrap2(vars(test.list$NAME), scales="free_y", ncol=1, nrow=2)
+        scale_y_continuous(labels=scaleFUN) +
+        facet_wrap2(vars(test.list$NAME), scales="free_y", ncol=2, nrow=2)
+  
     }
     
     if(nrow(test.list[is.na(test.list$INDEX_KG)==TRUE,]) > 0 &
