@@ -14,3 +14,9 @@ VAST_runs/refine_effort2/refine_effort2.RData
 VAST_runs/refine_effort_onlysmalls/only_smalls.RData
 VAST_runs/add_climate_aja3/add_climate_aja3.RData
 VAST_runs/add_climate_aja3/parameter_estimates.RData
+VAST_runs/add_climate_aja4/GBK/parameter_estimates.RData
+VAST_runs/add_climate_aja4/SNE/add_climate_aja4_sne.RData
+VAST_runs/add_climate_aja4/SNE/parameter_estimates.RData
+VAST_runs/add_climate_aja4/WGOM/add_climate_aja4_wgom.RData
+VAST_runs/add_climate_aja4/WGOM/parameter_estimates.RData
+VAST_runs/add_climate_aja4/GBK/add_climate_aja4_gbk.RData
