@@ -3333,9 +3333,13 @@ get_vast_covariate_effects <- function(vast_fit, params_plot, params_plot_levels
   #   effects_pad_values = c(1)
   #   nice_category_names = "Capelin"
   # }
-  assign("covariate_data_full", vast_fit$effects$covariate_data_full[seq(category_to_use, nrow(vast_fit$effects$covariate_data_full), ncat),], 
+  assign("covariate_data_full", vast_fit$effects$covariate_data_full[
+    seq(category_to_use, 
+        nrow(vast_fit$effects$covariate_data_full), 
+        ncat),], 
         envir = .GlobalEnv)
-  assign("catchability_data_full", vast_fit$effects$catchability_data_full, 
+  assign("catchability_data_full", 
+         vast_fit$effects$catchability_data_full, 
         envir = .GlobalEnv)
   x1_rescale <- function(x) plogis(x)
   x2_rescale <- function(x) exp(x)
