@@ -31,7 +31,7 @@ theme_set(theme(plot.margin = unit(c(0.5,0.5,0.5,0.5), "cm"),
                 plot.caption=element_text(hjust=0, face='italic', size=12)))
 
 # Load data
-load(here('VAST_runs/add_climate_aja4/WGOM/add_climate_aja4_wgom.Rdata'))
+load(here('VAST_runs/add_climate_aja4/SNE/add_climate_aja4_sne.Rdata'))
 rm(list=setdiff(ls(), c("fit", "%notin%", "year.labs")))
 
 # Create objects needed to plot
@@ -45,8 +45,7 @@ CogName = "mean_Z_ctm"
 EffectiveName = "effective_area_ctl"
 
 # Set labels
-category_names = c('Small', 'Medium', 'Large') 
-strata_names   = c('WGOM', 'EGOM', 'GBK', 'WGOM', 'ALL')
+category_names = c('Small', 'Medium', 'Large')
 
 ###############################################################################
 ####                     Seasonal Center of gravity                        ####
@@ -89,7 +88,7 @@ rm(SD_mean_Z_ctm, SD_mean_Z_ctm_large,
 #     size.list.cog[[i]][,,5,]
 #   )
 #   names(size.list.cog[[i]]) <- c(
-#     'WGOM', 'WGOM', 'WGOM', 'WGOM', 'ALL'
+#     'SNE', 'SNE', 'SNE', 'SNE', 'ALL'
 #   )
 # }
 
@@ -137,17 +136,22 @@ rm(SD_effective_area_ctl, SD_effective_area_ctl_large,
 #     size.list.eao[[i]][,5,]
 #   )
 #   names(size.list.eao[[i]]) <- c(
-#     'WGOM', 'WGOM', 'WGOM', 'WGOM', 'ALL'
+#     'SNE', 'SNE', 'SNE', 'SNE', 'ALL'
 #   )
 # }
 
 rm(SD, Sdreport, TmbData, CogName, EffectiveName, SD_log_effective_area_ctl)
 
-strata_names <- c('WGOM', 'WGOM', 'WGOM', 'WGOM', 'ALL')
-
 ###############################################################################
 ####                       Plot EAO and COG together                       ####
 ###############################################################################
+# Load spatial information
+coast <- ecodata::coast
+coast <- st_transform(coast, "EPSG:32619")
+stocks <- st_read(here('Data/GIS/codstox.shp'))
+stocks <- st_transform(stocks, "EPSG:32619")
+new_bb <- st_bbox(stocks)
+
 # Loop through sizes, split into seasons
 for(i in 1:length(size.list.cog)){ # Number of sizes
   
@@ -163,16 +167,17 @@ for(i in 1:length(size.list.cog)){ # Number of sizes
     fall.cog <- subset(cog, Season == 'Fall')
     rm(cog)
     
-      eao <- as.data.frame(size.list.eao[[i]][,])
-      colnames(eao) <- c('area.occ', 'sd.err')
-      eao$YearSeas <- year.labs
-      eao <- separate(eao, YearSeas, 
-                             into = c("Year", "Season"), sep = " (?=[^ ]+$)")
-      eao$Year <- as.numeric(eao$Year)
+    eao <- as.data.frame(size.list.eao[[i]][,])
+    colnames(eao) <- c('area.occ', 'sd.err')
+    eao$YearSeas <- year.labs
+    eao <- separate(eao, YearSeas, 
+                           into = c("Year", "Season"), sep = " (?=[^ ]+$)")
+    eao$Year <- as.numeric(eao$Year)
     
     spring.eao <- subset(eao, Season == 'Spring')
     fall.eao <- subset(eao, Season == 'Fall')
-
+    rm(eao)
+    
     # Both Spring
     SD_plotting.spring <- merge(spring.cog, spring.eao, by=c("Year", "Season"))
     
@@ -209,16 +214,69 @@ for(i in 1:length(size.list.cog)){ # Number of sizes
       #ylim(c(-5000, 75000)) +
       ylab(bquote("Area Occupied km "^2))
     
-    plotname <- paste0('Spring')
-    
     # Arrange to plot
-    spring <- ggarrange(northing, easting, arr.occ, nrow=3)
-    spring <- annotate_figure(spring, top = text_grob(paste0(plotname),
-                                                      color='black',
-                                                      face='bold',
-                                                      size=14,
-                                                      vjust=1.4,
-                                                      hjust=0.1))
+    spring.lines <- ggarrange(northing, easting, arr.occ, nrow=3)
+    
+    # COG
+    SD_plotting.cog <- size.list.cog[[i]]
+    SD_plotting.cog <- as.data.frame(SD_plotting.cog[,,])
+    colnames(SD_plotting.cog) <- c('easting', 'northing', 'e.sd', 'n.sd')
+    SD_plotting.cog$YearSeas <- year.labs
+    SD_plotting.cog$easting <- SD_plotting.cog$easting * 1000
+    SD_plotting.cog$northing <- SD_plotting.cog$northing * 1000
+    SD_plotting.cog <- separate(SD_plotting.cog, YearSeas, 
+                                into = c("Year", "Season"), sep = " (?=[^ ]+$)")
+    SD_plotting.cog$Year <- as.numeric(SD_plotting.cog$Year)
+    
+    # Convert to sf for plotting
+    SD_plotting <- st_as_sf(SD_plotting.cog, coords=c("easting", "northing"))
+    st_crs(SD_plotting) <- "EPSG:32619"
+    
+    # Spring
+    SD_plotting.spring <- subset(SD_plotting, Season =='Spring')
+    points <- st_cast(st_geometry(SD_plotting.spring), "POINT") 
+    # Number of total linestrings to be created
+    n <- length(points) - 1
+    # Build linestrings
+    linestrings <- lapply(X = 1:n, FUN = function(x) {
+      
+      pair <- st_combine(c(points[x], points[x + 1]))
+      line <- st_cast(pair, "LINESTRING")
+      return(line)
+    })
+    # Split to individual linestrings, associate year
+    t.spring <- st_multilinestring(do.call("rbind", linestrings))
+    t.spring <-  nngeo::st_segments(t.spring)
+    t.spring <- st_sf(t.spring)
+    t.spring$Year <- seq(1982, 2020, 1)
+    st_crs(t.spring) <- "EPSG:32619"
+    
+    # Plot
+    spring.vis <- ggplot() +
+      geom_sf(data=coast, fill='gray') +
+      geom_sf(data=stocks, aes(col=STOCK), fill='transparent', lwd=0.25) +
+      guides(col=guide_legend(title="Stock", nrow=2,byrow=TRUE)) +
+      new_scale_color() +
+      geom_sf(data=SD_plotting.spring, aes(col=Year), pch=19, cex=0.5) +
+      scale_color_continuous(
+        limits = c(1982,2021), 
+        breaks = c(1982,1990, 2000, 2010, 2021),
+        labels = c('1982', ' ', ' ', ' ', '2021'),
+        guide = guide_colourbar(nbin = 100, draw.ulim = FALSE, draw.llim = FALSE)
+      )+
+      geom_sf(data=t.spring, aes(col=Year)) +
+      coord_sf(xlim=c(st_bbox(stocks[stocks$STOCK == 'SNE',])[1], 
+                      st_bbox(stocks[stocks$STOCK == 'SNE',])[3]),
+               ylim=c(st_bbox(stocks[stocks$STOCK == 'SNE',])[2], 
+                      st_bbox(stocks[stocks$STOCK == 'SNE',])[4])) +
+      xlab("Longitude") + ylab("Latitude")
+    
+    spring <- ggarrange(spring.vis, spring.lines, ncol=2) + bgcolor("white") 
+    
+    ggsave(spring,
+           filename=paste0(here(), "/Plot_output_3/location.info.",
+                           category_names[i], ".spring.sne.png"),
+           width = 10, height = 8, units='in')
     
     # Both Fall
     SD_plotting.fall <- merge(fall.cog, fall.eao, by=c("Year", "Season"))
@@ -255,29 +313,52 @@ for(i in 1:length(size.list.cog)){ # Number of sizes
       #ylim(c(-5000, 75000)) +
       ylab(" ")
     
-    plotname <- paste0('Fall')
-    
     # Arrange to plot
-    fall <- ggarrange(northing, easting, arr.occ, nrow=3)
-    fall <- annotate_figure(fall, top = text_grob(paste0(plotname),
-                                                      color='black',
-                                                      face='bold',
-                                                      size=14,
-                                                      vjust=1.4,
-                                                      hjust=0.1))
+    fall.lines <- ggarrange(northing, easting, arr.occ, nrow=3)
+
+    # Fall
+    SD_plotting.fall <- subset(SD_plotting, Season =='Fall')
+    points <- st_cast(st_geometry(SD_plotting.fall), "POINT") 
+    # Number of total linestrings to be created
+    n <- length(points) - 1
+    # Build linestrings
+    linestrings <- lapply(X = 1:n, FUN = function(x) {
+      
+      pair <- st_combine(c(points[x], points[x + 1]))
+      line <- st_cast(pair, "LINESTRING")
+      return(line)
+      
+    })
+    # Split to individual linestrings, associate year
+    t.fall <- st_multilinestring(do.call("rbind", linestrings))
+    t.fall <-  nngeo::st_segments(t.fall)
+    t.fall <- st_sf(t.fall)
+    t.fall$Year <- seq(1982, 2020, 1)
+    st_crs(t.fall) <- "EPSG:32619"
+    # Plot
+    fall.vis <- ggplot() +
+      geom_sf(data=coast, fill='gray') +
+      geom_sf(data=stocks, aes(col=STOCK), fill='transparent', lwd=0.25) +
+      guides(col=guide_legend(title="Stock", nrow=2,byrow=TRUE)) +
+      new_scale_color() +
+      geom_sf(data=SD_plotting.fall, aes(col=Year), pch=19, cex=0.5) +
+      scale_color_continuous(
+        limits = c(1982,2021), 
+        breaks = c(1982,1990, 2000, 2010, 2021),
+        labels = c('1982', ' ', ' ', ' ', '2021'),
+        guide = guide_colourbar(nbin = 100, draw.ulim = FALSE, draw.llim = FALSE)
+      )+
+      geom_sf(data=t.fall, aes(col=Year)) +
+      coord_sf(xlim=c(st_bbox(stocks[stocks$STOCK == 'SNE',])[1], 
+                      st_bbox(stocks[stocks$STOCK == 'SNE',])[3]),
+               ylim=c(st_bbox(stocks[stocks$STOCK == 'SNE',])[2], 
+                      st_bbox(stocks[stocks$STOCK == 'SNE',])[4])) +
+      xlab("Longitude") + ylab("Latitude")
     
-    # Arrange to plot
-    both <- ggarrange(spring, fall, nrow=1) + bgcolor('white')
-    both <- annotate_figure(both, top=text_grob(paste0(category_names[i],
-                                                       ' size class'),
-                                                color='black',
-                                                face='bold',
-                                                size=16,
-                                                vjust=2.75))
-    #plot(both)
-    ggsave(both,
-           filename=paste0(here(), "/Plot_Output_2/location.info.",
-                           category_names[i], ".wgom.png"),
+    fall <- ggarrange(fall.vis, fall.lines, ncol=2) + bgcolor("white") 
+    ggsave(fall,
+           filename=paste0(here(), "/Plot_output_3/location.info.",
+                           category_names[i], ".fall.sne.png"),
            width = 10, height = 8, units='in')
 }
 
@@ -339,10 +420,10 @@ for(i in 1:length(size.list.cog)){ # Categories
         guide = guide_colourbar(nbin = 100, draw.ulim = FALSE, draw.llim = FALSE)
       )+
       geom_sf(data=t.spring, aes(col=Year)) +
-      coord_sf(xlim=c(st_bbox(stocks[stocks$STOCK == 'WGOM',])[1], 
-                      st_bbox(stocks[stocks$STOCK == 'WGOM',])[3]),
-               ylim=c(st_bbox(stocks[stocks$STOCK == 'WGOM',])[2], 
-                      st_bbox(stocks[stocks$STOCK == 'WGOM',])[4])) +
+      coord_sf(xlim=c(st_bbox(stocks[stocks$STOCK == 'SNE',])[1], 
+                      st_bbox(stocks[stocks$STOCK == 'SNE',])[3]),
+               ylim=c(st_bbox(stocks[stocks$STOCK == 'SNE',])[2], 
+                      st_bbox(stocks[stocks$STOCK == 'SNE',])[4])) +
       xlab("Longitude") + ylab("Latitude") +
       ggtitle('Spring')
     
@@ -379,10 +460,10 @@ for(i in 1:length(size.list.cog)){ # Categories
         guide = guide_colourbar(nbin = 100, draw.ulim = FALSE, draw.llim = FALSE)
       )+
       geom_sf(data=t.fall, aes(col=Year)) +
-      coord_sf(xlim=c(st_bbox(stocks[stocks$STOCK == 'WGOM',])[1], 
-                      st_bbox(stocks[stocks$STOCK == 'WGOM',])[3]),
-               ylim=c(st_bbox(stocks[stocks$STOCK == 'WGOM',])[2], 
-                      st_bbox(stocks[stocks$STOCK == 'WGOM',])[4])) +
+      coord_sf(xlim=c(st_bbox(stocks[stocks$STOCK == 'SNE',])[1], 
+                      st_bbox(stocks[stocks$STOCK == 'SNE',])[3]),
+               ylim=c(st_bbox(stocks[stocks$STOCK == 'SNE',])[2], 
+                      st_bbox(stocks[stocks$STOCK == 'SNE',])[4])) +
       xlab("Longitude") + ylab("Latitude") +
       ggtitle('Fall')
     
@@ -400,6 +481,6 @@ for(i in 1:length(size.list.cog)){ # Categories
     # Save
     ggsave(combined,
            filename=paste0(here(), "/Plot_Output_2/cog.vis.",
-                           category_names[i], '.wgom.png'),
+                           category_names[i], '.sne.png'),
            width = 10, height = 8, units='in')
 }

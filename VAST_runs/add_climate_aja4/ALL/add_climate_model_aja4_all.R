@@ -17,7 +17,7 @@ library(ggcorrplot)
 library(splines)  # Used to include basis-splines
 library(INLAspacetime) # used for mesh-building
 # Add unitless back as possible unit (removed in units package update Mar 2023)
-install_unit(symbol='unitless', def='unitless', name='unitless')
+#install_unit(symbol='unitless', def='unitless', name='unitless')
 # Set GGplot auto theme
 theme_set(theme(panel.grid.major = element_line(color='lightgray'),
                 panel.grid.minor = element_blank(),
@@ -37,37 +37,6 @@ theme_set(theme(panel.grid.major = element_line(color='lightgray'),
 #### Add sample information and covars ####
 # Load data
 surveys <- read.csv(here("Data/VAST_input/cod_agesep_VASTdata.csv"))
-
-head(surveys)
-str(surveys)
-
-# If survey took place in Jan or Feb, associate observation with previous year.
-# Thinking: observations of the same season should be temporally continuous.
-# As is, "Fall- January" and "Fall-February" of year X are separated from
-# "Fall - September-December" of year X by "Spring- Mar-Aug" of year X and therefore
-# not temporally continuous. Would be better instead to link "Fall- Jan-Feb" of 
-# year X to "Fall- Sept-Dec" of year X-1.
-table(surveys$YEAR)
-
-for(i in 1:nrow(surveys)){
-  if(surveys$SEASON[i] == 'B.FALL' & surveys$month[i] %in% c(1,2)){
-    surveys$YEAR[i] <- surveys$YEAR[i] - 1
-  }
-}
-
-table(surveys$YEAR)
-
-# Exclude Fall 1981 samples.
-surveys <- subset(surveys, YEAR >=1982)
-
-# Reset time component
-surveys$SEASON <- factor(surveys$SEASON,
-                         levels=c('A.SPRING', 'B.FALL'))
-surveys$YEAR <- factor(surveys$YEAR)
-surveys$TIME <- paste0(surveys$YEAR, surveys$SEASON)
-surveys$TIME <- factor(surveys$TIME)
-
-surveys$TIME <- as.numeric(surveys$TIME)
 
 #### Finalize sampling data inputs ####
 # Save sampling data
@@ -175,7 +144,7 @@ colnames(region_shape) <- c("Region", 'geometry')
 # We could just use this same shapefile in the "index_shapes" argument, but to 
 # show off the new functions we wrote, we will also want to have a sf multipolygon
 # shapefiles with areas defined within this general region
-index_areas<- c("WGOM", "EGOM", "GBK", "SNE")
+index_areas<- c("EGOM", "GBK", "SNE", "WGOM")
 
 for(i in seq_along(index_areas)){
   index_area_temp<- st_read(paste0(here::here("", "Data/GIS"), '/', 
@@ -197,7 +166,7 @@ index_area_shapes <- bind_rows(index_area_shapes, region_shape)
 index_area_shapes <- st_make_valid(index_area_shapes)
 
 # Finally, run `vast_make_extrap_grid` function after specifying the strata we want to use
-strata_use<- data.frame(STRATA = c( "WGOM", "EGOM", "GBK", "SNE", "ALL"))
+strata_use<- data.frame(STRATA = c( "ALL", "EGOM", "GBK", "SNE", "WGOM"))
 vast_extrap_grid<- vast_make_extrap_grid(region_shapefile = region_shape, 
                                          index_shapes = index_area_shapes, 
                                          #strata.limits = strata_use, 
@@ -210,7 +179,7 @@ rm(list=setdiff(ls(), c("scaled.covars", "settings", 'strata_use', 'survs',
                         'vast_extrap_grid')))
 gc()
 
-working_dir <- here::here("VAST_runs/add_climate_aja5/WGOM")
+working_dir <- here::here("VAST_runs/add_climate_aja4/ALL")
 # Create working directory if it doesn't exist
 if(!dir.exists(working_dir)) {
   dir.create(working_dir)
@@ -230,24 +199,26 @@ if (use_edited_funs) {
                     "FishStatsUtils")
 }
 
-# extrap_info_aja_wgom <- make_extrapolation_info(Region="User",
-#                                             strata.limits=strata_use,
-#                                             input_grid = vast_extrap_grid,
-#                                             max_cells = 2000
-# )
-# head(extrap_info_aja_wgom$a_el)
-# head(extrap_info_aja_wgom$Data_Extrap)
-#write_rds(extrap_info_aja_wgom,
-#          here('Data/VAST_input/extrap_info_aja_wgom.RDS'))
-extrap_info_aja_wgom <- readRDS(here('Data/VAST_input/extrap_info_aja_wgom.RDS'))
+extrap_info_aja_all <- make_extrapolation_info(Region="User",
+                                            strata.limits=strata_use,
+                                            input_grid = vast_extrap_grid,
+                                            max_cells = 2000
+)
+head(extrap_info_aja_all$a_el)
+head(extrap_info_aja_all$Data_Extrap)
+write_rds(extrap_info_aja_all,
+          here('Data/VAST_input/extrap_info_aja_all.RDS'))
+#extrap_info_aja_wgom <- readRDS(here('Data/VAST_input/extrap_info_aja_wgom.RDS'))
 
 # Remove intermediates
 rm(list=setdiff(ls(), c("scaled.covars", "settings", 'strata_use', 'survs',
                         'vast_extrap_grid', 'extrap_info',
-                        'working_dir', 'extrap_info_aja_wgom')))
+                        'working_dir', 'extrap_info_aja_all')))
 gc()
 
 #### Run model ####
+
+
 # Set year labels
 year.labs <- c(seq(1982, 2021, 1), seq(1982, 2021, 1))
 year.labs <- year.labs[order(year.labs)]
@@ -274,7 +245,6 @@ getwd()
 #          log-link for biomass per number
 settings$ObsModel[1] <- 4
 settings$ObsModel[2] <- 1
-#settings$RhoConfig <- c("Beta1" = 3, "Beta2" = 3, "Epsilon1" = 4, "Epsilon2" = 4)
 
 # Model formula
 hab_formula<- ~ bs(cobble_P, degree = 3, intercept = FALSE) + 
@@ -309,7 +279,7 @@ fit = fit_model(
   
   # Call spatial 
     input_grid=vast_extrap_grid,
-    "extrapolation_list" = extrap_info_aja_wgom,
+    "extrapolation_list" = extrap_info_aja_all,
   
   # Set naming conventions
     category_names = cat.labs,
@@ -326,7 +296,7 @@ beep(8)
 
 #### Plot results ####
 
-save.image('add_climate_aja5_wgom.RData')
+save.image('add_climate_aja4_all.RData')
 
 plot( fit )
 beep(8)
