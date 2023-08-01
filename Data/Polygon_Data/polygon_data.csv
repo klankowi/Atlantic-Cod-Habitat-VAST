@@ -10,7 +10,7 @@ interview,Name,Old.Name,use,year_range,months,target,light,abundance,depth.shall
 1,9,8 (avoid),avoid,2013,,avoid,,,,,"2013 avoid same as int_4, 5_avoid, fishing together"
 1,10,9,fish,2013,may jun jul aug sep oct nov dec,flounder haddock,,,,,"2013 same as int_4, polygon 6, fishing together specific fish flounder haddock leave if catch too many c c bycatch may june july aug sept oct nov dec"
 1,11,10,fish,2013,,specific,,,,,"2013 same as int_4, polygon 10, fishing together specific fish"
-1,12,11,fish,2013,,specific,,,,,"same as int_4, polygon 11 specific fishing"
+1,12,11,fish,2013,,specific,,,,,"2013 same as int_4, polygon 11 specific fishing"
 1,13,72,fish,2013,,groundfish,,,,,groundfish 2013
 2,1,1,fish,2004 2010 2013,,groundfish,,,,,2004 2010 2013 groundfish
 2,2,2_fall_win_spring,fish,2004,jan feb mar apr sep oct nov dec,cod,day,high,16,23,2004 cod mid-sept oct nov dec jan feb march april  day  16-23 fathoms  high
@@ -82,8 +82,8 @@ interview,Name,Old.Name,use,year_range,months,target,light,abundance,depth.shall
 5,5,3,fish,2004 2010,may jun jul,cod,day,high,37,37,2004 2010 cod high 2-3K/hr day may june july  37F
 5,6,3_avoid,avoid,2013,may jun jul,avoid,day,high,37,37,2013 avoid high 2-3K/hr day may june july  37F
 5,7,4,fish,2004 2010,apr may,cod,day,high,17,19,2004 2010 cod 2-3K/hr high day 17-19F april may
-5,8,4,fish,2013,apr may,cod,day,high,17,19,2013 avoid 2-3K/hr high day 17-19F april may
-5,9,4_avoid,avoid,2013,apr may,avoid,day,high,17,19,2013 cod  2-3K/hr high day 17-19F april may
+5,8,4_avoid,avoid,2013,apr may,cod,day,high,17,19,2013 avoid 2-3K/hr high day 17-19F april may
+5,9,4,fish,2013,apr may,avoid,day,high,17,19,2013 cod  2-3K/hr high day 17-19F april may
 5,10,5,fish,2004 2010,apr may oct nov dec,cod,day,high,35,35,2004 2010 cod high 2-3K/hr day 35F oct nov dec april may
 5,11,5_avoid,avoid,2013,apr may oct nov dec,avoid,day,high,35,35,2013 avoid high 2-3K/hr day 35F oct nov dec april may
 5,12,gf,fish,2004 2010 2013,,groundfish,,,,,2004 2010 2013 ground
@@ -111,7 +111,7 @@ interview,Name,Old.Name,use,year_range,months,target,light,abundance,depth.shall
 7_8,15,30_summer,fish,2004,jul aug sep oct,cod,night,high,,,"2004,high, cod, july, aug, sept, oct  20 min tow catch a 2-5K summer night july-sept"
 7_8,16,30_summer_avoid,avoid,2004,jul aug sep oct,avoid,night,high,,,"2004  july, aug, sept, oct  20 min tow catch a 2-5K avoid summer night july-sept"
 7_8,17,30_winter,fish,2004,jan oct nov dec,cod,night,high,15,30,"2004,high, cod  oct, nov, dec, jan, 15-30F, night 20 min tow catch a 2-5K day nov-jan"
-7_8,18,20_winter_avoid,avoid,2004,jan oct nov dec,avoid,night,high,15,30,"2004,high, avoid oct, nov, dec, jan, 15-30F, night 20 min tow catch a 2-5K day nov-jan"
+7_8,18,30_winter_avoid,avoid,2004,jan oct nov dec,avoid,night,high,15,30,"2004,high, avoid oct, nov, dec, jan, 15-30F, night 20 min tow catch a 2-5K day nov-jan"
 7_8,19,31,fish,2013,,specific,,,,,2013 specific fish
 7_8,20,32,fish,2013,jun jul aug sep,specific,,,,,"2013, june, july,august,september, specific_fishing"
 7_8,21,33,fish,2004,nov dec,cod,day,high,30,35,"2004,november,december,high,cod,day 30-35F 20 min tows 10K lbs"
@@ -152,7 +152,7 @@ interview,Name,Old.Name,use,year_range,months,target,light,abundance,depth.shall
 10,14,47,fish,2004 2010,jan nov dec,cod,,high,30,30,"november, dec, jan high 30F cod 2004-2009 TOD"
 10,15,47_avoid,avoid,2013,jan nov dec,avoid,,,,,"november, dec, jan avoid 2013 TOD"
 10,16,48,fish,2004,jan feb mar dec,cod,,high,30,45,"december, jan, feb, march water temperatures warm 30F if water temp cold 45-40F high cod 2004 TOD"
-10,17,47_avoid,avoid,2013,jan feb mar dec,avoid,,,,,"december, jan, feb, march avoid  2013 TOD"
+10,17,48_avoid,avoid,2013,jan feb mar dec,avoid,,,,,"december, jan, feb, march avoid  2013 TOD"
 10,18,49,avoid,2013,feb mar jul aug,avoid,,,,,Feb march july august 2013 avoid TIME OF DAY DEPTH
 10,19,49_avoid,avoid,2004,feb mar jul aug,avoid,,high,,,Feb march july august high avoid 2004 TIME OF DAY DEPTH
 10,20,50,fish,2004,jun jul aug,cod,,high,,,july june august high cod 2004 DEPTH TIME OF DAY
@@ -205,7 +205,7 @@ interview,Name,Old.Name,use,year_range,months,target,light,abundance,depth.shall
 12,19,78,fish,2004,,groundfish,,,,,ground 2004
 17,1,1H,fish,2004 2010 2013,,groundfish,,,,,groundfishing 2004 2013 2010
 17,2,82,fish,2004,jun jul aug,specific,,,,,2004 fish specific june july aug
-17,3,72,fish,2013,jan feb oct nov dec,specific,,,,,2013 oct nov dec jan feb fish specific
+17,3,82,fish,2013,jan feb oct nov dec,specific,,,,,2013 oct nov dec jan feb fish specific
 17,4,83,fish,2004,jun jul aug,cod,day night,medium,,,2004 june july august medium-high day night (fixed gear) cod DEPTH
 17,5,83_avoid,avoid,2013,jun jul aug,avoid,day night,,,,avoid 2013 june july august day night (fixed gear) TOD??
 17,6,84,fish,2004,may jun jul aug sep oct nov,cod,day night,high,,,2004 high may june july aug sept oct nov cod day night (fixed gear) DEPTH
@@ -350,9 +350,9 @@ interview,Name,Old.Name,use,year_range,months,target,light,abundance,depth.shall
 21,42,60,fish,2004,jan dec,cod,,,,,2004 dec jan hard bottom cod ABUNDANCE???? TOD???? DEPTH
 21,43,60,fish,2013,winter summer spring,specific,,,,,2013 specific fish winter summer spring cod ABUNDANCE DEPTH TOD
 21,44,60_avoid,avoid,2013,fall,avoid,,,,,2013 avoid fall ABUNDANCE DEPTH TOD
-21,45,62,fish,2004,mar,cod,,high,30,30,2004 spring march 30 fathoms sand bottom high cod TOY MONTHS TOD???
-21,46,62,fish,2013,summer winter spring,cod,,low,,,2013 summer winter spring bycatch cod TOD TOY DEPTH
-21,47,62_avoid,avoid,2013,fall,avoid,,,,,2013 avoid fall TOD TOY DEPTH
+21,45,61,fish,2004,mar,cod,,high,30,30,2004 spring march 30 fathoms sand bottom high cod TOY MONTHS TOD???
+21,46,61,fish,2013,summer winter spring,cod,,low,,,2013 summer winter spring bycatch cod TOD TOY DEPTH
+21,47,61_avoid,avoid,2013,fall,avoid,,,,,2013 avoid fall TOD TOY DEPTH
 21,48,62,fish,2004,jan feb mar apr may jun jul aug sep oct nov dec,cod,,high,30,30,2004 year-round jan feb march april may june july aug sept oct nov high sand/cobble 30 fathoms cod TOD???
 21,49,62_2013,fish,2013,winter summer spring,cod,,low,,,2013 low cod winter summer spring ABUND? depth TOD TOY
 21,50,62_avoid,avoid,2013,fall,avoid,,,,,2013 avoid fall ABUND? depth TOD TOY
