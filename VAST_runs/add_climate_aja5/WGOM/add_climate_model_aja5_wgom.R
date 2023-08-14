@@ -74,7 +74,7 @@ surveys$TIME <- as.numeric(surveys$TIME)
 survs <- dplyr::select(surveys,
                        LON, LAT, AREA_SWEPT,
                        TIME, SURVEY, RESPONSE, 
-                       AGEGROUP)
+                       AGEGROUP, STOCK)
 
 # Remove unknown size class, makes model not converge
 survs <- subset(survs, AGEGROUP != "Unknown")
@@ -108,10 +108,11 @@ survs$AGEGROUP <- as.numeric(factor(survs$AGEGROUP, levels=c(
 
 survs <- dplyr::select(survs, LON, LAT, TIME, RESPONSE, 
                        AGEGROUP, 
-                       vessel, swept)
+                       vessel, swept, STOCK)
 names(survs) <- c('Lon', 'Lat', 'Year', 'Response_variable', 
                   'Age', 
-                  'vessel', 'swept')
+                  'vessel', 'swept', 'STOCK')
+survs$STOCK <- as.factor(survs$STOCK)
 str(survs)
 
 # Save covariates
@@ -264,7 +265,7 @@ settings <- make_settings(
   bias.correct = FALSE,
   knot_method = "grid",
   max_cells = 2000,
-  strata.limits = strata_use
+  strata.limits = data.frame(STRATA = "WGOM")
 )
 
 getwd()
