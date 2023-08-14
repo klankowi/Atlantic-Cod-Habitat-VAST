@@ -207,9 +207,9 @@ vast_extrap_grid <- dplyr::select(vast_extrap_grid, Lon, Lat, Area_km2, STRATA)
 row.names(vast_extrap_grid) <- NULL
 
 # Remove intermediates
-rm(list=setdiff(ls(), c("scaled.covars", "settings", 'strata_use', 'survs',
-                        'vast_extrap_grid')))
-gc()
+# rm(list=setdiff(ls(), c("scaled.covars", "settings", 'strata_use', 'survs',
+#                         'vast_extrap_grid')))
+# gc()
 
 working_dir <- here::here("VAST_runs/add_climate_aja5/WGOM")
 # Create working directory if it doesn't exist
@@ -243,10 +243,10 @@ if (use_edited_funs) {
 extrap_info_aja_wgom <- readRDS(here('Data/VAST_input/extrap_info_aja5_wgom.RDS'))
 
 # Remove intermediates
-rm(list=setdiff(ls(), c("scaled.covars", "settings", 'strata_use', 'survs',
-                        'vast_extrap_grid', 'extrap_info',
-                        'working_dir', 'extrap_info_aja_wgom')))
-gc()
+# rm(list=setdiff(ls(), c("scaled.covars", "settings", 'strata_use', 'survs',
+#                         'vast_extrap_grid', 'extrap_info',
+#                         'working_dir', 'extrap_info_aja_wgom')))
+# gc()
 
 #### Run model ####
 # Set year labels
@@ -304,10 +304,10 @@ hab_env_coeffs_n<- length(attributes(terms.formula(hab_formula))$term.labels)
 
 # Also going to need to adjust our vast_coveff as we will now be including habitat covariates in the X1 and X2 formula. Additionally, some modification as we will be using splines::bs of three degrees
 vast_coveff_habcovs<- vast_make_coveff(X1_coveff_vec = matrix(
-                                        data=(rep(rep(rep(1, gam_degree), hab_env_coeffs_n), 3)),
+                                        data=(rep(rep(rep(2, gam_degree), hab_env_coeffs_n), 3)),
                                         nrow=3, ncol=27),
                                        X2_coveff_vec =  matrix(
-                                         data=(rep(rep(rep(1, gam_degree), hab_env_coeffs_n), 3)),
+                                         data=(rep(rep(rep(2, gam_degree), hab_env_coeffs_n), 3)),
                                          nrow=3, ncol=27), 
                                        Q1_coveff_vec = NULL, 
                                        Q2_coveff_vec = NULL, 
