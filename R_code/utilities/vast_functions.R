@@ -722,7 +722,7 @@ reduce_vast_predict_df <- function(vast_predict_df = vast_predict_df, vast_spati
 #'
 #' @export
 
-vast_make_coveff <- function(X1_coveff_vec, X2_coveff_vec, Q1_coveff_vec, Q2_coveff_vec) {
+vast_make_coveff <- function(X1_coveff_vec, X2_coveff_vec, Q1_coveff_vec, Q2_coveff_vec, n_c) {
 
   # For debugging
   if (FALSE) {
@@ -734,9 +734,9 @@ vast_make_coveff <- function(X1_coveff_vec, X2_coveff_vec, Q1_coveff_vec, Q2_cov
 
   # Combine into a list and name it
   if (is.null(Q1_coveff_vec) | is.null(Q2_coveff_vec)) {
-    coveff_out <- list("X1config_cp" = matrix(X1_coveff_vec, nrow = 1), "X2config_cp" = matrix(X2_coveff_vec, nrow = 1), "Q1config_k" = NULL, "Q2config_k" = NULL)
+    coveff_out <- list("X1config_cp" = matrix(X1_coveff_vec, nrow = n_c), "X2config_cp" = matrix(X2_coveff_vec, nrow = n_c), "Q1config_k" = NULL, "Q2config_k" = NULL)
   } else {
-    coveff_out <- list("X1config_cp" = matrix(X1_coveff_vec, nrow = 1), "X2config_cp" = matrix(X2_coveff_vec, nrow = 1), "Q1config_k" = matrix(Q1_coveff_vec, nrow = 1), "Q2config_k" = matrix(Q2_coveff_vec, nrow = 1))
+    coveff_out <- list("X1config_cp" = matrix(X1_coveff_vec, nrow = n_c), "X2config_cp" = matrix(X2_coveff_vec, nrow = n_c), "Q1config_k" = matrix(Q1_coveff_vec, nrow = n_c), "Q2config_k" = matrix(Q2_coveff_vec, nrow = n_c))
   }
 
   # Return it
@@ -854,7 +854,7 @@ vast_build_sdm <- function(settings, spatial_list = NULL, extrapolation_list = N
   # Run VAST::fit_model with correct info and settings
   # vast_build_out <- fit_model_aja("settings" = settings, "Method" = settings$Method, "input_grid" = extrap_grid, "Lat_i" = sample_data[, "Lat"], "Lon_i" = sample_data[, "Lon"], "t_i" = sample_data[, "Year"], "c_i" = rep(0, nrow(sample_data)), "b_i" = sample_data[, "Biomass"], "a_i" = sample_data[, "Swept"], "PredTF_i" = sample_data[, "Pred_TF"], "X1config_cp" = Xconfig_list[["X1config_cp"]], "X2config_cp" = Xconfig_list[["X2config_cp"]], "covariate_data" = covariate_data, "X1_formula" = X1_formula, "X2_formula" = X2_formula, "X_contrasts" = X_contrasts, "catchability_data" = catchability_data, "Q1_formula" = Q1_formula, "Q2_formula" = Q2_formula, "Q1config_k" = Xconfig_list[["Q1config_k"]], "Q2config_k" = Xconfig_list[["Q2config_k"]], "newtonsteps" = 1, "getsd" = TRUE, "getReportCovariance" = TRUE, "run_model" = FALSE, "test_fit" = FALSE, "Use_REML" = FALSE, "getJointPrecision" = TRUE, "index_shapes" = index_shapes, "DirPath" = spatial_info_dir)
 
-  vast_build_out <- fit_model("settings" = settings, "Method" = settings$Method, "spatial_list" = spatial_list, "extrapolation_list" = extrapolation_list, "input_grid" = extrap_grid, "Lat_i" = sample_data[, "Lat"], "Lon_i" = sample_data[, "Lon"], "t_i" = sample_data[, "Year"], "c_i" = rep(0, nrow(sample_data)), "b_i" = sample_data[, "Biomass"], "a_i" = sample_data[, "Swept"], "PredTF_i" = sample_data[, "Pred_TF"], "X1config_cp" = Xconfig_list[["X1config_cp"]], "X2config_cp" = Xconfig_list[["X2config_cp"]], "covariate_data" = covariate_data, "X1_formula" = X1_formula, "X2_formula" = X2_formula, "X_contrasts" = X_contrasts, "catchability_data" = catchability_data, "Q1_formula" = Q1_formula, "Q2_formula" = Q2_formula, "Q1config_k" = Xconfig_list[["Q1config_k"]], "Q2config_k" = Xconfig_list[["Q2config_k"]], "newtonsteps" = 1, "getsd" = TRUE, "getReportCovariance" = TRUE, "run_model" = FALSE, "test_fit" = FALSE, "Use_REML" = FALSE, "getJointPrecision" = TRUE)
+  vast_build_out <- fit_model("settings" = settings, "Method" = settings$Method, "spatial_list" = spatial_list, "extrapolation_list" = extrapolation_list, "input_grid" = extrap_grid, "Lat_i" = sample_data[, "Lat"], "Lon_i" = sample_data[, "Lon"], "t_i" = sample_data[, "Year"], "c_iz" = sample_data[,"c_iz"], "v_i" = sample_data[,"v_i"], "b_i" = sample_data[, "Biomass"], "a_i" = sample_data[, "Swept"], "PredTF_i" = sample_data[, "Pred_TF"], "X1config_cp" = Xconfig_list[["X1config_cp"]], "X2config_cp" = Xconfig_list[["X2config_cp"]], "covariate_data" = covariate_data, "X1_formula" = X1_formula, "X2_formula" = X2_formula, "X_contrasts" = X_contrasts, "catchability_data" = catchability_data, "Q1_formula" = Q1_formula, "Q2_formula" = Q2_formula, "Q1config_k" = Xconfig_list[["Q1config_k"]], "Q2config_k" = Xconfig_list[["Q2config_k"]], "newtonsteps" = 1, "getsd" = TRUE, "getReportCovariance" = TRUE, "run_model" = FALSE, "test_fit" = FALSE, "Use_REML" = FALSE, "getJointPrecision" = TRUE)
 
   # Return it
   return(vast_build_out)
