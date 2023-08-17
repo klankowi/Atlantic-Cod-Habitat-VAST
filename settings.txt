@@ -5,15 +5,11 @@ $n_x
 [1] 200
 
 $Region
-[1] "User"
+[1] "gulf_of_alaska"
 
 $strata.limits
-  STRATA
-1   WGOM
-2   EGOM
-3    GBK
-4    SNE
-5    ALL
+     STRATA
+1 All_areas
 
 $zone
 [1] NA
@@ -33,17 +29,18 @@ Method   Rank Timing
      0      0      0 
 
 $OverdispersionConfig
-[1] 0 0
+Eta1 Eta2 
+   0    0 
 
 $ObsModel
-[1] 4 1
+[1] 2 1
 
 $vars_to_correct
 [1] "Index_cyl" "Index_ctl"
 
 $Options
            Calculate_Range   Calculate_effective_area treat_nonencounter_as_zero 
-                      TRUE                       TRUE                      FALSE 
+                      TRUE                       TRUE                       TRUE 
 
 $grid_size_km
 [1] 25
@@ -55,10 +52,10 @@ $knot_method
 [1] "grid"
 
 $Method
-[1] "Barrier"
+[1] "Mesh"
 
 $use_anisotropy
-[1] TRUE
+[1] FALSE
 
 $fine_scale
 [1] TRUE

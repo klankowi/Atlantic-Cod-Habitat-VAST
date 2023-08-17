@@ -1,552 +1,563 @@
-interview,Name,Old.Name,use,year_range,months,target,light,abundance,depth.shallow,depth.deep,Notes
-1,1,1,fish,2004 2010,jan feb mar apr may jun jul aug sep oct nov dec,cod,night,high,14,30,2004 2010 year-round jan feb march april may june july aug sept oct nov dec night high (800 pounds in 15 min) cod  hit on way back 14-30 fathoms
-1,2,2,fish,2004 2010,oct nov dec,cod flounder,day,medium,30,45,2004 2010 fall oct nov dec day med abundance cod and flounder 30-45 fathoms
-1,3,3,fish,2004 2010,apr may,cod,day,high,30,40,2004 2010 spring april may day high (800 pounds in 15 mins) cod 30-40 fathoms
-1,4,4,fish,2004 2010,oct nov dec,cod,night,high,30,30,2004 2010 fall oct nov dec night high small cod 30 fathoms
-1,5,5,fish,2004 2010,oct nov dec,cod,day,medium,40,50,2004 2010 oct nov dec fall large cod spotty day medium cod 40-50 fathoms
-1,6,5,fish,2004 2010,oct nov dec,monkfish flounder,,,,,2004 2010 specific fish monks flounders fall oct nov dec
-1,7,6,fish,2004 2010,,groundfish,,,,,2004 2010 groundfish
-1,8,7 (avoid),avoid,2013,feb mar apr,avoid,day,,,,"2013 avoid same as int_4, 12 (avoid), fishing together avoid humps and edges  winter feb march april day"
-1,9,8 (avoid),avoid,2013,,avoid,,,,,"2013 avoid same as int_4, 5_avoid, fishing together"
-1,10,9,fish,2013,may jun jul aug sep oct nov dec,flounder haddock,,,,,"2013 same as int_4, polygon 6, fishing together specific fish flounder haddock leave if catch too many c c bycatch may june july aug sept oct nov dec"
-1,11,10,fish,2013,,specific,,,,,"2013 same as int_4, polygon 10, fishing together specific fish"
-1,12,11,fish,2013,,specific,,,,,"2013 same as int_4, polygon 11 specific fishing"
-1,13,72,fish,2013,,groundfish,,,,,groundfish 2013
-2,1,1,fish,2004 2010 2013,,groundfish,,,,,2004 2010 2013 groundfish
-2,2,2_fall_win_spring,fish,2004,jan feb mar apr sep oct nov dec,cod,day,high,16,23,2004 cod mid-sept oct nov dec jan feb march april  day  16-23 fathoms  high
-2,3,2_sum_fall,fish,2004,jun jul aug sep,cod,night,high,16,23,2004 cod june july aug mid-sept  night  16-23 fathoms  high
-2,4,3,fish,2004,mar apr,cod,day,high,45,58,2004 march april day high (800 pounds in 2-3 hour tow) cod 45-58 fathoms
-2,5,3,fish,2004,mar apr,haddock,,,45,58,2004 specific fish march april haddock 45-58 fathoms
-2,6,4,fish,2004,,specific,,,,,2004 specific fish
-2,7,5,fish,2004,mar apr,specific,,,,,2004 specific fish march april
-2,8,6,fish,2010,may jun jul aug sep oct nov dec,cod,day,medium,45,80,2010 may june july day med cod 45-80 fathoms
-2,9,7,fish,2013,jul aug sep oct nov,haddock,,,,,2013 specific fish july sept aug oct nov haddock 75% of fishing done here
-2,10,8,fish,2013,may jun jul aug sep oct nov dec,cod,day,medium,40,60,2013 med abundance (couple thousand in a day) may june july aug sept oct nov  day cod 40-60 fathoms
-2,11,8_avoid,avoid,2013,jan feb mar apr dec,avoid,,,,,2013 avoid dec jan feb march april
-2,12,9,fish,2013,,haddock,,,,,2013 Thatcher tow specific fish haddock
-2,13,9,fish,2013,,cod,,,60,60,2013 Thatcher tow cod varied abundance 60 fathoms
-3,1,1,fish,2004,,pollock flounder,,,,,2004 specific fish pollock flounder
-3,2,2,fish,2013,,groundfish,,,,,2013 gen groundfish
-3,3,3,fish,2004 2010,may jun,haddock,day night,medium,20,35,2004 2010 cod may june day and night 20-35 fathom med caught while fish for haddock
-3,4,3,fish,2004 2010,may jun,haddock,,,,,2004 2010 specific fish haddock may june
-3,5,3_avoid,avoid,2013,may jun,avoid,,,,,2013 avoid may june
-3,6,4,fish,2004 2010,jan feb mar apr may jun jul aug sep oct nov dec,redfish pollock,night,high,15,25,2004 2010 cod year-round get limit while fishing for redfish and pollock night 15-25 fathoms high
-3,7,4_avoid,avoid,2013,jan feb mar apr may jun jul aug sep oct nov dec,avoid,,,,,2013 avoid year-round jan feb march april may june july aug sept oct nov dec
-3,8,5,fish,2004 2010,jan feb mar apr may jun jul aug sep oct nov dec,redfish pollock,night,high,15,25,2004 2010 cod year-round  get limit while fishing for redfish and pollock night 15-25 fathoms high
-3,9,5_avoid,avoid,2013,jan feb mar apr may jun jul aug sep oct nov dec,avoid,,,,,2013 avoid year-round jan feb march april may june july aug sept oct nov dec
-3,10,6,fish,2010,,groundfish,,,,,2010 groundfish
-3,11,7,fish,2010,,haddock,,,,,2010 specific fish haddock
-3,12,8,fish,2010,jan feb mar dec,cod,night,,30,60,2010  cod  winter dec jan feb march night 30-60 fathom
-3,13,8,fish,2010,jan feb mar dec,haddock pollock,,,,,2010  specific fish haddock pollock winter dec jan feb march
-3,14,8,avoid,2013,jan feb mar dec,avoid,,,,,2013 avoid winter dec jan feb march
-3,15,10,fish,2013,apr,cod,,high,,,2013  cod 18K in four tows  high april
-3,16,10_avoid,avoid,2013,apr,avoid,,,,,2013  avoid april
-3,17,11,fish,2004,,groundfish,,,,,2004 gen groundfish
-3,18,12,fish,2013,,haddock,,low,,,2013 haddock  specific fish c bycatch low
-3,19,13,fish,2004 2010,mar apr may jun,cod,day night,low,40,50,2004 2010 cod 40-50 fathoms spring march april may june low day night
-3,20,13,fish,2004 2010,mar apr may jun,lobster flounder haddock,,,,,2004 2010 specific fish lobster flounder haddock  spring march april may june
-3,21,13_avoid,avoid,2013,mar apr may jun,avoid,,,,,2013 avoid spring march april may june
-3,22,14,fish,2004 2010,mar apr may jun,cod,day night,low,30,30,2004 2010 30 fathoms spring march april may june low day night cod
-3,23,14,fish,2004 2010,mar apr may jun,lobster flounder haddock,,,,,2004 2010 specific fish spring march april may june lobster flounder haddock
-3,24,14_avoid,avoid,2013,mar apr may jun,avoid,,,,,2013 avoid spring march april may june
-3,25,15,fish,2004,,pollock redfish flounder,,,,,2004 specific fish pollock redfish flounder
-3,26,16,fish,2004,,pollock redfish,,,,,2004 specific fish pollock redfish
-3,27,17,fish,2004 2010,may jun,haddock,day night,medium,20,35,2004 2010 cod may june day and night 20-35 fathom med caught while fish for haddock
-3,28,17,fish,2004 2010,may jun,haddock,,,,,2004 2010 specific fish haddock may june
-3,29,17_avoid,avoid,2013,may jun,avoid,,,,,2013 avoid may june
-3,30,18,fish,2010 2013,,haddock flounder,,,70,70,2010 2013 specific fish haddock flounder fish 70+ fathoms
-3,31,18_avoid,avoid,2013,jan feb mar apr may jun jul aug sep oct nov dec,avoid,,,70,70,2013 avoid by fishing 70+ fathoms make short tows year round to check
-3,32,19,fish,2004,,haddock flounder,,,,,2004  specific fish haddock flounder
-4,1,1,fish,2004 2010,,groundfish,,,,,2004 2010 groundfish
-4,2,1_gf,fish,2004 2010 2013,,groundfish,,,,,2004 2010  2013 groundfish
-4,3,2,fish,2004 2010,nov dec,cod,day,medium,30,40,"2004 2010 nov dec   day med abundance (800 in a 15 min tow) cod 30-40 fathoms 2010 spent more time there, would get 4000-5000 pounds in 5 hours to day and a half"
-4,4,2_gf,fish,2010,,groundfish,,,,,2010 groundfish
-4,5,3,fish,2004,apr may jun jul,flounder cod,day,medium,34,50,"2004 april may june july day med abundance (800 in a couple hour tow) fished for flounders, picked up cod 34-50 fathoms cod"
-4,6,3_gf,fish,2004,,groundfish,,,,,2004 groundfish
-4,7,4,fish,2004,,flounder,,,,,2004 specific fish  flounder
-4,8,5,fish,2004 2010,apr may jun jul aug sep oct nov,cod,night,high,14,20,2004 2010 april may june july aug sept oct nov  night high (800 pounds in 15 min tow) cod 14-20 fathoms
-4,9,5_avoid,avoid,2013,,avoid,,,,,2013 avoid
-4,10,6,fish,2004 2010,jan feb mar dec,cod flounder,day night,medium,40,46,2004 2010  dec jan feb march  day and night med abundance cod with flounders 40-46 fathoms cod
-4,11,6,fish,2013,may jun jul aug sep oct nov dec,flounder haddock,,,,,2013 specific fish flounder haddock leave if catch too many cod c bycatch may june july aug sept oct nov dec
-4,12,7,fish,2004,,flounder,day night,,,,2004 specific fish flounder day and night
-4,13,7,fish,2004,,groundfish,,,,,2004 groundfish
-4,14,8,fish,2010,,groundfish,,,,,2010 groundfishing
-4,15,9,fish,2010,apr may jun jul,cod flounder monkfish greysole,day,medium,34,50,"2010 april may june july day med abundance (4-5K pounds in a couple days) cod, flounder, grey sole, monks 34-50 fathoms cod"
-4,16,10,fish,2013,,specific,,,,,2013 specific fish
-4,17,11,fish,2013,,specific,,,,,2013  specific fish
-4,18,12,avoid,2013,feb mar apr,avoid,day,,,,2013 avoid avoid humps and edges  winter feb march april day
-5,1,1,fish,2004 2010,jan dec,cod,day,high,15,38,2004 2010 cod dec jan high 2004 abundance 800/30 min or less 2010 abundance 2-3K/30 day 15-38F
-5,2,1_avoid,avoid,2013,jan dec,avoid,day,high,15,38,2013 avoid dec jan high 800/30 min or less 2-3K/30 day 15-38F
-5,3,2,fish,2004 2010,jul aug sep oct nov,cod,night,high,33,33,2004 2010 night july aug sept  cod high 15 min/2-3K 33F
-5,4,2_avoid,avoid,2013,jul aug sep oct nov,avoid,night,high,33,33,2013 night july aug sept  avoid high 15 min/2-3K 33F
-5,5,3,fish,2004 2010,may jun jul,cod,day,high,37,37,2004 2010 cod high 2-3K/hr day may june july  37F
-5,6,3_avoid,avoid,2013,may jun jul,avoid,day,high,37,37,2013 avoid high 2-3K/hr day may june july  37F
-5,7,4,fish,2004 2010,apr may,cod,day,high,17,19,2004 2010 cod 2-3K/hr high day 17-19F april may
-5,8,4_avoid,avoid,2013,apr may,cod,day,high,17,19,2013 avoid 2-3K/hr high day 17-19F april may
-5,9,4,fish,2013,apr may,avoid,day,high,17,19,2013 cod  2-3K/hr high day 17-19F april may
-5,10,5,fish,2004 2010,apr may oct nov dec,cod,day,high,35,35,2004 2010 cod high 2-3K/hr day 35F oct nov dec april may
-5,11,5_avoid,avoid,2013,apr may oct nov dec,avoid,day,high,35,35,2013 avoid high 2-3K/hr day 35F oct nov dec april may
-5,12,gf,fish,2004 2010 2013,,groundfish,,,,,2004 2010 2013 ground
-6,1,7gf,fish,2004 2010 2013,,groundfish whiting,,,,,grounfish 2004 2010 2013 2004 whiting fishery do we want to count this?
-6,2,19,fish,2010 2013,,specific,,,,,"2010,2013 tow around humps can't tow over hard bottom fish specific"
-6,3,20,fish,2004,jan oct nov dec,cod,day,high,30,35,fall October nov dec jan 2004 daytime fishing high cod various humps kennedy's fall get large markets 30-35F 1K/hr easy. Never more than an hr. Usually 1k/30min spawning
-6,4,20_avoid,avoid,2010 2013,jan oct nov dec ,avoid,day,,,,fall oct nov dec jan 2013 2010 daytime fishing avoid
-6,5,21,fish,2004,apr may jun jul aug sep oct nov,cod,day,high,15,20,2004 april may june july aug sept oct night time 15-20F 800lbs a day 800lbs/15 min or 800lbs/day feeding cod cod high
-6,6,21_avoid,avoid,2010 2013,apr may jun jul aug sep oct,avoid,night,,,,"2013, 2010 spring summer april may june july aug sept oct night time avoid"
-6,7,22,fish,2010 2013,,specific,,,,,"2010,2013 fish specific tow around humps"
-7_8,1,1B,fish,2004 2010,,groundfish,,,,,"2004, 2010 groundfish"
-7_8,2,24,fish,2010,apr,cod,,,,,"2010,cod,april"
-7_8,3,24_avoid,avoid,2013,apr,avoid,,,,,"2013,avoid,april, TOD ABUND DEPTH"
-7_8,4,25,fish,2004,jan apr may jun jul aug sep oct nov dec,cod,day,high,15,50,"2004,cod,high,fall,winter, april, may, june, july, august, sept, oct, nov, dec, jan  2hrs catch few thousand cod, 15-50F day"
-7_8,5,25_avoid,avoid,2013,jan apr may jun jul aug sep oct nov dec,avoid,day,high,15,50,"2013,avoid,fall,winter, april, may, june, july, august, sept, oct, nov, dec, jan  2hrs catch few thousand, 15-50F day"
-7_8,6,26,fish,2004 2010 2013,,groundfish,,,,,"2004,2010,2013, groundfish"
-7_8,7,27,fish,2010,jun jul aug sep oct,cod,night,low,,,"2010,night, june,july,august,september,october, cod, full day to catch few thousand. 500-1K cod a tow 2 hr tow. low"
-7_8,8,27_avoid,avoid,2010,jun jul aug sep oct,avoid,night,,,,"2013,night, june,july,august,september,october,avoid"
-7_8,9,28,fish,2010,jan apr may jun jul aug sep oct nov,cod,day,medium,16,18,2010 16-18F day april may jun july aug sept oct nov jan cod 500-1K two hour tow low-mid
-7_8,10,28_avoid,avoid,2013,jan apr may jun jul aug sep oct nov,avoid,day,,,,2013 day avoid april may jun july aug sept oct nov jan
-7_8,11,29_not_summer,fish,2010,jan apr may jun nov dec,cod,day,medium,,,"2010,april,may,june,november,december,january cod day medium few thousand 1-2hrs of fishing"
-7_8,12,29_not_summer_avoid,avoid,2010,jan apr may jun nov dec,cod,day,medium,,,"2010,april,may,june,november,december,january cod day medium few thousand 1-2hrs of fishing"
-7_8,13,29_summer,fish,2010,jul aug sep oct,cod,night,high,,,"2010,july,august,september,october cod summer night  few thousand in a few hours high"
-7_8,14,29_summer_avoid,avoid,2010,jul aug sep oct,cod,night,high,,,"2010,july,august,september,october cod summer night  few thousand in a few hours high"
-7_8,15,30_summer,fish,2004,jul aug sep oct,cod,night,high,,,"2004,high, cod, july, aug, sept, oct  20 min tow catch a 2-5K summer night july-sept"
-7_8,16,30_summer_avoid,avoid,2004,jul aug sep oct,avoid,night,high,,,"2004  july, aug, sept, oct  20 min tow catch a 2-5K avoid summer night july-sept"
-7_8,17,30_winter,fish,2004,jan oct nov dec,cod,night,high,15,30,"2004,high, cod  oct, nov, dec, jan, 15-30F, night 20 min tow catch a 2-5K day nov-jan"
-7_8,18,30_winter_avoid,avoid,2004,jan oct nov dec,avoid,night,high,15,30,"2004,high, avoid oct, nov, dec, jan, 15-30F, night 20 min tow catch a 2-5K day nov-jan"
-7_8,19,31,fish,2013,,specific,,,,,2013 specific fish
-7_8,20,32,fish,2013,jun jul aug sep,specific,,,,,"2013, june, july,august,september, specific_fishing"
-7_8,21,33,fish,2004,nov dec,cod,day,high,30,35,"2004,november,december,high,cod,day 30-35F 20 min tows 10K lbs"
-7_8,22,33_avoid,avoid,2013,nov dec,avoid,day,,,,"2013,november,december, day avoid"
-7_8,23,34,fish,2004,nov dec,cod,day,high,30,35,"2004,cod,high,november, december, day, 30-35F couple thousand in 10 mintow"
-7_8,24,34_avoid,avoid,2013,nov dec,avoid,,,,,"2013,november, december avoid TIME OF DAY"
-9,1,1,fish,2004 2010,mar apr may,cod,day night,high,15,30,"market spring march, april, may day night (fixed gear) 15-30F high cod 2004 2010 800/15hr soak"
-9,2,1_avoid,avoid,2013,mar apr may,avoid,day night,,,,"2013 march, april, may day night (fixed gear) avoid"
-9,3,2,fish,2004 2010,mar apr may,cod,day night,high,15,30,"market spring march, april, may day night (fixed gear) 15-30F cod high 800/15hr soak 2004 2010"
-9,4,2,fish,2004,oct nov,cod,,high,,,2004 cod 800/8hrs high oct nov
-9,5,2_avoid,avoid,2013,mar apr may,avoid,day night,,,,"2013  march, april, may day night (fixed gear) avoid"
-9,6,11,fish,2004 2010,,specific,,,,,specific fish 2004-2009
-9,7,11,fish,2013,may,cod,,high,33,33,2013 cod 400/16hr high high b/c not targeting specific  33F may
-9,8,12,fish,2004 2010,,specific,,,,,specific fish 2004-2009
-9,9,35,fish,2004 2010,,specific,,,,,specific fish 2004-2009
-9,10,36,fish,2004 2010,mar apr may,cod,day night,high,15,30,"market spring march, april, may day night (fixed gear) 15-30F high cod 2004 2010 800/15hr soak"
-9,11,36_avoid,avoid,2013,mar apr may,avoid,day night,,,,"2013 march, april, may day night (fixed gear) avoid"
-9,12,37_38,fish,2004 2010,,specific,,,,,2004-2009 specific fish
-9,13,39_38,fish,2010 2013,,specific,,,,,"market 2010, 2013 specific fish"
-9,14,40,fish,2004 2010,may jun jul aug sep oct,cod,day night,,30,30,cod 2004 2010 30F spring may june july aug sept oct 800/16-20hr soak market day night (fixed gear)
-9,15,40_avoid,avoid,2013,may jun jul aug sep,avoid,day night,,,,2013 spring may june july aug sept avoid day night (fixed gear)
-9,16,72gf,fish,2013,,groundfish,,,,,2013 groundfish
-9,17,72gf,fish,2004 2010,,groundfish,,,,,2004 2010 groundfish
-9,18,Untitled Polygon,fish,2004 2010,apr may nov,cod,day night,high,35,40,2004 2010 cod high  3-4k/15 hr 35-40F april may nov (fishing with interviewer 19)
-10,1,1,fish,2013,,haddock,,,,,2013 specific fishing haddock
-10,2,1gf,fish,2004 2010 2013,,groundfish,,,,,2004 2010 2013 groundfishing
-10,3,41,fish,2004,apr may jun,cod,,high,30,30,high 30F cod april may june 2004
-10,4,41_avoid,avoid,2013,apr may jun,avoid,,,,,2013 avoid april may june
-10,5,42,fish,2004,apr may jun,cod,,high,35,42,april may june high cod 35-42F 2004 TOD
-10,6,42_avoid,avoid,2013,apr may jun,avoid,,,,,april may june avoid 2013 TOD
-10,7,43,fish,2004,apr may jun,cod,,high,,,april  may june high cod 2004 TOD
-10,8,43_avoid,avoid,2013,apr may jun,avoid,,,,,april  avoid may june 2013 TOD
-10,9,44,fish,2004,apr may jun,cod,,high,,,april may june high cod 2004 TOD DEPTH
-10,10,44_avoid,avoid,2013,apr may jun,avoid,,,,,april may june 2013 avoid TOD
-10,11,45,fish,2004,apr may jun jul,cod,,high,,,april may june july high cod 2004 TIME OF DAY DEPTH
-10,12,45_avoid,avoid,2013,apr may jun jul,avoid,,,,,april may june july avoid 2013 TIME OF DAY DEPTH
-10,13,46,fish,2013,,flounder,,,,,2013 flounder specific fish MONTHS
-10,14,47,fish,2004 2010,jan nov dec,cod,,high,30,30,"november, dec, jan high 30F cod 2004-2009 TOD"
-10,15,47_avoid,avoid,2013,jan nov dec,avoid,,,,,"november, dec, jan avoid 2013 TOD"
-10,16,48,fish,2004,jan feb mar dec,cod,,high,30,45,"december, jan, feb, march water temperatures warm 30F if water temp cold 45-40F high cod 2004 TOD"
-10,17,48_avoid,avoid,2013,jan feb mar dec,avoid,,,,,"december, jan, feb, march avoid  2013 TOD"
-10,18,49,avoid,2013,feb mar jul aug,avoid,,,,,Feb march july august 2013 avoid TIME OF DAY DEPTH
-10,19,49_avoid,avoid,2004,feb mar jul aug,avoid,,high,,,Feb march july august high avoid 2004 TIME OF DAY DEPTH
-10,20,50,fish,2004,jun jul aug,cod,,high,,,july june august high cod 2004 DEPTH TIME OF DAY
-10,21,50_avoid,avoid,2013,jun jul aug,avoid,,,,,july june august avoid 2013 DEPTH TIME OF DAY
-10,22,51,fish,2004,jun jul aug,cod,,high,,,june july august high cod 2004 TOD DEPTH
-10,23,51_avoid,avoid,2013,jun jul aug,avoid,,,,,june july august 2013 avoid TOD DEPTH
-10,24,52,fish,2010,may jun,cod,day,,,,may june day cod large 2010 DEPTH
-10,25,52_avoid,avoid,2013,may jun,avoid,day,,,,may june day avoid 2013
-10,26,53,fish,2013,,monkfish,,,,,bycatch 2013 specific fishing MONTHS TOD
-10,27,54,fish,2010,may jun,cod,night,,,,cod 2010 night may june scrod market DEPTH
-10,28,54_avoid,avoid,2013,may jun,avoid,night,,,,2013 night may june avoid
-11,1,1 gf,fish,2004 2010 2013,,groundfish,,,,,2004 2010 2013 groundfishing area
-11,2,55 gf,fish,2004 2010,,groundfish,,,,,2004 2010  groundfish
-11,3,57,fish,2013 2022,,specific,,,,,specific fishing 2013-2022
-11,4,58,fish,2004 2010 2013,jun,cod,day night,low,28,65,2004 2010 2013 cod june low-med SAME AS OTHER FOR AUNDANCE day night (fixed gear) 28-65 fathoms
-11,5,59,fish,2004 2010,jun,cod,day night,low,28,65,"2004, 2010 cod june low-med 200-500/24hr soak day night (fixed gear) 28-65 fathoms"
-11,6,59_avoid,avoid,2013,jun,avoid,day night,,28,65,june day night (fixed gear) 28-65 fathoms avoid 2013
-11,7,60,fish,2004 2010,jan jul aug sep oct nov dec,cod,day night,high,28,65,2004 2010 cod july aug sept oct nov dec jan day night (fixed gear) 28-65 fathoms high 800-5K lbs cod 24hrs.
-11,8,60_2013,fish,2013,jan jul aug sep oct nov dec,cod,day night,low,28,65,2013 cod july aug sept oct nov dec jan day night (fixed gear) 28-65 fathoms low-mid 800-5K lbs cod 24hrs. (low-high) lower end of range for 2013 time period
-11,9,61,fish,2013,jan jul aug sep oct nov dec,cod,day night,medium,28,65,2013 cod july aug sept oct nov dec jan day night (fixed gear) 28-65 fathoms high 800-5K lbs cod 24hrs. (low-high)
-11,10,62,fish,2004 2010 2013,mar apr may,cod,day night,low,65,100,2004 2010 2013 cod march april may 65-100 fathoms low-med  500-800 /24hr soak day night (fixed gear)
-11,11,62_avoid,avoid,2013,mar apr may,avoid,day night,low,65,100,2013 avoid march april may 65-100 fathoms low-med  500-800 /24hr soak day night (fixed gear)
-11,12,63,fish,2004 2010,mar apr may ,cod,day night,low,50,100,2004 2010 cod march april may low-med 400-800/24hr soak. 50-100 fathoms day night (fixed gear)
-11,13,63_avoid,avoid,2004 2010,mar apr may,avoid,day night,low,50,100,2004 2010 avoid march april may low-med 400-800/24hr soak. 50-100 fathoms day night (fixed gear)
-11,14,64,fish,2004 2010,may,cod,day night,medium,55,85,2004 2010 cod may low-med 55-85F 1-3K /24hr soak day night (fixed gear)
-11,15,64_avoid,avoid,2013,may,avoid,day night,,,,may day night (fixed gear) 2013 avoid
-11,16,65,fish,2004 2010,jan jul aug sep oct nov dec,cod,day night,medium,35,60,2004 2010 cod july aug sept oct nov dec jan medium 800-1K/24 soak day night (fixed gear) 60-35F
-11,17,66,fish,2004 2010,jan apr may jun jul aug sep oct nov dec,cod,day night,high,28,65,2004 2010  cod april may june july aug sept oct nov dec jan high day night (fixed gear) 800-5K /24hr soak 65-28F
-11,18,66,fish,2013,jan jul aug sep oct nov dec,cod,day night,low,28,65,2013 cod bycatch low july august sept oct nov dec jan day night (fixed gear) 400-1K/24 hrs soak 65-28F
-11,19,67,fish,2004 2010,jan jul aug sep oct nov dec,cod,day night,high,28,55,2004 2010 cod july aug sept oct nov dec jan high 28-55F day night (fixed gear) 800-5K lbs cod 24hrs.
-11,20,Untitled Polygon,fish,2013,,cod,day night,low,50,90,2013  cod day night fixed net 30 nets 500-1K/24hr soak 50-90F
-12,1,68,fish,2004 2010,jan feb mar apr may jun sep oct nov dec,cod,night,high,14,40,2004 2010 cod high night  14-40F jan feb march april may june september october november december
-12,2,68_avoid,avoid,2013,,avoid,night,,,,2013 night avoid MONTHS  ( 'NEARLY ALL MONTHS 10/12') DEPTH
-12,3,69,fish,2004 2010,feb mar apr,cod,day night,high,60,80,2010 2004 cod high feb march april  5-6K in a day day and night 60-80F
-12,4,69_avoid,avoid,2013,feb mar apr,avoid,,,,,2013 feb march april  avoid TOD DEPTH
-12,5,70,fish,2004 2010,feb mar apr,cod,day night,medium,80,90,2004 2010 cod low-high feb march april gravel/rock day and night 80-90F cod market-large 300-400 or 3K-4K
-12,6,70,fish,2013,jan feb may jun jul aug sep oct nov dec,cod,day night,low,80,90,2013 cod low jan feb may june july august sept oct nov dec gravel/rock day and night 80-90F cod market-large 300-400
-12,7,70_avoid,avoid,2013,mar apr,avoid,day night,,80,90,2013 avoidance march april gravel/rock day and night 80-90F cod market-large
-12,8,71,fish,2004,jan feb mar apr dec,cod pollock,day night,medium,80,80,2004 cod low-medium dec jan feb march april both pollock mostly  deep as 80F 500-1000K a day
-12,9,71_avoid,avoid,2013,jan feb mar apr dec,avoid,day night,,,,2013 avoid dec jan feb march april both DEPTH heck dates and location in closure
-12,10,73,fish,2004,oct nov dec,cod greysole monkfish,day night,medium,70,90,"2004 cod medium oct nov dec both 70-90F grey sol monks and some cod, 1000K a day"
-12,11,73_avoid,avoid,2013,oct nov dec,avoid,day night,,,,2013 avoid oct nov dec both DEPTH
-12,12,74,fish,2004 2010,feb mar apr,cod,day night,medium,90,100,2004 2010 low-medium feb march april 400-450lbs a day gravel/rock day and night 90-100F cod
-12,13,74,fish,2013,mar apr,cod,day,high,90,115,2013 march april  4000K left in quota so he did a tow there mid trip 4000K after 3-5 trips making a tow. day  90-115F cod
-12,14,75,fish,2004,jul aug nov dec,cod pollock redfish,day night,high,59,100,2004 cod high november december july aug both 59-100F 2500-3000/day pollock red fish too there so mix bag fishing
-12,15,75_avoid,avoid,2013,jul aug nov dec,avoid,day night,,,,2013 november december july aug both avoid DEPTH
-12,16,76,fish,2004,may jun jul,cod flounder,day,high,58,75,2004 high cod  may june july day 75-58F mixed bag fishing. flounders. 2500-3000/day.
-12,17,76_avoid,avoid,2013,may jun jul,avoid,day,,,,2013  may june july day avoid DEPTH
-12,18,77,fish,2010 2013,,groundfish,,,,,ground 2010 2013
-12,19,78,fish,2004,,groundfish,,,,,ground 2004
-17,1,1H,fish,2004 2010 2013,,groundfish,,,,,groundfishing 2004 2013 2010
-17,2,82,fish,2004,jun jul aug,specific,,,,,2004 fish specific june july aug
-17,3,82,fish,2013,jan feb oct nov dec,specific,,,,,2013 oct nov dec jan feb fish specific
-17,4,83,fish,2004,jun jul aug,cod,day night,medium,,,2004 june july august medium-high day night (fixed gear) cod DEPTH
-17,5,83_avoid,avoid,2013,jun jul aug,avoid,day night,,,,avoid 2013 june july august day night (fixed gear) TOD??
-17,6,84,fish,2004,may jun jul aug sep oct nov,cod,day night,high,,,2004 high may june july aug sept oct nov cod day night (fixed gear) DEPTH
-17,7,84,fish,2013,may jun jul aug sep oct nov,specific,,,,,2013 may june july aug sept oct nov specific fishing
-17,8,84_avoid,avoid,2013,may jun jul aug sep oct nov,avoid,day night,,,,"2013 avoid may june july aug sept oct nov fish on edge, avoid peaks day night (fixed gear) MONTHS??"
-17,9,85,fish,2004 2010,may jun jul aug sep oct nov,cod,day night,high,,,may june july aug sept oct nov 2004 2010 high cod day night (fixed gear) DEPTH
-17,10,85_avoid,avoid,2013,may jun jul aug sep oct nov,avoid,day night,,,,may june july aug sept oct nov 2013 avoid day night (fixed gear) DEPTH
-17,11,86,fish,2004 2010,may jun jul aug sep oct nov,cod,day night,high,,,2004 2010 spring fall may june july aug sept oct nov high cod day night (fixed gear) DEPTH
-17,12,86,fish,2013,sep oct nov,cod,day night,,,,2013 fall sept oct nov cod day night (fixed gear) ABUNDANCE??? DEPTH
-17,13,87,fish,2013,summer fall,specific,,,,,2013 specific fish summer fall MONTHS???
-17,14,88,fish,2004,spring fall,cod,day night,high,,,2004 spring fall cod high day night (fixed gear) MONTHS???? DEPTH
-17,15,88_avoid,avoid,2013,,avoid,day night,,,,2013 avoid day night (fixed gear) MONTHS????
-17,16,89,fish,2004 2010 2013,,specific,day night,,,,2004 2013 specific fishing day night (fixed gear) MONTHS???
-17,17,90,fish,2004,feb mar apr may,cod,day night,high,40,40,2004 40 fathoms high cod feb march april may winter day night (fixed gear)
-17,18,90_avoid,avoid,2013,feb mar apr may,avoid,day night,,40,40,2013 avoid 40 fathoms feb march april may winter day night (fixed gear)
-17,19,91,fish,2004 2010,spring summer,specific,day night,,,,2004 2010 spring summer specific fish day night (fixed gear) MONTHS???
-17,20,92,fish,2004 2010,spring summer,specific,day night,high,,,2004 2010 high spring summer cod day night (fixed gear) MONTHS??? DEPTH
-17,21,92_avoid,avoid,2013,spring summer,avoid,day night,,,,2013 AVOID THIS AREA OR #91 spring summer day night (fixed gear) MONTHS??? DEPTH
-17,22,93,fish,2004 2010,may jun jul,cod,day night,medium,,,2004 2010 only catch cod on peaks low-med only catch cod on peaks within area may june july spring cod day night (fixed gear) DEPTH
-17,23,93_avoid,avoid,2013,may jun jul,avoid,day night,,,,2013 may june july spring day night (fixed gear) avoid DEPTH
-17,24,94,fish,2004 2010 2013,may jun jul,specific,,,,,2004 2010 2013 specific fish may june july
-17,25,95,fish,2004 2010,may jun jul,cod,day night,low,,,2004 2010 low-med may june july cod day night (fixed gear) DEPTH
-17,26,95_avoid,avoid,2013,may jun jul,avoid,day night,,,,2013 may june july day night (fixed gear) avoid DEPTH
-17,27,96,fish,2004,summer fall,specific,,,,,2004 summer fall specific fishing MONTHS???
-17,28,97,fish,2004,summer fall,cod,day night,medium,,,2004 med summer fall cod day night (fixed gear) MONTHS???? DEPTH
-17,29,97_avoid,avoid,2013,summer fall,avoid,day night,,,,2013 AVOID THIS OR BIGGER #96 summer fall day night (fixed gear) MONTHS??? DEPTH
-17,30,98,fish,2010,jan nov dec,avoid,,,,,specific fish nov dec jan 2010
-17,31,99,fish,2004,fall,cod,day night,low,,,2004 low fall cod day night (fixed gear) MONTHS????
-17,32,99_avoid,avoid,2013,,avoid,day night,,,,2013 avoid day night (fixed gear) MONTHS????
-17,33,100,fish,2004 2010,fall,cod,day night,high,,,2004 2010 day night (fixed gear) high cod fall large markets MONTHS???
-17,34,100_avoid,avoid,2013,,avoid,day night,,,,2013 avoid day night (fixed gear) MONTHS???
-17,35,101,fish,2013,fall,pollock,,,,,2013 specific fishing pollock fall MONTHS????
-17,36,102,fish,2004 2010,jan nov dec,cod,day night,medium,,,med cod 2004 2010 more cod focused 2010-2012 nov dec jan L cod in spring large market (6-9) day night (fixed gear)
-17,37,102_avoid,avoid,2013,jan nov dec,avoid,day night,,,,2013 avoid nov dec jan day night (fixed gear)
-17,38,103,fish,2004,fall,cod,day night,low,,,2004 low cod fall large markets day night (fixed gear) MONTHS???
-17,39,103_avoid,avoid,2013,,avoid,day night,,,,2013 avoid day night (fixed gear) MONTHS???
-19,1,1J,fish,2004 2010 2013,,groundfish,,,,,ground 2004  2010  2013 Can YOU EXPAND???
-19,2,50,fish,2004,dec,specific,,,,,2004 specific_fishing dec
-19,3,51,fish,2004,dec,cod,day night,high,13,13,2004 cod high december day night (fixed gear) 13F 1 hr 800lbs
-19,4,51_avoid,avoid,2013,dec,avoid,day night,,,,2013 avoid december day night (fixed gear)
-19,5,52,fish,2004,mar,specific,,,,,2004 specific_fishing march
-19,6,53,fish,2004,mar,cod,day night,high,35,40,2004 cod  high  march  35-40F day night (fixed gear) 800lbs/1hr
-19,7,53_avoid,avoid,2013,mar,avoid,day night,,35,40,2013 march  35-40F day night (fixed gear) avoid
-19,8,54,fish,2004 2010,jun jul aug sep oct nov dec,cod,day night,high,40,45,2004 2010 day night (fixed gear) fish specific cod june-december 2010-12 high  3-4K in 20hrs 40-45F
-19,9,55,fish,2004,dec,specific,,,,,2004  specific_fishing dec
-19,10,56,fish,2004,dec,cod,day night,high,16,16,2004 cod high 800lbs/1hr dec 16F day night (fixed gear)
-19,11,56_avoid,avoid,2013,dec,avoid,day night,,16,16,2013 avoid dec 16F day night (fixed gear)
-19,12,57,fish,2004 2010,may jun jul aug sep oct nov dec,specific,,,19,19,2004 2010  specific_fishing  may june july august sept oct nov dec  19F
-19,13,58,fish,2004,may jun jul aug sep oct nov dec,cod,day night,medium,19,19,2004  cod  may june july aug sept oct nov dec medium-high highest in dec  19F 300-400/hr day night (fixed gear)
-19,14,58_avoid,avoid,2013,may jun jul aug sep oct nov dec,avoid,day night,,19,19,2013 avoid may june july aug sept oct nov dec 19F day night (fixed gear)
-19,15,59,fish,2010,oct nov dec,cod,day night,high,40,40,2010 cod high 800lb/hr oct nov dec 40F large day night (fixed gear)
-19,16,59_avoid,avoid,2013,oct nov dec,avoid,day night,,40,40,2013 avoid oct nov dec 40F day night (fixed gear)
-19,17,60,fish,2004 2010 2013,,specific,,,,,2004 2010 2013 specific_fishing DEPTH TOY TOD
-19,18,61_avoid,avoid,2013,jan feb mar apr may jun jul aug sep oct nov dec,avoid,day night,high,15,40,2013 avoid almost year round aboid high nov dec jan 15-40F low-medium feb march april may june july aug sept oct day night (fixed gear)
-19,19,61_high,fish,2004 2010,jan feb mar apr may jun jul aug sep oct nov dec,cod,day night,high,15,20,2004 2010  cod almost year round high nov dec jan 15-20F day night (fixed gear) 800/1hr
-19,20,61_low,fish,2004 2010,feb mar apr jun jul aug sep oct,cod,day night,low,15,20,2004 2010  cod 15-20F low feb march april may june july aug sept oct day night (fixed gear)
-19,21,70,fish,2004,dec,cod,day night,medium,25,25,2004 cod  medium dec 25F day night (fixed gear) 3-400/hr
-19,22,70_avoid,avoid,2013,dec,avoid,day night,,25,25,2013 avoid dec 25F day night (fixed gear)
-19,23,71,fish,2004 2010 2013,,specific,day night,,,,2004 2013 specific_fishing  day night (fixed gear) TOY
-19,24,72,fish,2004,oct,cod,day night,medium,40,50,2004  cod oct med 300-400/hr 40-50F day night (fixed gear)
-19,25,72,fish,2013,oct nov,cod pollock hake,day night,medium,40,50,2013 cod mix pollock/hake 2k/day 16hrs bycatch medium oct nov 40-50F day night (fixed gear)
-19,26,75,fish,2004 2010 2013,sep oct,specific,,,,,2004 2010 2013 specific_fish sept oct BYCATCH OR LOW COD? TOD ABUNDANCE
-19,27,76,fish,2004 2010 2013,,specific,,,,,2004 2010 2013 specific fish
-19,28,77,fish,2004 2010 2013,,specific,,,,,2004 2010 2013 specific fish TOD TOY
-19,29,78,fish,2004,may sep oct nov,cod,day night,medium,48,48,2004 may sept oct nov  med  cod 48F day night (fixed gear)
-19,30,78,fish,2013,may sep oct nov,cod,day night,low,48,48,2013 cod bycatch may sept oct nov  7-800/16 hrs day night (fixed gear) 48F
-19,31,78_avoid,avoid,2013,may sep oct nov,avoid,day night,,48,48,2013 avoid may sept oct nov  day night (fixed gear) 48F
-19,32,79,fish,2004 2010,may jun oct nov,cod,day night,medium,32,32,2004 2010 cod  med 300-400/hr may june oct nov 32F day night (fixed gear)
-19,33,79_avoid,avoid,2013,may jun,avoid,day night,,32,32,2013 avoid may june  32F day night (fixed gear)
-19,34,79_avoid,avoid,2013,oct nov dec,cod,day night,low,32,32,2013 cod oct nov dec bycatch 7-800lbs/16hrs 32F day night (fixed gear)
-19,35,80,fish,2004 2010 2013,jan feb mar,specific,day night,,,,2004  2010  2013 jan feb march specific_fishing day night (fixed gear) ABUNDACE DEPTH
-19,36,81,fish,2004 2010,jan feb mar,specific,day night,medium,65,65,2004 2010  cod jan feb march medium  300-400/hr day night (fixed gear) 65F
-19,37,81,fish,2013,jan feb mar,cod,day night,low,,,2013 cod bycatch 7-800lbs/16hrs jan feb march day night (fixed gear)
-19,38,81_avoid,avoid,2013,jan feb mar,avoid,day night,,,,2013 avoid jan feb march day night (fixed gear)
-19,39,82,fish,2004,jun jul,cod,day night,high,25,25,2004  cod  june july 25F high 800/hr day night (fixed gear)
-19,40,83,fish,2004 2010,mar apr,hake,,low,,,2004 2010 march april specific_fishing low mostly hake
-19,41,83_avoid,avoid,2013,mar apr,cod,day night,low,,,2013 cod mix bag. any low or just bycatch??? 400/16hrs march april day night (fixed gear)
-19,42,84,fish,2004,,specific,,,,,2004  fish specific TOY  TOD
-19,43,85,fish,2004,,specific,,,,,2004 fish specific  TOY TOD DEPTH
-19,44,gf,fish,2004 2010 2013,,groundfish,,,,,2004 2010 2013 ground fishing
-20,1,1,fish,2004 2010,,groundfish,,,,,ground fish 2004 2010 specific fish
-20,2,1,fish,2004 2010,jan,cod,day night,high,25,28,2004 2010 jan 25-28F high 3-5 nets catch 800lbs of cod. 30-40 nets could get 5k-6k. cod day night (fixed gear) fixed gear
-20,3,1gf,fish,2013,,groundfish,,,,,gf 2013
-20,4,2,fish,2004 2010 2013,,groundfish,,,,,ground fish 2004 2010 2013
-20,5,2,fish,2004 2010,jan dec,cod,day night,high,24,25,2004 2010 dec jan 24-25F high 3-5 nets catch 800lbs of cod. 30-40 nets could get 5k-6k. cod day night (fixed gear)
-20,6,3,fish,2004 2010,apr may nov,cod,day night,high,30,30,2010 2004 april may nov 30F high 3-5 nets catch 800lbs of cod. 30-40 nets could get 5k-6k. cod day night (fixed gear)
-20,7,3_avoid,avoid,2013,,avoid,day night,,,,2013 avoid MONTH day night (fixed gear)
-20,8,4,fish,2004 2010,jan oct nov dec,cod,day night,high,32,35,oct nov dec jan 2004 2010 32-35F high 3-5 nets catch 800lbs of cod. 30-40 nets could get 5k-6k cod day night (fixed gear) fixed gear
-20,9,4,fish,2004 2010,apr may nov dec,cod,day night,high,38,42,2010 2004 high 3-5 nets catch 800lbs of cod. 30-40 nets could get 5k-6k. cod april may nov dec 38-42F day night (fixed gear)
-20,10,4,fish,2013,oct nov,cod pollock,day night,high,38,42,2013 high 10-30 nets cod pollock if too many cod lighten up on nets cod oct nov 38-42F day night (fixed gear)
-20,11,4_avoidance,avoid,2013,apr may nov dec,avoid,day night,,38,42,2013 avoidance april may nov dec 38-42F day night (fixed gear) fixed net
-20,12,5,fish,2004 2010,jan oct nov,cod,day night,high,42,46,cod 2004 2010 oct nov jan 42-46F high 3-5 nets catch 800lbs of cod. 30-40 nets could get 5k-6k. day night (fixed gear) fixed net
-20,13,5,fish,2004 2010,jan oct nov dec,cod,day night,high,24,24,2010 2004 oct nov dec jan high 3-5 nets catch 800lbs of cod. 30-40 nets could get 5k-6k. cod 24F day night (fixed gear)
-20,14,5_avoidance,avoid,2013,jan oct nov dec,avoid,day night,,24,24,2013 avoidance oct nov dec jan cod 24F day night (fixed gear) fixed net
-20,15,6,fish,2004 2010,oct nov,cod,day night,high,40,50,cod 2004 2010 high 3-5 nets catch 800lbs of cod. 30-40 nets could get 5k-6k. 40-50F sept oct nov day night (fixed gear) fixed net (JG)
-20,16,6,fish,2004 2010,jan nov dec,cod,day night,high,32,32,2010 2004 nov dec jan 25F high 3-5 nets catch 800lbs of cod. 30-40 nets could get 5k-6k cod day night (fixed gear) fixed gear
-20,17,7,fish,2004 2010,jan nov dec,cod,day night,high,32,32,2004 2010 nov dec jan 32F high 3-5 nets catch 800lbs of cod. 30-40 nets could get 5k-6k. cod day night (fixed gear)
-20,18,7,fish,2013,sep,cod,day night,high,,,2013 cod 4000 in one tow in sept accident day night (fixed gear) fixed
-20,19,8,fish,2013,dec,cod,day night,high,,,2013 dec cod high 40 nets 2-7K day night (fixed gear) DEPTH fixed gear
-20,20,9,fish,2004 2010 2013,,groundfish,,,,,grounfishing 2004 2010 2013 polygons outside of range
-21,1,1L,fish,2004 2010 2013,,groundfish,,,,,groundfishing 2004 2010 2013
-21,2,11,fish,2010,jan,cod,day,high,18,18,2010 jan day 18 fathoms sand/hard bottom smaller cod high cod
-21,3,12,fish,2010,jan,cod,day,high,30,30,cod high  day 30 fathoms jan 2010
-21,4,12_avoid,avoid,2013,jan,avoid,day,,,,2013 avoid jan day
-21,5,13,fish,2010,jan dec,cod,day,high,47,47,2010 47 fathoms daytime dec jan high 10K in a day  mud bottom large cod cod
-21,6,13_avoid,avoid,2013,jan dec,avoid,day,,47,47,2013 47 fathoms daytime dec jan avoid
-21,7,15,fish,2004,summer,cod,night,high,15,20,2004 sand/cobble bottom summer night high cod 15-20 fathoms MONTHS FOR SUMMER
-21,8,15_avoid,avoid,2013,,avoid,night,,15,20,2013 avoid 15-20F night MONTHS????
-21,9,16_summer,fish,2004,summer,cod,night,high,30,30,2004 sand/cobble bottom summer night high cod 30F
-21,10,16_summer_avoid,avoid,2013,summer,avoid,night,,30,30,2013 sand/cobble bottom summer night avoid 30F
-21,11,16_winter,fish,2004,winter,cod,day,high,30,30,2004 sand/cobble bottom winter day high cod MONTHS??? 30F
-21,12,16_winter_avoid,avoid,2013,winter,avoid,day,,,,2013 winter daytime avoid MONTHS????
-21,13,17,fish,2013,,avoid,,,,,2013 avoid MONTHS???? DID YOU EVER HAVE BIG CATCH CONFIRMED HERE???
-21,14,18_summer,fish,2004,summer,cod,night,high,15,20,2004 sand/cobble bottom summer night high 15-20 fathoms cod MONTHS???
-21,15,18_summer_night,fish,2013,summer,avoid,night,,15,20,2013 sand/cobble bottom summer avoid night 15-20 fathoms MONTHS???
-21,16,18_winter,fish,2004,winter,cod,day,high,15,20,2004 sand/cobble bottom winter day high 15-20 fathoms cod MONTHS???
-21,17,18_winter_avoid,avoid,2013,winter,avoid,day,,15,20,2013 avoid 15-20F day winter MONTHS???
-21,18,19,fish,2004,summer,cod,day,high,42,42,2004 high cod sand/cobble bottom day summer 42 fathoms MONTHS???
-21,19,19_avoid,avoid,2013,,avoid,day,,42,42,2013 avoid day 42F MONTHS???
-21,20,20,fish,2013,,avoid,,,,,2013 avoid EVERY CAUGHT HERE BEFORE?? MONTHS????
-21,21,21,fish,2004 2010 2022,,specific,,,,,2004 2010 2022  specific fishing
-21,22,22,fish,2010 2013,,specific,,,,,specific fish 2010 2013
-21,23,23,fish,2013,,specific,,,,,specific fish 2013
-21,24,51,fish,2004,jul,cod,,high,,,2004 mud bottom july high cod TOD???? DEPTH
-21,25,51_avoid,avoid,2013,jul,avoid,,,,,2013 avoid july TOD? DEPTH?ARE THESE AVOID? NOT MARKED AS SO ON MAP
-21,26,52,fish,2004,mar,cod,,high,30,90,"2004 march 90 fathoms in holes, 30 fathoms in tops mud bottom high cod TOD"
-21,27,52_avoid,avoid,2013,mar,avoid,,,30,90,2013 avoidance 30-90F mud March???
-21,28,53,fish,2004,mar,cod,,high,,,2004 mud bottom march high cod TOD??? DEPTH
-21,29,53_avoid,avoid,2013,,avoid,,,,,2013 avoid ARE THESE AVOID? NOT MARKED AS SO ON MAP MONTHS??? DEPTH TOD
-21,30,54,fish,2004,nov dec,cod,,high,,,2004 nov dec mud bottom high cod TOD??? DEPTH
-21,31,54_avoid,avoid,2013,,avoid,,,,,2013 avoid MONTHS??
-21,32,55,fish,2004,nov dec,cod,,high,30,40,2004 high cod sand/gravel bottom nov dec 30 fathoms TOD???? DEPTH
-21,33,55_avoid,avoid,2013,,avoid,,,,,2013 avoid MONTHS????
-21,34,56,fish,2004,jan oct,cod,,high,,,2004 cod jan oct mud/sand high DEPTH TOD
-21,35,56_avoid,avoid,2013,jan oct,avoid,,,,,2013 avoid jan oct Depth TOD
-21,36,57,fish,2004,mar,cod,,high,,,2004 march mud bottom high cod TOD??? DEPTH?
-21,37,57_avoid,avoid,2013,,avoid,,,,,2013 avoid ARE THESE AVOID? NOT MARKED AS SO ON MAP MONTHS??? TOD Depth
-21,38,58,fish,2004,mar,cod,,high,,,2004 march mud bottom high cod TOD???? DEPTH
-21,39,58_avoid,avoid,2013,,avoid,,,,,2013 avoid ARE THESE AVOID? NOT MARKED AS SO ON MAP MONTHS???? TOD DEPTH
-21,40,59,fish,2004,jan feb mar apr may jun jul aug sep oct nov dec,cod,,high,,,2004 year-round jan feb march april may june july aug sept oct nov dec hard bottom high cod TOD???? DEPTH
-21,41,59_avoid,avoid,2013,,avoid,,,,,2013 avoid TOD? DEPTH MONTHS????
-21,42,60,fish,2004,jan dec,cod,,,,,2004 dec jan hard bottom cod ABUNDANCE???? TOD???? DEPTH
-21,43,60,fish,2013,winter summer spring,specific,,,,,2013 specific fish winter summer spring cod ABUNDANCE DEPTH TOD
-21,44,60_avoid,avoid,2013,fall,avoid,,,,,2013 avoid fall ABUNDANCE DEPTH TOD
-21,45,61,fish,2004,mar,cod,,high,30,30,2004 spring march 30 fathoms sand bottom high cod TOY MONTHS TOD???
-21,46,61,fish,2013,summer winter spring,cod,,low,,,2013 summer winter spring bycatch cod TOD TOY DEPTH
-21,47,61_avoid,avoid,2013,fall,avoid,,,,,2013 avoid fall TOD TOY DEPTH
-21,48,62,fish,2004,jan feb mar apr may jun jul aug sep oct nov dec,cod,,high,30,30,2004 year-round jan feb march april may june july aug sept oct nov high sand/cobble 30 fathoms cod TOD???
-21,49,62_2013,fish,2013,winter summer spring,cod,,low,,,2013 low cod winter summer spring ABUND? depth TOD TOY
-21,50,62_avoid,avoid,2013,fall,avoid,,,,,2013 avoid fall ABUND? depth TOD TOY
-21,51,63,fish,2004,jan feb mar apr may jun jul aug sep oct nov dec,cod,,high,,,2004 hard bottom year-round jan feb march april may june july aug sept oct nov dec high cod ADD IN 2013 IF THE BIG AREA IS LOW ONLY TOD???? DEPTH
-21,52,64,fish,2013,jan feb,cod haddock,,,,,2013 winter jan feb cod haddock market scrod ABUNDANCE??? TOD???? DEPTH
-21,53,65,fish,2004 2010 2013,,groundfish,,,,,2004 2010 2013 groundfishing
-22,1,1M,fish,2004 2010 2013,,groundfish,,,,,"groundfishing area 2004, 2010, 2013"
-22,2,10,fish,2004 2010,feb mar apr,cod,night,high,30,30,"cod 2004,2010 high feb,march,april 30-30F night hard bottom scrod/market"
-22,3,10_avoid,avoid,2013,feb mar apr,avoid,night,,30,30,"avoid 2013 feb,march,april 30-30F night"
-22,4,11,fish,2004 2010,mar apr may,cod,day night,high,30,40,"2004,2010 high mar,april,may 30-40F large cod founder nets night/day"
-22,5,11_avoid,avoid,2013,mar apr may,avoid,day night,,30,40,"2013 mar,april,may 30-40F avoid night/day"
-22,6,12,fish,2004 2010,aug,cod,night,medium,30,34,"market/scrod night medium aug 30-34F rocky/hard cod 2004, 2010"
-22,7,12_avoid,avoid,2013,aug,avoid,night,,30,34,2013 avoid night aug 30-34F
-22,8,13,fish,2004 2010,sep oct,cod,night,high,40,50,"sept/oct night 40-50F rock/market/scrod high cod 2004, 2010"
-22,9,13_avoid,avoid,2013,sep oct,avoid,night,,40,50,sept/oct night 40-50F 2013 avoid
-22,10,14,fish,2004 2010,jun jul aug,cod,night,high,35,40,"cod high june,july,aug night 35-40F hard 2004,2010"
-22,11,14_avoid,avoid,2013,jun jul aug,avoid,night,,35,40,"2013 avoid june,july,aug night 35-40F"
-22,12,15,fish,2004 2010 2013,,specific,,,,,"2004,2010,2013 specific fish?"
-22,13,16,fish,2013,,specific,,,,,2013 specific fish
-22,14,17,fish,2004 2010,aug,cod,day night,medium,80,80,"cod day/night aug 80F large rock medium 2004, 2010"
-22,15,17_avoid,avoid,2013,aug,avoid,day night,,80,80,2013 avoid day/night aug 80F
-22,16,18,fish,2004 2010,,specific,,,,,2013 specific fish?
-22,17,19,fish,2004 2010,,specific,,,,,"2004,2010 specific fish?"
-22,18,20,fish,2013,jan apr may jun jul aug sep oct nov dec,avoid,,,,,2013 avoid in below months jan april may june july aug sept oct nov dec
-22,19,21,fish,2004 2010 2013,,specific,,,,,"2004,2010,2013 specific fish?"
-22,20,22,fish,2004 2010,feb mar,cod,day night,medium,70,100,"cod 2004,2010 large day/night feb,mar medium 70-100F"
-22,21,22_avoid,avoid,2013,feb mar,avoid,day night,,70,100,"2013 avoid day/night feb,mar 70-100F"
-22,22,23,fish,2004 2010,jun jul sep oct,cod,night,high,15,30,"cod night high june,july,sept,oct 15-30F disk net market/scrod 2004,2010"
-22,23,23_avoid,avoid,2013,jun jul sep oct,avoid,night,,15,30,"2013 avoid night june,july,sept,oct 15-30F"
-22,24,24,fish,2004 2010 2013,,specific,,,,,"2004,2010,2013 specific fish?"
-22,25,25,fish,2004 2010,jun,cod,,high,55,60,"high 55-60F june rock large cod 2004,2010 TOD"
-22,26,26,fish,2004 2010,jun jul aug sep oct,cod,day,high,50,55,"cod day high june, july, august, sept, oct 50-55F rock 2004, 2010"
-22,27,26_avoid,avoid,2013,jun jul aug sep oct,avoid,day,,50,55,"2013 avoid day june, july, august, sept, oct 50-55F"
-22,28,27,fish,2004 2010 2013,,specific,,,,,"2004,2010,2013 specific fish?"
-22,29,28,fish,2004 2010 2013,,specific,,,,,"2004,2010,2013 specific fish?"
-22,30,29,fish,2004 2010,,specific,,,,,"specific fish 2004,2010"
-22,31,30,fish,2004 2010,apr,cod,night,medium,30,35,"30-35F cod night april medium 2004,2010"
-22,32,30_avoid,avoid,2013,apr,avoid,night,,30,35,2013 avoid 30-35F night april
-22,33,31,fish,2004 2010,jun,cod,,high,55,60,"2004,2010 cod high 55-60F june rock large TOD"
-22,34,32,fish,2004 2010,oct,cod,night,high,17,17,"cod rock high 17F large oct night 2004, 2010"
-22,35,32_avoid,avoid,2013,oct,avoid,night,,17,17,2013 avoid 17F oct night
-22,36,33,fish,2004 2010,feb mar,cod,day night,medium,55,75,"cod 2004,2010 day/night feb,mar medium rock 55-75F"
-22,37,33_avoid,avoid,2013,feb mar,avoid,day night,,77,75,"2013 avoid day/night feb,mar 55-75F"
-22,38,34,fish,2004 2010 2013,,specific,,,,,"2004,2010,2013 specific fish?"
-22,39,51,fish,2013,,specific,,,,,2013 specific fish?
-22,40,52,fish,2013,,specific,,,,,2013 specific fish?
-22,41,53,fish,2013,,specific,,,,,2013 specific fish?
-22,42,54,fish,2013,,specific,,,,,2013 specific fish?
-22,43,55,fish,2013,,specific,,,,,2013 specific fish
-22,44,56,fish,2013,,specific,,,,,2013 specific fish
-22,45,57,fish,2013,,specific,,,,,2013 specific fish
-22,46,58,fish,2013,,specific,,,,,2013 specific fish
-22,47,59,fish,2013,,specific,,,,,2013 specific fish
-22,48,60,fish,2013,,specific,,,,,2013 specific fish
-22,49,61,fish,2013,,specific,,,,,specific fish 2013
-22,50,63,fish,2013,,specific,,,,,specific fish 2013
-22,51,65,fish,2013,,specific,,,,,2013 specific fish
-22,52,66,fish,2013,,specific,,,,,specific fish? 2013
-22,53,67,fish,2013,,specific,,,,,specific fish? 2013
-22,54,69,fish,2013,,specific,,,,,2013 specific fish?
-22,55,70,fish,2013,,specific,,,,,2013 specific fish
-22,56,71,fish,2013,,specific,,,,,specific fish 2013
-22,57,72,fish,2013,,specific,,,,,specific fish 2013
-22,58,73,fish,2013,,specific,,,,,2013 specific fish
-23_24,1,1,fish,2010,jan feb mar sep oct nov dec,cod,,high,30,110,2010 high cod hard bottom sept oct nov dec jan feb march markets-large 30-110 fathoms (cliffs) TOD???
-23_24,2,1_avoid,avoid,2013,jan feb mar sep oct nov dec,avoid,,,,,2013 sept oct nov dec jan feb march avoid
-23_24,3,1N,fish,2004 2010 2013,,groundfish,,,,,2004 2010 2013 groundfishing edit 2013 gf??? go way further off shore for that time period waht about 2009 poly?
-23_24,4,1P,fish,2004 2010 2013,,groundfish,,,,,2004 2010 2013 groundfishing
-23_24,5,1Q,fish,2004,,groundfish,,,,,2004 groundfishing
-23_24,6,2,fish,2010,jan feb mar sep oct nov dec,cod,,high,30,110,2010 high cod hard bottom sept oct nov dec jan feb march markets-large 30-110 fathoms TOD???
-23_24,7,2_avoid,avoid,2013,jan feb mar sep oct nov dec,avoid,,,,,2013 avoid sept oct nov dec jan feb march
-23_24,8,3,fish,2010,jan feb mar sep oct nov dec,cod,,high,30,110,2010 high cod hard bottom sept oct nov dec jan feb march markets-large 30-110 fathoms TOD????
-23_24,9,3_avoid,avoid,2013,jan feb mar sep oct nov dec,avoid,,,,,2013 sept oct nov dec jan feb march avoid
-23_24,10,4,fish,2010,jan feb mar sep oct nov dec,cod,,high,30,110,2010 high cod hard bottom sept oct nov dec jan feb march markets-large 30-110 fathoms TOD????
-23_24,11,4_avoid,avoid,2013,jan feb mar sep oct nov dec,avoid,,,,,2013 avoid sept oct nov dec jan feb march
-23_24,12,5,fish,2010,jan feb mar sep oct nov dec,cod,,high,30,110,2010 high cod sept oct nov dec jan feb march hard bottom markets-large 30-110F
-23_24,13,5_avoid,avoid,2013,jan feb mar sep oct nov dec,avoid,,,,,2013 avoid sept oct nov dec jan feb march
-23_24,14,6,fish,2010,jan feb mar sep oct nov dec,cod,,high,30,110,2010 high cod hard bottom sept oct nov dec jan feb march markets-large 30-110 fathoms TOD???
-23_24,15,6_avoid,avoid,2013,jan feb mar sep oct nov dec,avoid,,,,,2013 sept oct nov dec jan feb march avoid
-23_24,16,7,fish,2004,fall winter,cod,day night,high,45,45,2004 fall winter high cod markets-large 45 fathoms day and night MONTHS???
-23_24,17,7_avoid,avoid,2013,fall winter,avoid,,,,,2013 avoid fall winter MONTHS???
-23_24,18,8,fish,2004,fall winter,cod,day night,high,45,45,2004 fall winter high cod markets-large 45 fathoms day and night MONTHS???
-23_24,19,8_avoid,avoid,2013,fall winter,avoid,,,,,2013 avoid fall winter MONTHS???
-23_24,20,9,fish,2004,fall winter,cod,day night,high,45,45,2004 fall winter high cod markets-large 45 fathoms day and night MONTHS???
-23_24,21,9_avoid,avoid,2013,fall winter,avoid,,,,,2013 fall winter avoid MONTHS???
-23_24,22,10,fish,2004 2010,fall winter,cod,day night,high,45,45,2004 2010 fall winter high cod hard bottom markets-large 45 fathoms day and night MONTHS???
-23_24,23,10,fish,2013,,haddock cod,night,low,45,45,2013  specific fish c bycatch low haddock focused short tows night 45 fathoms
-23_24,24,10,fish,2010,,specific,,,,,specific fishing 2010
-23_24,25,11,fish,2004 2010,,specific,,,,,2004 2010 specific fishing
-23_24,26,11,fish,2004,,specific,,,,,specific fishing 2004
-23_24,27,12,fish,2004 2010,jan feb mar,cod,,high,30,110,2004 2010 jan feb march market-large 30-110 fathoms tow up side of cliff high  cod
-23_24,28,12,fish,2004 2010,nov dec,cod,day night,high,30,35,2004 2010 cod high 30-35 fathoms nov dec jan day and night
-23_24,29,12_avoid,avoid,2013,jan nov dec,avoid,day night,,,,2013 avoid nov dec jan day and night
-23_24,30,13,fish,2004 2010,jan feb mar apr may jun jul aug sep oct nov dec,cod,day night,high,,,2004 2010 high cod year-round jan feb march april may june july aug sept oct nov day night DEPTH
-23_24,31,13,fish,2004 2010,jan feb mar apr may jun jul aug sep oct nov dec,cod,day night,high,,,2004 2010 specific fishing area AND cod high cod jan feb march april may june july aug sept oct nov dec day and night DEPTHS
-23_24,32,13_avoid,avoid,2013,jan feb mar apr may jun jul aug sep oct nov dec,avoid,,,,,2013 avoid year-round jan feb march april may june july aug sept oct nov
-23_24,33,13_avoid,avoid,2013,jan feb mar apr may jun jul aug sep oct nov dec,avoid,,,,,2013 avoid year-round jan feb march april may june july aug sept oct nov dec
-23_24,34,14,fish,2004 2010,jan feb mar apr may jun jul aug sep oct nov dec,cod,day night,high,,,2004 2010 high cod year-round jan feb march april may june july aug sept oct nov dec day and night DEPTH
-23_24,35,14,fish,2004,jan feb mar apr may jun jul aug sep oct nov dec,cod,day night,high,,,2004 specific fish AND cod high  cod year-round jan feb march april may june july aug sept oct nov day and night hard and sandy bottom DEPTHS
-23_24,36,14,fish,2004,,specific,,,,,2004 specific fish
-23_24,37,14_avoid,avoid,2013, jan feb march april may june july aug sept oct nov dec,avoid,,,,,2013 avoid year-round jan feb march april may june july aug sept oct nov dec
-23_24,38,14_avoid,avoid,2013, jan feb march april may june july aug sept oct nov dec,avoid,,,,,2013 avoid year-round jan feb march april may june july aug sept oct nov dec
-23_24,39,20,fish,2004,,cod,day,high,25,45,2004 specific fishing AND cod high cod day cobble bottom south harder bottom north 25-45 fathoms SEASON??? MONTHS???
-23_24,40,21,fish,2004,spring,cod,day night,,15,110,2004 cod cobble at top hard at bottom right day and night 15-110 fathoms spring MONTHS??? ABUNDANCE???
-23_24,41,51,fish,2004,spring summer,cod,day,low,30,110,2004 morning daytime 30-110 fathoms low bycatch spring summer cod MONTHS???
-23_24,42,51_avoid,avoid,2013,spring summer,avoid,,,30,110,2013 avoid spring summer 30-110F MONTHS??? Bleeds into larger 2013-present polygon
-23_24,43,52,fish,2013,,haddock,,low,,,"2013 specific fish targeting only haddock, no peaks c bycatch"
-23_24,44,52_avoid,avoid,2013,,avoid,,low,,,2013 avoid fish deeper no peaks c bycatch DEPTHS???? TOD? TOY?
-23_24,45,55,fish,2004,,specific,,,,,specific fish 2004
-23_24,46,56,fish,2004,fall winter,cod,day night,high,45,45,2004 fall winter high cod markets-large 45 fathoms day and night MONTHS???
-23_24,47,56_avoid,avoid,2013,fall winter,avoid,day night,,,,2013 avoid fall winter day and night MONTHS???
-25,1,1GF,fish,2004 2010,,groundfish,,,,,groundfishing 2004 2010
-25,2,2,fish,2013,,specific,,,,,2013 specific fish
-25,3,2,fish,2004 2010,winter,cod,,low,60,70,2004 2010 winter cod low 60-70 fathoms TOD???? MONTHS????
-25,4,3,fish,2004,jun jul aug,cod,day night,,50,60,2004 june july aug day and night 50-60 fathoms market scrod cod ABUNDANCE???
-25,5,3_avoid,avoid,2013,jun jul aug,avoid,,,,,2013 avoid june july aug
-25,6,4,fish,2004,jun jul aug,cod,day night,high,50,50,2004 june july aug high cod day and night 50 fathoms market/scrod
-25,7,4_avoid,avoid,2013,jun jul aug,avoid,,,,,2013 avoid june july aug
-25,8,5,fish,2004,jan nov dec,cod,day night,medium,20,30,2004 nov dec jan medium cod day/night 20-30 fathoms  hard bottom
-25,9,5_avoid,avoid,2013,jan nov dec,avoid,,,,,2013 nov dec jan avoid
-25,10,6,fish,2004,jan nov dec,cod,day night,medium,40,40,2004 nov dec jan medium cod day/night 40 fathoms sand
-25,11,6_avoid,avoid,2013,jan nov dec,avoid,,,,,2013 nov dec jan avoid
-25,12,7,fish,2010,jan nov dec,cod,day night,medium,40,40,2004 nov dec jan medium cod day/night 40 fathoms sand bottom
-25,13,7,fish,2013,jan nov dec,haddock,day night,low,,,2013 low  cod cod bycatch when going for haddock nov dec jan day/night DEPTH
-25,14,8,fish,2013,jan nov dec,haddock,,low,,,2013 specific fish c bycatch (low) when going for haddock nov dec jan
-25,15,9,fish,2004,jan nov dec,cod,day night,,20,40,2004 dec nov jan cod 20-40 fathoms night and day market/scrod hard and sand bottom ABUNDANCE???
-25,16,9_avoid,avoid,2013,jan nov dec,avoid,,,,,2013 dec nov jan avoid
-25,17,10,fish,2004,jan nov dec,cod,,low,40,100,2004 low  cod dec nov jan large cod 40-100 fathoms TOD???
-25,18,10_avoid,avoid,2013,jan nov dec,avoid,,,,,2013 dec nov jan avoid
-25,19,11,fish,2010,jan nov dec,cod,,low,40,100,2010 40-100 fathoms low cod dec nov jan large cod TOD????
-25,20,11_avoid,avoid,2013,jan nov dec,avoid,,,,,2013 avoid dec nov jan
-25,21,20_GF,fish,2004 2010 2013,,groundfish,,,,,2004 2010 2013 overall groundfishing
-25,22,21,fish,2010,,specific,,,,,2010 specific fishing
-25,23,22,fish,2004,jan feb mar,cod,day night,,40,70,2004 cod jan feb march day and night 40-70 fathoms market/scrod ABUNDANCE???
-25,24,22_avoid,avoid,2013,jan feb mar,avoid,,,,,2013 jan feb march avoid
-25,25,23,fish,2013,,specific,,,,,2013 specific fishing MONTHS?
-25,26,24,fish,2004,summer,cod,,medium,80,90,2004 sand and hard bottom medium  cod 80-90 fathoms market scrod summer MONTHS???
-25,27,24_avoid,avoid,2013,summer,avoid,,,,,2013 avoid summer MONTHS???
-25,28,25,fish,2004,summer,cod,,medium,80,90,2004 cod 80-90 fathoms sand and hard bottom medium market scrod summer MONTHS
-25,29,25_avoid,avoid,2013,summer,avoid,,,,,2013 avoid summer MONTHS??
-26,1,1,fish,2004 2010 2013,,specific,,,,,2004 2013 2013 specific fish
-26,2,2,fish,2004,jan dec,cod,night,medium,40,75,2004 cod med 500/hr dec jan 40-75 fathoms market-large night
-26,3,2,fish,2013,,haddock,,,,,2013 specific fish try for haddock make short tows only
-26,4,2_avoid,avoid,2010,jan dec,avoid,night,,,,2010 avoid dec jan night
-26,5,3,fish,2004,jan feb mar apr,cod pollock haddock,day,medium,70,95,2004 cod jan feb march april med 300/hr mixed bag fishing pollock haddock large-market 70-95 fathoms day
-26,6,3,fish,2010 2013,fall spring,pollock haddock,,,,,2010 2013 specific fish pollock fall haddock spring
-26,7,3_avoid,avoid,2010 2013,jan feb mar apr,avoid,day,,,,2010 2013 avoid sunny afternoon make short tows jan feb march april day
-26,8,4,fish,2004,feb mar apr,cod,day night,medium,100,100,2004 cod medium 500/hr feb march april 100 fathoms large cod  day and night
-26,9,4,fish,2010 2013,mar apr may,cod haddock,night,low,40,80,2010 2013 cod haddock have displaced low bycatch 100/hr spring march april may night 40-80F
-26,10,5gf,fish,2004 2010 2013,,groundfish,,,,,2004 2010 2013  entire groundfishing
-26,11,6,fish,2004,fall,cod,day night,low,75,120,2004 fall low 200/hr cod market-large gravel 120-75 fathoms day and night
-26,12,6_avoid,avoid,2013,aug sep oct nov,avoid,night,,,,2013 avoid aug sept oct nov night
-26,13,8,fish,2004,jan feb sep oct nov dec,cod,night,medium,35,80,2004 med 200-300/hr cod sept oct nov dec jan feb 35-80 fathoms large cod night mud/gravel
-26,14,8_avoid,avoid,2010 2013,jan feb mar apr may jun jul aug sep oct nov dec,avoid,,,,,2010 2013 avoid sector couldn't fish there anymore (avoidance?) year-round jan feb march april may june july aug sept oct nov dec (couldn't fish west of 70 15)
-26,15,9,fish,2004,jan feb mar apr may,cod,day,high,15,15,2004 high 1000/hr cod jan feb march april may 15 fathoms day sand market cod
-26,16,9_avoid,avoid,2010 2013,,avoid,,,,,2010 2013 avoid coudln't fish there b/c of sector limits
-26,17,11,fish,2004 2010 2013,,specific,,,,,2004 2010 2013  specific fish
-26,18,12,fish,2004 2010 2013,,specific,,,,,2004 2010 2013 specific fish
-26,19,13,fish,2004,feb mar apr may jun jul,cod,night,medium,115,120,2004 cod medium 120-115 fathoms feb march april may june july (check closure) small-large sand bottom night 300-500/hr
-26,20,13,fish,2010 2013,mar apr may,haddock,night,low,40,80,2010 2013 focused on haddock march april may night 40-80F AVOIDANCE 50/hr c at most. separator panel
-26,21,13,fish,2004 2010 2013,,specific,,,,,2004 2010  2013 specific fish
-26,22,14,fish,2004,may jun jul aug sep,cod,night,low,70,80,2004 low 200-300/hr cod 70-80 fathoms summer may june july aug sept market size night
-26,23,15,fish,2004 2010 2013,,haddock,,,,,2004 2010 2013 specific fish haddock MONTHS???
-26,24,50GF,fish,2004 2010 2013,,groundfish,,,,,2004 2010 2013  groundfishing
-27,1,1,fish,2013,,specific,,,,,specific fish area 2013
-27,2,2,fish,2004 2010 2013,jan feb mar apr may jun jul aug sep oct nov dec,groundfish,,,,,"whole groundfish area all years 2004, 2010, 2013"
-27,3,3,fish,2004 2010,,specific,,,,,"fishing specific area 2004, 2010"
-27,4,3_avoid,avoid,2013,,avoid,,,,,2013 avoid TOY? TOD? MONTHS??
-27,5,4,fish,2004,jul aug sep oct,cod,day,low,80,100,"2004: cod low-medium 80-100F day july, aug, sept, oct gravel/rock large/markets 2010: same info but markets only"
-27,6,4_avoid,avoid,2013,jul aug sep oct,avoid,day,low,80,100,"2013 avoid low-medium 80-100F day july, aug, sept, oct gravel/rock"
-27,7,5,fish,2004,jul aug sep oct,cod,day,low,80,100,"2004: low-medium cod 80-100F day july, aug, sept, oct gravel/rock large/markets 2010:  same info as above but markets only"
-27,8,5_avoid,avoid,2013,jul aug sep oct,avoid,day,low,80,100,"2013 avoid low-medium 80-100F day july, aug, sept, oct gravel/rock"
-27,9,6,fish,2004 2010 2013,jun jul aug,cod,,low,60,85,"2004,2010,2013 60-85F clay, sand, gravel june, july, aug low large/markets cod"
-27,10,7,fish,2004,,specific,,,,,fish specific 2004
-27,11,8,fish,2004 2010 2013,jun jul aug,cod,,low,60,85,"2004, 2010, 2013: cod 60-85F clay, sand, gravel june, july, aug low large/markets"
-27,12,9,fish,2013,,specific,,,,,fish specific 2013
-27,13,10,fish,2004,winter,specific,day,low,90,110,"2004 sand, gravel, mud day low winter 90-110F cod specific fish TOY?"
-27,14,10_avoid,avoid,2013,winter,avoid,,,,,2013 avoid winter TOY?
-28,1,1,fish,2004 2010,,groundfish,,,,,whole groundfish area 2004 2010
-28,2,2,fish,2004 2010,spring,cod,day night,low,,,"2004, 2010 day night less large cod low sand spring spawning cod one deep hole where increased abundance (H) TOY? depth?"
-28,3,2_avoid,avoid,2013,spring,avoid,,,,,2013 avoid spring?  MONTHS ? TOY? depth?
-28,4,3,fish,2004 2010,fall spring,cod,day night,high,,,"cod day/night high hit on way home if need more cod market/scrod hard gravel, clay fishing at depths on chart fall/spring TOY? specific depth? 2004, 2010"
-28,5,3_avoid,avoid,2013,fall spring,avoid,day night,,,,2013 avoid fall/spring day/night TOY? specific depth?
-28,6,4,fish,2004 2010,fall,cod,day night,high,,,"2004, 2010 cod both day and night fall specific TOY? specific depth? shallow sand high"
-28,7,4_avoid,avoid,2013,fall,avoid,day night,,,,2013 avoid both day and night fall specific TOY? specific depth?
-28,8,6,fish,2013,jan feb mar apr may jun jul aug sep oct nov dec,cod,,medium,,,low-high year round spring/fall higher than summer more specific TOY? TOD? scrod/market cod 2013 depth?
-28,9,7,fish,2013,,cod,,high,,,2013 high TOD? TOY? cod depth?
-28,10,8,fish,2013,apr,cod,,high,,,april high cod scrod/market 2013 depth? TOD?
-28,11,9,fish,2013,,cod,,high,,,high cod TOY? TOD? depth? 2013
-28,12,10,fish,2013,mar,cod,,high,,,"cod 2013 high gravel/mud feb, march early spring depth? TOD?"
-28,13,11,fish,2013,jan feb mar apr may jun jul aug sep oct nov dec,cod,,medium,,,cod 2013 low-high year round scrod/market summer lower spring/fall higher TOY specifics? depth? TOD?
-28,14,12,fish,2013,summer spring fall,cod haddock,,medium,,,whole line up and down closure 2013 low-high (high spots noted) summer spring/fall haddock focused but gets lots of cod try for a haddock focsed with cod bycatch fishery scrod/market summer lower spring/fall higher TOY specific? depth? TOD?
-28,15,13,fish,2013,,groundfish,,,,,whole groundfishing area 2013
-28,16,15,fish,2004 2010 2013,,groundfish,,,,,"groundfishing 2004, 2010, 2013"
-28,17,16,fish,2004 2010 2013,spring,cod,day,medium,65,65,"2004, 2010, 2013 cod medium spring TOY specific? day 65F glacial rock hard bottom"
-28,18,17,fish,2004,,specific,,,,,2004  specific fish
-28,19,18,fish,2004 2010 2013,spring,cod,day night,medium,,,"2004, 2010, 2013 medium cod day and night spring sand/hard in 2013-2022 if start catching too much cod have to leave TOY specifc? depth?"
+interview,Old.Name,Notes,use,year_range,months,target,bycatch,light,abundance,depth.shallow,depth.deep,rate.hour,substrate,Name
+1,1,2004 2010 year-round jan feb march april may june july aug sept oct nov dec night high (800 pounds in 15 min) cod  hit on way back 14-30 fathoms,fish,2004 2010,jan feb mar apr may jun jul aug sep oct nov dec,cod,no,night,high,14,30,,,1
+1,2,2004 2010 fall oct nov dec day med abundance cod and flounder 30-45 fathoms,fish,2004 2010,oct nov dec,cod flounder,,day,medium,30,45,,,2
+1,3,2004 2010 spring april may day high (800 pounds in 15 mins) cod 30-40 fathoms,fish,2004 2010,apr may,cod,,day,high,30,40,,,3
+1,4,2004 2010 fall oct nov dec night high small cod 30 fathoms,fish,2004 2010,oct nov dec,cod,,night,high,30,30,,,4
+1,5,2004 2010 oct nov dec fall large cod spotty day medium cod 40-50 fathoms,fish,2004 2010,oct nov dec,cod,,day,medium,40,50,,,5
+1,5,2004 2010 specific fish monks flounders fall oct nov dec,fish,2004 2010,oct nov dec,monkfish flounder,,,,,,,,6
+1,6,2004 2010 groundfish,fish,2004 2010,,groundfish,,,,,,,,7
+1,9,"2013 same as int_4, polygon 6, fishing together specific fish flounder haddock leave if catch too many c c bycatch may june july aug sept oct nov dec",fish,2013,may jun jul aug sep oct nov dec,flounder haddock,yes,,,,,,,10
+1,10,"2013 same as int_4, polygon 10, fishing together specific fish",fish,2013,,specific,,,,,,,,11
+1,11,"2013 same as int_4, polygon 11 specific fishing",fish,2013,,specific,,,,,,,,12
+1,72,groundfish 2013,fish,2013,,groundfish,,,,,,,,13
+1,7 (avoid),"2013 avoid same as int_4, 12 (avoid), fishing together avoid humps and edges  winter feb march april day",avoid,2013,feb mar apr,avoid,,day,,,,,,8
+1,8 (avoid),"2013 avoid same as int_4, 5_avoid, fishing together",avoid,2013,,avoid,,,,,,,,9
+2,1,2004 2010 2013 groundfish,fish,2004 2010 2013,,groundfish,,,,,,,,1
+2,3,2004 march april day high (800 pounds in 2-3 hour tow) cod 45-58 fathoms,fish,2004,mar apr,cod,,day,high,45,58,,,4
+2,3,2004 specific fish march april haddock 45-58 fathoms,fish,2004,mar apr,haddock,,,,45,58,,,5
+2,4,2004 specific fish,fish,2004,,specific,,,,,,,,6
+2,5,2004 specific fish march april,fish,2004,mar apr,specific,,,,,,,,7
+2,6,2010 may june july day med cod 45-80 fathoms,fish,2010,may jun jul aug sep oct nov dec,cod,,day,medium,45,80,,,8
+2,7,2013 specific fish july sept aug oct nov haddock 75% of fishing done here,fish,2013,jul aug sep oct nov,haddock,,,,,,,,9
+2,8,2013 med abundance (couple thousand in a day) may june july aug sept oct nov  day cod 40-60 fathoms,fish,2013,may jun jul aug sep oct nov dec,cod,,day,medium,40,60,,,10
+2,9,2013 Thatcher tow specific fish haddock,fish,2013,,haddock,,,,,,,,12
+2,9,2013 Thatcher tow cod varied abundance 60 fathoms,fish,2013,,cod,,,,60,60,,,13
+2,2_fall_win_spring,2004 cod mid-sept oct nov dec jan feb march april  day  16-23 fathoms  high,fish,2004,jan feb mar apr sep oct nov dec,cod,,day,high,16,23,,,2
+2,2_sum_fall,2004 cod june july aug mid-sept  night  16-23 fathoms  high,fish,2004,jun jul aug sep,cod,,night,high,16,23,,,3
+2,8_avoid,2013 avoid dec jan feb march april,avoid,2013,jan feb mar apr dec,avoid,,,,,,,,11
+3,1,2004 specific fish pollock flounder,fish,2004,,pollock flounder,,,,,,,,1
+3,2,2013 gen groundfish,fish,2013,,groundfish,,,,,,,,2
+3,3,2004 2010 cod may june day and night 20-35 fathom med caught while fish for haddock,fish,2004 2010,may jun,haddock,,day night,medium,20,35,,,3
+3,3,2004 2010 specific fish haddock may june,fish,2004 2010,may jun,haddock,,,,,,,,4
+3,4,2004 2010 cod year-round get limit while fishing for redfish and pollock night 15-25 fathoms high,fish,2004 2010,jan feb mar apr may jun jul aug sep oct nov dec,redfish pollock,,night,high,15,25,,,6
+3,5,2004 2010 cod year-round  get limit while fishing for redfish and pollock night 15-25 fathoms high,fish,2004 2010,jan feb mar apr may jun jul aug sep oct nov dec,redfish pollock,,night,high,15,25,,,8
+3,6,2010 groundfish,fish,2010,,groundfish,,,,,,,,10
+3,7,2010 specific fish haddock,fish,2010,,haddock,,,,,,,,11
+3,8,2010  cod  winter dec jan feb march night 30-60 fathom,fish,2010,jan feb mar dec,cod,,night,,30,60,,,12
+3,8,2010  specific fish haddock pollock winter dec jan feb march,fish,2010,jan feb mar dec,haddock pollock,,,,,,,,13
+3,8,2013 avoid winter dec jan feb march,avoid,2013,jan feb mar dec,avoid,,,,,,,,14
+3,10,2013  cod 18K in four tows  high april,fish,2013,apr,cod,,,high,,,,,15
+3,11,2004 gen groundfish,fish,2004,,groundfish,,,,,,,,17
+3,12,2013 haddock  specific fish c bycatch low,fish,2013,,haddock,yes,,low,,,,,18
+3,13,2004 2010 cod 40-50 fathoms spring march april may june low day night,fish,2004 2010,mar apr may jun,cod,,day night,low,40,50,,,19
+3,13,2004 2010 specific fish lobster flounder haddock  spring march april may june,fish,2004 2010,mar apr may jun,lobster flounder haddock,,,,,,,,20
+3,14,2004 2010 30 fathoms spring march april may june low day night cod,fish,2004 2010,mar apr may jun,cod,,day night,low,30,30,,,22
+3,14,2004 2010 specific fish spring march april may june lobster flounder haddock,fish,2004 2010,mar apr may jun,lobster flounder haddock,,,,,,,,23
+3,15,2004 specific fish pollock redfish flounder,fish,2004,,pollock redfish flounder,,,,,,,,25
+3,16,2004 specific fish pollock redfish,fish,2004,,pollock redfish,,,,,,,,26
+3,17,2004 2010 cod may june day and night 20-35 fathom med caught while fish for haddock,fish,2004 2010,may jun,haddock,,day night,medium,20,35,,,27
+3,17,2004 2010 specific fish haddock may june,fish,2004 2010,may jun,haddock,,,,,,,,28
+3,18,2010 2013 specific fish haddock flounder fish 70+ fathoms,fish,2010 2013,,haddock flounder,,,,70,70,,,30
+3,19,2004  specific fish haddock flounder,fish,2004,,haddock flounder,,,,,,,,32
+3,10_avoid,2013  avoid april,avoid,2013,apr,avoid,,,,,,,,16
+3,13_avoid,2013 avoid spring march april may june,avoid,2013,mar apr may jun,avoid,,,,,,,,21
+3,14_avoid,2013 avoid spring march april may june,avoid,2013,mar apr may jun,avoid,,,,,,,,24
+3,17_avoid,2013 avoid may june,avoid,2013,may jun,avoid,,,,,,,,29
+3,18_avoid,2013 avoid by fishing 70+ fathoms make short tows year round to check,avoid,2013,jan feb mar apr may jun jul aug sep oct nov dec,avoid,,,,70,70,,,31
+3,3_avoid,2013 avoid may june,avoid,2013,may jun,avoid,,,,,,,,5
+3,4_avoid,2013 avoid year-round jan feb march april may june july aug sept oct nov dec,avoid,2013,jan feb mar apr may jun jul aug sep oct nov dec,avoid,,,,,,,,7
+3,5_avoid,2013 avoid year-round jan feb march april may june july aug sept oct nov dec,avoid,2013,jan feb mar apr may jun jul aug sep oct nov dec,avoid,,,,,,,,9
+4,1,2004 2010 groundfish,fish,2004 2010,,groundfish,,,,,,,,1
+4,2,"2004 2010 nov dec   day med abundance (800 in a 15 min tow) cod 30-40 fathoms 2010 spent more time there, would get 4000-5000 pounds in 5 hours to day and a half",fish,2004 2010,nov dec,cod,,day,medium,30,40,,,3
+4,3,"2004 april may june july day med abundance (800 in a couple hour tow) fished for flounders, picked up cod 34-50 fathoms cod",fish,2004,apr may jun jul,flounder cod,,day,medium,34,50,,,5
+4,4,2004 specific fish  flounder,fish,2004,,flounder,,,,,,,,7
+4,5,2004 2010 april may june july aug sept oct nov  night high (800 pounds in 15 min tow) cod 14-20 fathoms,fish,2004 2010,apr may jun jul aug sep oct nov,cod,,night,high,14,20,,,8
+4,6,2004 2010  dec jan feb march  day and night med abundance cod with flounders 40-46 fathoms cod,fish,2004 2010,jan feb mar dec,cod flounder,,day night,medium,40,46,,,10
+4,6,2013 specific fish flounder haddock leave if catch too many cod c bycatch may june july aug sept oct nov dec,fish,2013,may jun jul aug sep oct nov dec,flounder haddock,yes,,,,,,,11
+4,7,2004 specific fish flounder day and night,fish,2004,,flounder,,day night,,,,,,12
+4,7,2004 groundfish,fish,2004,,groundfish,,,,,,,,13
+4,8,2010 groundfishing,fish,2010,,groundfish,,,,,,,,14
+4,9,"2010 april may june july day med abundance (4-5K pounds in a couple days) cod, flounder, grey sole, monks 34-50 fathoms cod",fish,2010,apr may jun jul,cod flounder monkfish greysole,,day,medium,34,50,,,15
+4,10,2013 specific fish,fish,2013,,specific,,,,,,,,16
+4,11,2013  specific fish,fish,2013,,specific,,,,,,,,17
+4,12,2013 avoid avoid humps and edges  winter feb march april day,avoid,2013,feb mar apr,avoid,,day,,,,,,18
+4,1_gf,2004 2010  2013 groundfish,fish,2004 2010 2013,,groundfish,,,,,,,,2
+4,2_gf,2010 groundfish,fish,2010,,groundfish,,,,,,,,4
+4,3_gf,2004 groundfish,fish,2004,,groundfish,,,,,,,,6
+4,5_avoid,2013 avoid,avoid,2013,,avoid,,,,,,,,9
+5,1,2004 2010 cod dec jan high 2004 abundance 800/30 min or less 2010 abundance 2-3K/30 day 15-38F,fish,2004 2010,jan dec,cod,,day,high,15,38,,,1
+5,2,2004 2010 night july aug sept  cod high 15 min/2-3K 33F,fish,2004 2010,jul aug sep oct nov,cod,,night,high,33,33,,,3
+5,3,2004 2010 cod high 2-3K/hr day may june july  37F,fish,2004 2010,may jun jul,cod,,day,high,37,37,,,5
+5,4,2004 2010 cod 2-3K/hr high day 17-19F april may,fish,2004 2010,apr may,cod,,day,high,17,19,,,7
+5,4,2013 cod  2-3K/hr high day 17-19F april may,fish,2013,apr may,avoid,,day,high,17,19,,,9
+5,5,2004 2010 cod high 2-3K/hr day 35F oct nov dec april may,fish,2004 2010,apr may oct nov dec,cod,,day,high,35,35,,,10
+5,1_avoid,2013 avoid dec jan high 800/30 min or less 2-3K/30 day 15-38F,avoid,2013,jan dec,avoid,,day,high,15,38,,,2
+5,2_avoid,2013 night july aug sept  avoid high 15 min/2-3K 33F,avoid,2013,jul aug sep oct nov,avoid,,night,high,33,33,,,4
+5,3_avoid,2013 avoid high 2-3K/hr day may june july  37F,avoid,2013,may jun jul,avoid,,day,high,37,37,,,6
+5,4_avoid,2013 avoid 2-3K/hr high day 17-19F april may,avoid,2013,apr may,cod,,day,high,17,19,,,8
+5,5_avoid,2013 avoid high 2-3K/hr day 35F oct nov dec april may,avoid,2013,apr may oct nov dec,avoid,,day,high,35,35,,,11
+5,gf,2004 2010 2013 ground,fish,2004 2010 2013,,groundfish,,,,,,,,12
+6,19,"2010,2013 tow around humps can't tow over hard bottom fish specific",fish,2010 2013,,specific,,,,,,,,2
+6,20,2004 fall cod October nov dec jan daytime fishing high  various humps kennedy's fall get large markets 30-35F 1K/hr easy. Never more than an hr. Usually 1k/30min spawning,fish,2004,jan oct nov dec,cod,,day,high,30,35,,,3
+6,21,2004 cod april may june july aug sept oct night time 15-20F 800lbs a day 800lbs/15 min or 800lbs/day feeding cod high,fish,2004,apr may jun jul aug sep oct,cod,,night,high,15,20,,,5
+6,22,"2010,2013 fish specific tow around humps",fish,2010 2013,,specific,,,,,,,,7
+6,20_avoid,fall oct nov dec jan 2013 2010 daytime fishing avoid,avoid,2010 2013,jan oct nov dec ,avoid,,day,,,,,,4
+6,21_avoid,"2013, 2010 spring summer april may june july aug sept oct night time avoid",avoid,2010 2013,apr may jun jul aug sep oct,avoid,,night,,,,,,6
+6,7gf,grounfish 2004 2010 2013 2004 whiting fishery do we want to count this?,fish,2004 2010 2013,,groundfish whiting,,,,,,,,1
+9,1,"market spring march, april, may day night (fixed gear) 15-30F high cod 2004 2010 800/15hr soak",fish,2004 2010,mar apr may,cod,,day night,high,15,30,,,1
+9,2,"market spring march, april, may day night (fixed gear) 15-30F cod high 800/15hr soak 2004 2010",fish,2004 2010,mar apr may,cod,,day night,high,15,30,,,3
+9,2,2004 cod 800/8hrs high oct nov,fish,2004,oct nov,cod,,,high,,,,,4
+9,11,specific fish 2004-2009,fish,2004 2010,,specific,,,,,,,,6
+9,11,2013 cod 400/16hr high high b/c not targeting specific  33F may,fish,2013,may,cod,,,high,33,33,,,7
+9,12,specific fish 2004-2009,fish,2004 2010,,specific,,,,,,,,8
+9,35,specific fish 2004-2009,fish,2004 2010,,specific,,,,,,,,9
+9,36,"market spring march, april, may day night (fixed gear) 15-30F high cod 2004 2010 800/15hr soak",fish,2004 2010,mar apr may,cod,,day night,high,15,30,,,10
+9,40,cod 2004 2010 high  30F spring may june july aug sept oct 800/16-20hr soak market day night (fixed gear),fish,2004 2010,may jun jul aug sep oct,cod,,day night,high,30,30,,,14
+9,1_avoid,"2013 march, april, may day night (fixed gear) avoid",avoid,2013,mar apr may,avoid,,day night,,,,,,2
+9,2_avoid,"2013  march, april, may day night (fixed gear) avoid",avoid,2013,mar apr may,avoid,,day night,,,,,,5
+9,36_avoid,"2013 march, april, may day night (fixed gear) avoid",avoid,2013,mar apr may,avoid,,day night,,,,,,11
+9,37_38,2004-2009 specific fish,fish,2004 2010,,specific,,,,,,,,12
+9,39_38,"market 2010, 2013 specific fish",fish,2010 2013,,specific,,,,,,,,13
+9,40_avoid,2013 spring may june july aug sept avoid day night (fixed gear),avoid,2013,may jun jul aug sep,avoid,,day night,,,,,,15
+9,72gf,2013 groundfish,fish,2013,,groundfish,,,,,,,,16
+9,72gf,2004 2010 groundfish,fish,2004 2010,,groundfish,,,,,,,,17
+9,Untitled Polygon,2004 2010 cod high  3-4k/15 hr 35-40F april may nov (fishing with interviewer 19),fish,2004 2010,apr may nov,cod,,day night,high,35,40,,,18
+10,1,2013 specific fishing haddock,fish,2013,,haddock,,,,,,,,1
+10,41,2004 cod april may june high 30F cod TIME OF DAY ?? RATE OF FISHING ??,fish,2004,apr may jun,cod,,,high,30,30,,,3
+10,42,2004 cod april may june high 35-42F TOD?? CATCH RATE??,fish,2004,apr may jun,cod,,,high,35,42,,,5
+10,43,cod 2004  april  may june high TOD RATE?,fish,2004,apr may jun,cod,,,high,,,,,7
+10,44,cod 2004 april may june high TOD DEPTH RATE??,fish,2004,apr may jun,cod,,,high,,,,,9
+10,45,2004 cod  april may june july high TIME OF DAY DEPTH RATE??,fish,2004,apr may jun jul,cod,,,high,,,,,11
+10,46,2013 flounder specific fish MONTHS,fish,2013,,flounder,,,,,,,,13
+10,47,"2004 cod november, dec, jan high 30F TOD? RATE?",fish,2004 2010,jan nov dec,cod,,,high,30,30,,,14
+10,48,"2004 cod december, jan, feb, march water temperatures warm 30F if water temp cold 45-40F high TOD? CATCH RATE?",fish,2004,jan feb mar dec,cod,,,high,30,45,,,16
+10,49,Feb march july august 2013 avoid TIME OF DAY DEPTH,avoid,2013,feb mar jul aug,avoid,,,,,,,,18
+10,50,cod 2004 july june august  high  DEPTH TIME OF DAY RATE???,fish,2004,jun jul aug,cod,,,high,,,,,20
+10,51,2004 cod  june july august high TOD DEPTH RATE,fish,2004,jun jul aug,cod,,,high,,,,,22
+10,52,cod 2010  may june day large DEPTH RATE,fish,2010,may jun,cod,,day,,,,,,24
+10,53,bycatch 2013 specific fishing MONTHS TOD,fish,2013,,monkfish,yes,,,,,,,26
+10,54,cod 2010 night may june scrod market DEPTH,fish,2010,may jun,cod,,night,,,,,,27
+10,1gf,2004 2010 2013 groundfishing,fish,2004 2010 2013,,groundfish,,,,,,,,2
+10,41_avoid,2013 avoid april may june,avoid,2013,apr may jun,avoid,,,,,,,,4
+10,42_avoid,2013 avoid april may june TOD,avoid,2013,apr may jun,avoid,,,,,,,,6
+10,43_avoid,april  avoid may june 2013 TOD,avoid,2013,apr may jun,avoid,,,,,,,,8
+10,44_avoid,april may june 2013 avoid TOD,avoid,2013,apr may jun,avoid,,,,,,,,10
+10,45_avoid,april may june july avoid 2013 TIME OF DAY DEPTH,avoid,2013,apr may jun jul,avoid,,,,,,,,12
+10,47_avoid,"november, dec, jan avoid 2013 TOD",avoid,2013,jan nov dec,avoid,,,,,,,,15
+10,48_avoid,"2013 avoid  december, jan, feb, march TOD DEPTH?",avoid,2013,jan feb mar dec,avoid,,,,,,,,17
+10,49_avoid,2004 avoid  Feb march july august high TIME OF DAY DEPTH,avoid,2004,feb mar jul aug,avoid,,,high,,,,,19
+10,50_avoid,july june august avoid 2013 DEPTH TIME OF DAY,avoid,2013,jun jul aug,avoid,,,,,,,,21
+10,51_avoid,june july august 2013 avoid TOD DEPTH,avoid,2013,jun jul aug,avoid,,,,,,,,23
+10,52_avoid,may june day avoid 2013,avoid,2013,may jun,avoid,,day,,,,,,25
+10,54_avoid,2013 night may june avoid,avoid,2013,may jun,avoid,,night,,,,,,28
+11,57,specific fishing 2013-2022,fish,2013,,specific,,,,,,,,3
+11,58,2004 2010 2013 cod june low-med SAME AS OTHER FOR AUNDANCE day night (fixed gear) 28-65 fathoms,fish,2004 2010 2013,jun,cod,,day night,low,28,65,,,4
+11,59,"2004, 2010 cod june low-med 200-500/24hr soak day night (fixed gear) 28-65 fathoms",fish,2004 2010,jun,cod,,day night,low,28,65,,,5
+11,60,2004 2010 cod july aug sept oct nov dec jan day night (fixed gear) 28-65 fathoms high 800-5K lbs cod 24hrs.,fish,2004 2010,jan jul aug sep oct nov dec,cod,,day night,high,28,65,,,7
+11,61,2013 cod july aug sept oct nov dec jan day night (fixed gear) 28-65 fathoms high 800-5K lbs cod 24hrs. (low-high),fish,2013,jan jul aug sep oct nov dec,cod,,day night,medium,28,65,,,9
+11,62,2004 2010 2013 cod march april may 65-100 fathoms low-med  500-800 /24hr soak day night (fixed gear),fish,2004 2010 2013,mar apr may,cod,,day night,low,65,100,,,10
+11,63,2004 2010 cod march april may low-med 400-800/24hr soak. 50-100 fathoms day night (fixed gear),fish,2004 2010,mar apr may ,cod,,day night,low,50,100,,,12
+11,64,2004 2010 cod may low-med 55-85F 1-3K /24hr soak day night (fixed gear),fish,2004 2010,may,cod,,day night,medium,55,85,,,14
+11,65,2004 2010 cod july aug sept oct nov dec jan medium 800-1K/24 soak day night (fixed gear) 60-35F,fish,2004 2010,jan jul aug sep oct nov dec,cod,,day night,medium,35,60,,,16
+11,66,2004 2010  cod april may june july aug sept oct nov dec jan high day night (fixed gear) 800-5K /24hr soak 65-28F,fish,2004 2010,jan apr may jun jul aug sep oct nov dec,cod,,day night,high,28,65,,,17
+11,66,2013 cod bycatch low july august sept oct nov dec jan day night (fixed gear) 400-1K/24 hrs soak 65-28F,fish,2013,jan jul aug sep oct nov dec,cod,yes,day night,low,28,65,,,18
+11,67,2004 2010 cod july aug sept oct nov dec jan high 28-55F day night (fixed gear) 800-5K lbs cod 24hrs.,fish,2004 2010,jan jul aug sep oct nov dec,cod,,day night,high,28,55,,,19
+11,1 gf,2004 2010 2013 groundfishing area,fish,2004 2010 2013,,groundfish,,,,,,,,1
+11,55 gf,2004 2010  groundfish,fish,2004 2010,,groundfish,,,,,,,,2
+11,59_avoid,june day night (fixed gear) 28-65 fathoms avoid 2013,avoid,2013,jun,avoid,,day night,,28,65,,,6
+11,60_2013,2013 cod july aug sept oct nov dec jan day night (fixed gear) 28-65 fathoms low-mid 800-5K lbs cod 24hrs. (low-high) lower end of range for 2013 time period,fish,2013,jan jul aug sep oct nov dec,cod,,day night,low,28,65,,,8
+11,62_avoid,2013 avoid march april may 65-100 fathoms low-med  500-800 /24hr soak day night (fixed gear),avoid,2013,mar apr may,avoid,,day night,low,65,100,,,11
+11,63_avoid,2004 2010 avoid march april may low-med 400-800/24hr soak. 50-100 fathoms day night (fixed gear),avoid,2004 2010,mar apr may,avoid,,day night,low,50,100,,,13
+11,64_avoid,may day night (fixed gear) 2013 avoid,avoid,2013,may,avoid,,day night,,,,,,15
+11,Untitled Polygon,2013  cod day night fixed net 30 nets 500-1K/24hr soak 50-90F,fish,2013,,cod,,day night,low,50,90,,,20
+12,68,2004 2010 cod high night  14-40F jan feb march april may june september october november december,fish,2004 2010,jan feb mar apr may jun sep oct nov dec,cod,,night,high,14,40,,,1
+12,69,2010 2004 cod high feb march april  5-6K in a day day and night 60-80F,fish,2004 2010,feb mar apr,cod,,day night,high,60,80,,,3
+12,70,2004 2010 cod low-high feb march april gravel/rock day and night 80-90F cod market-large 300-400 or 3K-4K,fish,2004 2010,feb mar apr,cod,,day night,medium,80,90,,,5
+12,70,2013 cod low jan feb may june july august sept oct nov dec gravel/rock day and night 80-90F cod market-large 300-400,fish,2013,jan feb may jun jul aug sep oct nov dec,cod,,day night,low,80,90,,,6
+12,71,2004 cod low-medium dec jan feb march april both pollock mostly  deep as 80F 500-1000K a day,fish,2004,jan feb mar apr dec,cod pollock,,day night,medium,80,80,,,8
+12,73,"2004 cod medium oct nov dec both 70-90F grey sol monks and some cod, 1000K a day",fish,2004,oct nov dec,cod greysole monkfish,,day night,medium,70,90,,,10
+12,74,2004 2010 low-medium feb march april 400-450lbs a day gravel/rock day and night 90-100F cod,fish,2004 2010,feb mar apr,cod,,day night,medium,90,100,,,12
+12,74,2013 march april  4000K left in quota so he did a tow there mid trip 4000K after 3-5 trips making a tow. day  90-115F cod,fish,2013,mar apr,cod,,day,high,90,115,,,13
+12,75,2004 cod high november december july aug both 59-100F 2500-3000/day pollock red fish too there so mix bag fishing,fish,2004,jul aug nov dec,cod pollock redfish,,day night,high,59,100,,,14
+12,76,2004 high cod  may june july day 75-58F mixed bag fishing. flounders. 2500-3000/day.,fish,2004,may jun jul,cod flounder,,day,high,58,75,,,16
+12,77,ground 2010 2013,fish,2010 2013,,groundfish,,,,,,,,18
+12,78,ground 2004,fish,2004,,groundfish,,,,,,,,19
+12,68_avoid,2013 night avoid MONTHS  ( 'NEARLY ALL MONTHS 10/12') DEPTH,avoid,2013,,avoid,,night,,,,,,2
+12,69_avoid,2013 feb march april  avoid TOD DEPTH,avoid,2013,feb mar apr,avoid,,,,,,,,4
+12,70_avoid,2013 avoidance march april gravel/rock day and night 80-90F cod market-large,avoid,2013,mar apr,avoid,,day night,,80,90,,,7
+12,71_avoid,2013 avoid dec jan feb march april both DEPTH heck dates and location in closure,avoid,2013,jan feb mar apr dec,avoid,,day night,,,,,,9
+12,73_avoid,2013 avoid oct nov dec both DEPTH,avoid,2013,oct nov dec,avoid,,day night,,,,,,11
+12,75_avoid,2013 november december july aug both avoid DEPTH,avoid,2013,jul aug nov dec,avoid,,day night,,,,,,15
+12,76_avoid,2013  may june july day avoid DEPTH,avoid,2013,may jun jul,avoid,,day,,,,,,17
+17,82,2004 fish specific june july aug,fish,2004,jun jul aug,specific,,,,,,,,2
+17,82,2013 oct nov dec jan feb fish specific,fish,2013,jan feb oct nov dec,specific,,,,,,,,3
+17,83,2004 june july august medium-high day night (fixed gear) cod DEPTH,fish,2004,jun jul aug,cod,,day night,medium,,,,,4
+17,84,2004 high may june july aug sept oct nov cod day night (fixed gear) DEPTH,fish,2004,may jun jul aug sep oct nov,cod,,day night,high,,,,,6
+17,84,2013 may june july aug sept oct nov specific fishing,fish,2013,may jun jul aug sep oct nov,specific,,,,,,,,7
+17,85,may june july aug sept oct nov 2004 2010 high cod day night (fixed gear) DEPTH,fish,2004 2010,may jun jul aug sep oct nov,cod,,day night,high,,,,,9
+17,86,2004 2010 spring fall may june july aug sept oct nov high cod day night (fixed gear) DEPTH,fish,2004 2010,may jun jul aug sep oct nov,cod,,day night,high,,,,,11
+17,86,2013 fall sept oct nov cod day night (fixed gear) ABUNDANCE??? DEPTH,fish,2013,sep oct nov,cod,,day night,,,,,,12
+17,87,2013 specific fish summer fall MONTHS???,fish,2013,summer fall,specific,,,,,,,,13
+17,88,2004 spring fall cod high day night (fixed gear) MONTHS???? DEPTH,fish,2004,spring fall,cod,,day night,high,,,,,14
+17,89,2004 2013 specific fishing day night (fixed gear) MONTHS???,fish,2004 2010 2013,,specific,,day night,,,,,,16
+17,90,2004 40 fathoms high cod feb march april may winter day night (fixed gear),fish,2004,feb mar apr may,cod,,day night,high,40,40,,,17
+17,91,2004 2010 spring summer specific fish day night (fixed gear) MONTHS???,fish,2004 2010,spring summer,specific,,day night,,,,,,19
+17,92,2004 2010 high spring summer cod day night (fixed gear) MONTHS??? DEPTH,fish,2004 2010,spring summer,specific,,day night,high,,,,,20
+17,93,2004 2010 only catch cod on peaks low-med only catch cod on peaks within area may june july spring cod day night (fixed gear) DEPTH,fish,2004 2010,may jun jul,cod,,day night,medium,,,,,22
+17,94,2004 2010 2013 specific fish may june july,fish,2004 2010 2013,may jun jul,specific,,,,,,,,24
+17,95,2004 2010 low-med may june july cod day night (fixed gear) DEPTH,fish,2004 2010,may jun jul,cod,,day night,low,,,,,25
+17,96,2004 summer fall specific fishing MONTHS???,fish,2004,summer fall,specific,,,,,,,,27
+17,97,2004 med summer fall cod day night (fixed gear) MONTHS???? DEPTH,fish,2004,summer fall,cod,,day night,medium,,,,,28
+17,98,specific fish nov dec jan 2010,fish,2010,jan nov dec,avoid,,,,,,,,30
+17,99,2004 low fall cod day night (fixed gear) MONTHS????,fish,2004,fall,cod,,day night,low,,,,,31
+17,100,2004 2010 day night (fixed gear) high cod fall large markets MONTHS???,fish,2004 2010,fall,cod,,day night,high,,,,,33
+17,101,2013 specific fishing pollock fall MONTHS????,fish,2013,fall,pollock,,,,,,,,35
+17,102,med cod 2004 2010 more cod focused 2010-2012 nov dec jan L cod in spring large market (6-9) day night (fixed gear),fish,2004 2010,jan nov dec,cod,,day night,medium,,,,,36
+17,103,2004 low cod fall large markets day night (fixed gear) MONTHS???,fish,2004,fall,cod,,day night,low,,,,,38
+17,100_avoid,2013 avoid day night (fixed gear) MONTHS???,avoid,2013,,avoid,,day night,,,,,,34
+17,102_avoid,2013 avoid nov dec jan day night (fixed gear),avoid,2013,jan nov dec,avoid,,day night,,,,,,37
+17,103_avoid,2013 avoid day night (fixed gear) MONTHS???,avoid,2013,,avoid,,day night,,,,,,39
+17,1H,groundfishing 2004 2013 2010,fish,2004 2010 2013,,groundfish,,,,,,,,1
+17,83_avoid,avoid 2013 june july august day night (fixed gear) TOD??,avoid,2013,jun jul aug,avoid,,day night,,,,,,5
+17,84_avoid,"2013 avoid may june july aug sept oct nov fish on edge, avoid peaks day night (fixed gear) MONTHS??",avoid,2013,may jun jul aug sep oct nov,avoid,,day night,,,,,,8
+17,85_avoid,may june july aug sept oct nov 2013 avoid day night (fixed gear) DEPTH,avoid,2013,may jun jul aug sep oct nov,avoid,,day night,,,,,,10
+17,88_avoid,2013 avoid day night (fixed gear) MONTHS????,avoid,2013,,avoid,,day night,,,,,,15
+17,90_avoid,2013 avoid 40 fathoms feb march april may winter day night (fixed gear),avoid,2013,feb mar apr may,avoid,,day night,,40,40,,,18
+17,92_avoid,2013 AVOID THIS AREA OR #91 spring summer day night (fixed gear) MONTHS??? DEPTH,avoid,2013,spring summer,avoid,,day night,,,,,,21
+17,93_avoid,2013 may june july spring day night (fixed gear) avoid DEPTH,avoid,2013,may jun jul,avoid,,day night,,,,,,23
+17,95_avoid,2013 may june july day night (fixed gear) avoid DEPTH,avoid,2013,may jun jul,avoid,,day night,,,,,,26
+17,97_avoid,2013 AVOID THIS OR BIGGER #96 summer fall day night (fixed gear) MONTHS??? DEPTH,avoid,2013,summer fall,avoid,,day night,,,,,,29
+17,99_avoid,2013 avoid day night (fixed gear) MONTHS????,avoid,2013,,avoid,,day night,,,,,,32
+19,50,2004 specific_fishing dec,fish,2004,dec,specific,,,,,,,,2
+19,51,2004 cod high december day night (fixed gear) 13F 1 hr 800lbs,fish,2004,dec,cod,,day night,high,13,13,,,3
+19,52,2004 specific_fishing march,fish,2004,mar,specific,,,,,,,,5
+19,53,2004 cod  high  march  35-40F day night (fixed gear) 800lbs/1hr,fish,2004,mar,cod,,day night,high,35,40,,,6
+19,54,2004 2010 day night (fixed gear) fish specific cod june-december 2010-12 high  3-4K in 20hrs 40-45F,fish,2004 2010,jun jul aug sep oct nov dec,cod,,day night,high,40,45,,,8
+19,55,2004  specific_fishing dec,fish,2004,dec,specific,,,,,,,,9
+19,56,2004 cod high 800lbs/1hr dec 16F day night (fixed gear),fish,2004,dec,cod,,day night,high,16,16,,,10
+19,57,2004 2010  specific_fishing  may june july august sept oct nov dec  19F,fish,2004 2010,may jun jul aug sep oct nov dec,specific,,,,19,19,,,12
+19,58,2004  cod  may june july aug sept oct nov dec medium-high highest in dec  19F 300-400/hr day night (fixed gear),fish,2004,may jun jul aug sep oct nov dec,cod,,day night,medium,19,19,,,13
+19,59,2010 cod high 800lb/hr oct nov dec 40F large day night (fixed gear),fish,2010,oct nov dec,cod,,day night,high,40,40,,,15
+19,60,2004 2010 2013 specific_fishing DEPTH TOY TOD,fish,2004 2010 2013,,specific,,,,,,,,17
+19,70,2004 cod  medium dec 25F day night (fixed gear) 3-400/hr,fish,2004,dec,cod,,day night,medium,25,25,,,21
+19,71,2004 2013 specific_fishing  day night (fixed gear) TOY,fish,2004 2010 2013,,specific,,day night,,,,,,23
+19,72,2004  cod oct med 300-400/hr 40-50F day night (fixed gear),fish,2004,oct,cod,,day night,medium,40,50,,,24
+19,72,2013 cod mix pollock/hake 2k/day 16hrs bycatch medium oct nov 40-50F day night (fixed gear),fish,2013,oct nov,cod pollock hake,yes,day night,medium,40,50,,,25
+19,75,2004 2010 2013 specific_fish sept oct BYCATCH OR LOW COD? TOD ABUNDANCE,fish,2004 2010 2013,sep oct,specific,yes,,,,,,,26
+19,76,2004 2010 2013 specific fish,fish,2004 2010 2013,,specific,,,,,,,,27
+19,77,2004 2010 2013 specific fish TOD TOY,fish,2004 2010 2013,,specific,,,,,,,,28
+19,78,2004 may sept oct nov  med  cod 48F day night (fixed gear),fish,2004,may sep oct nov,cod,,day night,medium,48,48,,,29
+19,78,2013 cod bycatch may sept oct nov  7-800/16 hrs day night (fixed gear) 48F,fish,2013,may sep oct nov,cod,yes,day night,low,48,48,,,30
+19,79,2004 2010 cod  med 300-400/hr may june oct nov 32F day night (fixed gear),fish,2004 2010,may jun oct nov,cod,,day night,medium,32,32,,,32
+19,80,2004  2010  2013 jan feb march specific_fishing day night (fixed gear) ABUNDACE DEPTH,fish,2004 2010 2013,jan feb mar,specific,,day night,,,,,,35
+19,81,2004 2010  cod jan feb march medium  300-400/hr day night (fixed gear) 65F,fish,2004 2010,jan feb mar,specific,,day night,medium,65,65,,,36
+19,81,2013 cod bycatch 7-800lbs/16hrs jan feb march day night (fixed gear),fish,2013,jan feb mar,cod,yes,day night,low,,,,,37
+19,82,2004  cod  june july 25F high 800/hr day night (fixed gear),fish,2004,jun jul,cod,,day night,high,25,25,,,39
+19,83,2004 2010 march april specific_fishing low mostly hake,fish,2004 2010,mar apr,hake,,,low,,,,,40
+19,84,2004  fish specific TOY  TOD,fish,2004,,specific,,,,,,,,42
+19,85,2004 fish specific  TOY TOD DEPTH,fish,2004,,specific,,,,,,,,43
+19,1J,ground 2004  2010  2013 Can YOU EXPAND???,fish,2004 2010 2013,,groundfish,,,,,,,,1
+19,51_avoid,2013 avoid december day night (fixed gear),avoid,2013,dec,avoid,,day night,,,,,,4
+19,53_avoid,2013 march  35-40F day night (fixed gear) avoid,avoid,2013,mar,avoid,,day night,,35,40,,,7
+19,56_avoid,2013 avoid dec 16F day night (fixed gear),avoid,2013,dec,avoid,,day night,,16,16,,,11
+19,58_avoid,2013 avoid may june july aug sept oct nov dec 19F day night (fixed gear),avoid,2013,may jun jul aug sep oct nov dec,avoid,,day night,,19,19,,,14
+19,59_avoid,2013 avoid oct nov dec 40F day night (fixed gear),avoid,2013,oct nov dec,avoid,,day night,,40,40,,,16
+19,61_avoid,2013 avoid almost year round aboid high nov dec jan 15-40F low-medium feb march april may june july aug sept oct day night (fixed gear),avoid,2013,jan feb mar apr may jun jul aug sep oct nov dec,avoid,,day night,high,15,40,,,18
+19,61_high,2004 2010  cod almost year round high nov dec jan 15-20F day night (fixed gear) 800/1hr,fish,2004 2010,jan feb mar apr may jun jul aug sep oct nov dec,cod,,day night,high,15,20,,,19
+19,61_low,2004 2010  cod 15-20F low feb march april may june july aug sept oct day night (fixed gear),fish,2004 2010,feb mar apr jun jul aug sep oct,cod,,day night,low,15,20,,,20
+19,70_avoid,2013 avoid dec 25F day night (fixed gear),avoid,2013,dec,avoid,,day night,,25,25,,,22
+19,78_avoid,2013 avoid may sept oct nov  day night (fixed gear) 48F,avoid,2013,may sep oct nov,avoid,,day night,,48,48,,,31
+19,79_avoid,2013 avoid may june  32F day night (fixed gear),avoid,2013,may jun,avoid,,day night,,32,32,,,33
+19,79_avoid,2013 cod oct nov dec bycatch 7-800lbs/16hrs 32F day night (fixed gear),avoid,2013,oct nov dec,cod,yes,day night,low,32,32,,,34
+19,81_avoid,2013 avoid jan feb march day night (fixed gear),avoid,2013,jan feb mar,avoid,,day night,,,,,,38
+19,83_avoid,2013 cod mix bag. any low or just bycatch??? 400/16hrs march april day night (fixed gear),avoid,2013,mar apr,cod,yes,day night,low,,,,,41
+19,gf,2004 2010 2013 ground fishing,fish,2004 2010 2013,,groundfish,,,,,,,,44
+20,1,ground fish 2004 2010 specific fish,fish,2004 2010,,groundfish,,,,,,,,1
+20,1,2004 2010 jan 25-28F high 3-5 nets catch 800lbs of cod. 30-40 nets could get 5k-6k. cod day night (fixed gear) fixed gear,fish,2004 2010,jan,cod,,day night,high,25,28,,,2
+20,2,ground fish 2004 2010 2013,fish,2004 2010 2013,,groundfish,,,,,,,,4
+20,2,2004 2010 dec jan 24-25F high 3-5 nets catch 800lbs of cod. 30-40 nets could get 5k-6k. cod day night (fixed gear),fish,2004 2010,jan dec,cod,,day night,high,24,25,,,5
+20,3,2010 2004 april may nov 30F high 3-5 nets catch 800lbs of cod. 30-40 nets could get 5k-6k. cod day night (fixed gear),fish,2004 2010,apr may nov,cod,,day night,high,30,30,,,6
+20,4,oct nov dec jan 2004 2010 32-35F high 3-5 nets catch 800lbs of cod. 30-40 nets could get 5k-6k cod day night (fixed gear) fixed gear,fish,2004 2010,jan oct nov dec,cod,,day night,high,32,35,,,8
+20,4,2010 2004 high 3-5 nets catch 800lbs of cod. 30-40 nets could get 5k-6k. cod april may nov dec 38-42F day night (fixed gear),fish,2004 2010,apr may nov dec,cod,,day night,high,38,42,,,9
+20,4,2013 high 10-30 nets cod pollock if too many cod lighten up on nets cod oct nov 38-42F day night (fixed gear),fish,2013,oct nov,cod pollock,,day night,high,38,42,,,10
+20,5,cod 2004 2010 oct nov jan 42-46F high 3-5 nets catch 800lbs of cod. 30-40 nets could get 5k-6k. day night (fixed gear) fixed net,fish,2004 2010,jan oct nov,cod,,day night,high,42,46,,,12
+20,5,2010 2004 oct nov dec jan high 3-5 nets catch 800lbs of cod. 30-40 nets could get 5k-6k. cod 24F day night (fixed gear),fish,2004 2010,jan oct nov dec,cod,,day night,high,24,24,,,13
+20,6,cod 2004 2010 high 3-5 nets catch 800lbs of cod. 30-40 nets could get 5k-6k. 40-50F sept oct nov day night (fixed gear) fixed net (JG),fish,2004 2010,oct nov,cod,,day night,high,40,50,,,15
+20,6,2010 2004 nov dec jan 25F high 3-5 nets catch 800lbs of cod. 30-40 nets could get 5k-6k cod day night (fixed gear) fixed gear,fish,2004 2010,jan nov dec,cod,,day night,high,32,32,,,16
+20,7,2004 2010 nov dec jan 32F high 3-5 nets catch 800lbs of cod. 30-40 nets could get 5k-6k. cod day night (fixed gear),fish,2004 2010,jan nov dec,cod,,day night,high,32,32,,,17
+20,7,2013 cod 4000 in one tow in sept accident day night (fixed gear) fixed,fish,2013,sep,cod,,day night,high,,,,,18
+20,8,2013 dec cod high 40 nets 2-7K day night (fixed gear) DEPTH fixed gear,fish,2013,dec,cod,,day night,high,,,,,19
+20,9,grounfishing 2004 2010 2013 polygons outside of range,fish,2004 2010 2013,,groundfish,,,,,,,,20
+20,1gf,gf 2013,fish,2013,,groundfish,,,,,,,,3
+20,3_avoid,2013 avoid MONTH day night (fixed gear),avoid,2013,,avoid,,day night,,,,,,7
+20,4_avoidance,2013 avoidance april may nov dec 38-42F day night (fixed gear) fixed net,avoid,2013,apr may nov dec,avoid,,day night,,38,42,,,11
+20,5_avoidance,2013 avoidance oct nov dec jan cod 24F day night (fixed gear) fixed net,avoid,2013,jan oct nov dec,avoid,,day night,,24,24,,,14
+21,11,2010 cod jan day 18 fathoms sand/hard bottom smaller cod high 1-2k per hour,fish,2010,jan,cod,no,day,high,18,18,1500,sand/hard,2
+21,12,cod 2010 high  day 30-50 fathoms oct nov dec jan feb 2k per hour,fish,2010,jan feb oct nov dec,cod,no,day,high,30,50,2000,,3
+21,13,2010 cod 47 fathoms daytime dec jan high 10K in a day  mud bottom large cod,fish,2010,jan dec,cod,no,day,high,47,47,417,mud,5
+21,15,"2004 cod summer sand/cobble bottom night high 15-20 fathoms June jul august sept 10-15 mins/ 3,000-5,000 pounds",fish,2004,jun jul aug sep,cod,no,night,high,15,20,16000,sand/cobble,7
+21,19,2004 cod high sand/cobble bottom day summer 42 fathoms june july aug 3000-5000 pounds per 10-15 mins ,fish,2004,jun jul aug,cod,no,day,high,42,42,16000,sand/cobble,18
+21,20,2013 avoid EVERY CAUGHT HERE BEFORE?? MONTHS????,avoid,2013,,avoid,,,,,,,,20
+21,21,2004 2010 2012 specific fishing,fish,2004 2010 2013,,specific,,,,,,,,21
+21,22,2010 2013 specific fish,fish,2010 2013,,specific,,,,,,,,22
+21,23,specific fish 2013,fish,2013,,specific,,,,,,,,23
+21,51,"2004 high cod mud bottom july 50-60F day 1,000 pounds/ hour",fish,2004,jul,cod,no,day,high,50,60,1000,mud,24
+21,52,"2004 cod  high march 90 fathoms in holes, 30 fathoms in tops mud bottom daytime 10-15 min 3-5k pounds",fish,2004,mar,cod,no,day,high,30,90,16000,mud,26
+21,53,2004 high cod mud bottom march july day  50-60F 500/hour,fish,2004,mar jul,cod,no,day,high,50,50,500,mud,28
+21,54,2004 cod high nov dec june july mud bottom daytime 40-50F summer: 3k/hour winter: 1k per hour,fish,2004,jun jul nov dec,cod,no,day,high,30,40,1000,mud,30
+21,55,2004 cod high nov dec sand/gravel bottom 30-40 fathoms july june day night 1k per 1 hour,fish,2004,jun jul nov dec,cod,no,day night,high,30,40,1000,sand/gravel,32
+21,56,2004 cod high oct nov dec jan mud/sand 48 - 60F daytime 1-2K per 2 hours,fish,2004,jan oct nov dec,cod,no,day,high,48,60,1500,mud/sand,34
+21,57,2004 high cod march mud bottom 50F  day 500/hour,fish,2004,mar,cod,no,day,high,50,50,500,mud,36
+21,58,"2004 high cod march mud bottom june july day time 50-60F 1,000 per 2 hours",fish,2004,mar jun jul,cod,no,day,high,50,60,500,mud,38
+21,59,2004 cod high year-round jan feb march april may june july aug sept oct nov dec hard bottom mixed fish day night 26-32F 800/ 3 hours,fish,2004,jan feb mar apr may jun jul aug sep oct nov dec,cod,no,day night,high,26,32,267,hard,40
+21,60,2004 cod dec jan hard bottom med 500/hour day night  30-40F,fish,2004,jan dec,cod,no,day night,,30,40,500,hard,42
+21,60,2013 cod bycatch march  winter summer spring 200-500/ 3 hours 29-40F day night,fish,2013,mar,specific,yes,day night,,29,40,117,,43
+21,61,"2004 cod spring march dec jan feb 30-50 fathoms sand bottom high daytime 1,000/ hour",fish,2004,jan feb mar dec,cod,no,day,high,30,50,1000,sand,45
+21,61,2013 bycatch summer winter spring 40 F day  jan feb march 200-500 pounds/3 hour ,fish,2013,jan feb mar,specific,yes,day,low,40,40,117,,46
+21,62,"2004 cod year-round jan feb march april may june july aug sept oct nov high sand/cobble 30 fathoms day  1,000/ hour",fish,2004,jan feb mar apr may jun jul aug sep oct nov dec,cod,no,day,high,30,30,1000,sand/cobble,48
+21,64,2013 haddock bycatch  winter jan feb market scrod 500/hour day 50-65F,fish,2013,jan feb,haddock,yes,day,low,50,65,500,,52
+21,65,2004 2010 2013 groundfishing,fish,2004 2010 2013,,groundfish,,,,,,,,53
+21,12_avoid,2013 avoid day 30-50 fathoms oct nov dec jan feb,avoid,2013,jan feb oct nov dec,avoid,,day,,30,50,,,4
+21,13_avoid,2013 47 fathoms daytime dec jan avoid,avoid,2013,jan dec,avoid,,day,,47,47,,,6
+21,15_avoid,2013 avoid 15-20F night summer sand/cobble bottom night 15-20 fathoms June jul august sept,avoid,2013,jun jul aug sep,avoid,,night,,15,20,,sand/cobble,8
+21,16_summer,2004 cod summer sand/cobble bottom night high 30F june july  10-15 mins 3-5k,fish,2004,jun jul,cod,no,night,high,30,30,16000,sand/cobble,9
+21,16_summer_avoid,2013 sand/cobble bottom summer night avoid 30F,avoid,2013,summer,avoid,no,night,,30,30,,sand/cobble,10
+21,16_winter,2004 cod winter  high sand/cobble bottom day 30F dec jan 10-15 mins 3-5k,fish,2004,jan dec,cod,no,day,high,30,30,16000,sand/cobble,11
+21,16_winter_avoid,2013 winter daytime avoid sand/cobble bottom day 30F dec jan,avoid,2013,jan dec,avoid,,day,,15,20,,sand/cobble,12
+21,18_summer,2004 cod summer high sand/cobble bottom night 15-20 fathoms may 10-15 mins 3-5k pounds,fish,2004,may,cod,no,night,high,15,20,16000,sand/cobble,14
+21,18_summer_night,2013 avoid sand/cobble bottom summer night 15-20 fathoms may,avoid,2013,may,avoid,,night,,15,20,16000,sand/cobble,15
+21,18_winter,2004 cod dec jan  sand/cobble bottom day high 15-20 fathoms 10-15 mins 3-5k pounds,fish,2004,jan dec,cod,no,day,high,15,20,16000,sand/cobble,16
+21,18_winter_avoid,2013 avoid 15-20F day winter sand/cobble bottom dec jan,avoid,2013,jan dec,avoid,,day,,15,20,,sand/cobble,17
+21,19_avoid,2013 avoid day 42F sand/cobble bottom day summer june july aug,avoid,2013,jun jul aug,avoid,,day,,42,42,,mud,19
+21,1L,groundfishing 2004 2010 2013,fish,2004 2010 2013,,groundfish,,,,,,,,1
+21,51_avoid,2013 avoid july mud bottom 50-60F day,avoid,2013,jul,avoid,,day,,50,60,,mud,25
+21,52_avoid,2013 avoidance 30-90F mud March day,avoid,2013,mar,avoid,,day,,30,90,,mud,27
+21,53_avoid,2013 avoid mud bottom march july day  50-60F,avoid,2013,mar,avoid,,day,,50,60,,mud,29
+21,54_avoid,2013 avoid mud bottom daytime 40-50F,avoid,2013,,avoid,,day,,40,50,,mud,31
+21,55_avoid,2013 avoid nov dec sand/gravel bottom 30-40 fathoms july june day night,avoid,2013,jun jul nov dec,avoid,,day night,,30,40,,sand/gravel,33
+21,56_avoid,2013 avoid oct nov dec jan mud/sand 48 - 60F daytime,avoid,2013,jan oct nov dec,avoid,,day,,48,60,,mud/sand,35
+21,57_avoid,2013 avoid march mud bottom 50F  day,avoid,2013,mar,avoid,,day,,50,50,,mud,37
+21,58_avoid,"2013 avoid march mud bottom june july day time 50-60F 1,000 per 2 hours",avoid,2013,mar jun jul,avoid,,day,,50,60,,mud,39
+21,59_avoid,2013 avoid year-round jan feb march april may june july aug sept oct nov dec hard bottom day night 26-32F,avoid,2013,jan feb mar apr may jun jul aug sep oct nov dec,avoid,,day night,,26,32,,hard,41
+21,60_avoid,2013 avoid fall day night,avoid,2013,fall,avoid,,day night,,,,,,44
+21,61_avoid,2013 avoid fall 40 F day ,avoid,2013,fall,avoid,,day,,40,40,,,47
+21,62_2013,2013 bycatch winter summer spring dec jan day and night 50-65F 200-500/ 3 hours,fish,2013,jan dec,cod,yes,day night,low,50,65,,,49
+21,62_avoid,2013 avoid fall 50-65F,avoid,2013,fall,avoid,,,,50,65,,,50
+22,1M,"groundfishing area 2004, 2010, 2013",fish,2004 2010 2013,,groundfish,,,,,,,,1
+22,10_avoid,"avoid 2013 feb,march,april 30-30F night",avoid,2013,feb mar apr,avoid,,night,,30,30,,,3
+22,11,"cod 2004,2010 high mar,april,may 30-40F large cod founder nets night/day 500 pounds an hour",fish,2004 2010,mar apr may,cod,no,day night,high,30,40,500,,4
+22,11_avoid,"2013 mar,april,may 30-40F avoid night/day",avoid,2013,mar apr may,avoid,,day night,,30,40,,,5
+22,12,"2004, 2010 cod aug market/scrod night medium 30-34F rocky/hard 200 pounds per hour",fish,2004 2010,aug,cod,no,night,medium,30,34,200,,6
+22,12_avoid,2013  avoid night aug 30-34F RATE?,avoid,2013,aug,avoid,no,night,,30,34,,,7
+22,13,"2004, 2010 cod high sept/oct night 40-50F rock/market/scrod 500 an hour",fish,2004 2010,sep oct,cod,no,night,high,40,50,500,,8
+22,13_avoid,2013 avoid  sept/oct night 40-50F 2013,avoid,2013,sep oct,avoid,no,night,,40,50,,,9
+22,14,"2004,2010  cod high june,july,aug night 35-40F hard 500 pounds an hour",fish,2004 2010,jun jul aug,cod,no,night,high,35,40,500,hard,10
+22,14_avoid,"2013 avoid june,july,aug night 35-40F",avoid,2013,jun jul aug,avoid,,night,,35,40,,,11
+22,15,2004-2009 cod  low   100 per hour march april  50F,fish,2004 2010 2013,mar apr,cod,no,,low,50,50,100,,12
+22,16,2013 specific fish,fish,2013,,specific,,,,,,,,13
+22,17_avoid,2013 avoid day/night aug 80F,avoid,2013,aug,avoid,,day night,,80,80,,,15
+22,18,2004  40-55 F cod  medium  200 per hour  aug june ,fish,2004 2010,jun aug,cod,no,,medium,40,55,200,,16
+22,19,"2004,2010 cod  day  oct  med  200 per hour 36F",fish,2004 2010,oct,cod,no,day,medium,36,36,200,,17
+22,22,"cod 2004,2010 medium large day/night feb,mar 70-100F 200 per hour",fish,2004 2010,feb mar,cod,no,day night,medium,70,100,200,,20
+22,22_avoid,"2013 avoid day/night feb,mar 70-100F",avoid,2013,feb mar,avoid,,day night,,70,100,,,21
+22,23,"cod 2004, 2010 night high june,july,sept,oct 15-30F disk net market/scrod 10-15k an hour",fish,2004 2010,jun jul sep oct,cod,no,night,high,15,30,12000,,22
+22,23_avoid,"2013 avoid night june,july,sept,oct 15-30F",avoid,2013,jun jul sep oct,avoid,,night,,15,30,,,23
+22,25,"2004,2010 cod high 55-60F june rock large daytime  500 per hour",fish,2004 2010,jun,cod,no,day,high,55,60,500,,25
+22,26,"cod 2004, 2010 day and night high june, july, august, sept, oct 50-55F rock 700 per hour",fish,2004 2010,jun jul aug sep oct,cod,no,day night,high,50,55,700,,26
+22,26_avoid,"2013 avoid day june, july, august, sept, oct 50-55F",avoid,2013,jun jul aug sep oct,avoid,,day,,50,55,,,27
+22,27,2004-2009 cod  low   100 per hour march april  50F,fish,2004 2010 2013,mar apr,cod,no,,low,50,50,100,,28
+22,28,2004 cod  low   100 per hour march april  50F,fish,2004 2010 2013,mar apr,cod,no,,low,50,50,100,,29
+22,29,"specific fish 2004,2010",fish,2004 2010,,specific,,,,,,,,30
+22,30,"2004,2010 cod  30-35F night april medium 200 pounds per hour",fish,2004 2010,apr,cod,no,night,medium,30,35,200,,31
+22,30_avoid,2013 avoid 30-35F night april,avoid,2013,apr,avoid,,night,,30,35,,,32
+22,31,"2004,2010 cod high 55-60F june rock large day and night 500 an hour",fish,2004 2010,jun,cod,no,day night,high,55,60,500,,33
+22,32,"2004, 2010 cod rock high 17F large oct night 1000k per hour",fish,2004 2010,oct,cod,no,night,high,17,17,1000,,34
+22,32_avoid,2013 avoid 17F oct night,avoid,2013,oct,avoid,,night,,17,17,,,35
+22,33_redo,"2004, 2010 cod day/night feb,mar medium (200 per hour) rock 55-75F",fish,2004 2010,feb mar,cod,no,day night,medium,55,75,200,rock,36
+22,33_avoid,"2013 avoid day/night feb,mar 55-75F",avoid,2013,feb mar,avoid,,day night,,77,75,,,37
+22,51,2004  medium  200 per hour  august june july  cod,fish,2004,jun jul aug,cod,no,,medium,,,200,,39
+22,52,2004  40-55 F cod  medium  200 per hour  aug june ,fish,2004,jun aug,cod,no,,medium,40,55,200,,40
+22,53,2004  40-55 F cod  medium  200 per hour  aug june ,fish,2004,jun aug,cod,no,,medium,40,55,200,,41
+22,54,2004 cod  40-55F med cod  medium  200 per hour  aug june ,fish,2004,jun aug,cod,no,,medium,40,55,200,,42
+22,55,2013 specific fish,fish,2013,,specific,,,,,,,,43
+22,56,2013 specific fish,fish,2013,,specific,,,,,,,,44
+22,57,2013 specific fish,fish,2013,,specific,,,,,,,,45
+22,58,2013 specific fish,fish,2013,,specific,,,,,,,,46
+22,59,2013 specific fish,fish,2013,,specific,,,,,,,,47
+22,60,2013 specific fish,fish,2013,,specific,,,,,,,,48
+22,61,specific fish 2013,fish,2013,,specific,,,,,,,,49
+22,63,specific fish 2013,fish,2013,,specific,,,,,,,,50
+22,65,2013 specific fish,fish,2013,,specific,,,,,,,,51
+22,67,2004 40-55 F low 100 per hour cod aug june ,fish,2004,jun aug,cod,no,,low,40,55,100,,53
+22,69,2004  40-55 F cod  medium  200 per hour  aug june ,fish,2004,jun aug,cod,no,,medium,40,55,200,,54
+22,70,2013 specific fish,fish,2013,,specific,,,,,,,,55
+22,71,specific fish 2013,fish,2013,,specific,,,,,,,,56
+22,72,specific fish 2013,fish,2013,,specific,,,,,,,,57
+22,73,2013 specific fish,fish,2013,,specific,,,,,,,,58
+25,2,2013 specific fish,fish,2013,,specific,no,,,,,,,2
+25,2,2004  cod summer august sept  nov dec  low 60-70 fathoms day and night 3-4 hours 200-300 pounds,fish,2004,aug sep nov dec,cod,no,day night,low,60,70,72,,3
+25,4,2004 cod june july aug high day and night 50 fathoms market/scrod 800 pounds 10-15 mins,fish,2004,jun jul aug,cod,no,day night,high,50,50,3200,,6
+25,5,2004 cod nov dec jan medium day/night 20-30 fathoms  hard bottom 800 pounds 10-15mins,fish,2004,jan nov dec,cod,no,day night,medium,20,30,3200,hard,8
+25,6,2004 cod nov dec jan medium day/night 40 fathoms sand 800 pounds 10-15 mins,fish,2004,jan nov dec,cod,no,day night,medium,40,40,3200,sand,10
+25,7,2004 cod nov dec jan medium day/night 40 fathoms sand bottom 800lbs 10-15,fish,2010,jan nov dec,cod,no,day night,medium,40,40,3200,sand,12
+25,7,2013 cod low  cod bycatch when going for haddock nov dec jan day/night 50-70 F 200-300 pounds 3-4 hours,fish,2013,jan nov dec,haddock,yes,day night,low,50,70,72,,13
+25,8,2013 specific fish c bycatch (low) when going for haddock nov dec jan,fish,2013,jan nov dec,haddock,yes,,low,,,,,14
+25,9,2004 cod dec nov jan 20-40 fathoms night and day market/scrod hard and sand bottom 10 mins per 800 lbs,fish,2004,jan nov dec,cod,no,day night,,20,40,3200,sand/hard,15
+25,10,2004 cod low  dec nov jan large cod 40-100 fathoms day and night 800 pounds a couple hours,fish,2004,jan nov dec,cod,no,day night,low,40,100,400,,17
+25,11,2010 cod dec nov jan 40-100 fathoms low large cod day and night  200-300 pounds per 4 hours,fish,2010,jan nov dec,cod,no,day night,low,40,100,63,,19
+25,21,2010 specific fishing,fish,2010,,specific,,,,,,,,22
+25,22,2004 cod jan feb march day and night 40-70 fathoms market/scrod high 3-4k pounds per 3 hours,fish,2004,jan feb mar,cod,no,day night,,40,70,1167,,23
+25,23,2013 specific fishing MONTHS?,fish,2013,,specific,,,,,,,,25
+25,24,2004 cod sand and hard bottom medium  80-90 fathoms market scrod summer august sept 800 - 1500 per tow,fish,2004,aug sep,cod,no,,medium,80,90,,sand/hard,26
+25,25,2004 cod 80-90 fathoms sand and hard bottom medium market scrod summer august sept 1k per tow,fish,2004,aug sep,cod,no,,medium,80,90,,sand/hard,28
+25,10_avoid,2013 dec nov jan avoid,avoid,2013,jan nov dec,avoid,,,,,,,,18
+25,11_avoid,2013 avoid dec nov jan,avoid,2013,jan nov dec,avoid,,,,,,,,20
+25,1GF,groundfishing 2004 2010,fish,2004 2010,,groundfish,,,,,,,,1
+25,20_GF,2004 2010 2013 overall groundfishing,fish,2004 2010 2013,,groundfish,,,,,,,,21
+25,22_avoid,2013 jan feb march avoid,avoid,2013,jan feb mar,avoid,,,,,,,,24
+25,24_avoid,2013 avoid summer MONTHS???,avoid,2013,summer,avoid,,,,,,,,27
+25,25_avoid,2013 avoid summer MONTHS??,avoid,2013,summer,avoid,,,,,,,,29
+25,3_avoid,2013 avoid june july aug,avoid,2013,jun jul aug,avoid,,,,,,,,5
+25,4_avoid,2013 avoid june july aug,avoid,2013,jun jul aug,avoid,,,,,,,,7
+25,5_avoid,2013 nov dec jan avoid,avoid,2013,jan nov dec,avoid,,,,,,,,9
+25,6_avoid,2013 nov dec jan avoid,avoid,2013,jan nov dec,avoid,,,,,,,,11
+25,9_avoid,2013 dec nov jan avoid,avoid,2013,jan nov dec,avoid,,,,,,,,16
+26,1,2004 2013 2013 specific fish,fish,2004 2010 2013,,specific,,,,,,,,1
+26,2,2004 cod med 500/hr dec jan 40-75 fathoms market-large night,fish,2004,jan dec,cod,,night,medium,40,75,,,2
+26,2,2013 specific fish try for haddock make short tows only,fish,2013,,haddock,,,,,,,,3
+26,3,2004 cod jan feb march april med 300/hr mixed bag fishing pollock haddock large-market 70-95 fathoms day,fish,2004,jan feb mar apr,cod pollock haddock,,day,medium,70,95,,,5
+26,3,2010 2013 specific fish pollock fall haddock spring,fish,2010 2013,fall spring,pollock haddock,,,,,,,,6
+26,4,2004 cod medium 500/hr feb march april 100 fathoms large cod  day and night,fish,2004,feb mar apr,cod,,day night,medium,100,100,,,8
+26,4,2010 2013 cod haddock have displaced low bycatch 100/hr spring march april may night 40-80F,fish,2010 2013,mar apr may,cod haddock,yes,night,low,40,80,,,9
+26,6,2004 fall low 200/hr cod market-large gravel 120-75 fathoms day and night,fish,2004,fall,cod,,day night,low,75,120,,,11
+26,8,2004 med 200-300/hr cod sept oct nov dec jan feb 35-80 fathoms large cod night mud/gravel,fish,2004,jan feb sep oct nov dec,cod,,night,medium,35,80,,,13
+26,9,2004 high 1000/hr cod jan feb march april may 15 fathoms day sand market cod,fish,2004,jan feb mar apr may,cod,,day,high,15,15,,,15
+26,11,2004 2010 2013  specific fish,fish,2004 2010 2013,,specific,,,,,,,,17
+26,12,2004 2010 2013 specific fish,fish,2004 2010 2013,,specific,,,,,,,,18
+26,13,2004 cod medium 120-115 fathoms feb march april may june july (check closure) small-large sand bottom night 300-500/hr,fish,2004,feb mar apr may jun jul,cod,,night,medium,115,120,,,19
+26,13,2010 2013 focused on haddock march april may night 40-80F AVOIDANCE 50/hr c at most. separator panel,fish,2010 2013,mar apr may,haddock,yes,night,low,40,80,,,20
+26,13,2004 2010  2013 specific fish,fish,2004 2010 2013,,specific,,,,,,,,21
+26,14,2004 low 200-300/hr cod 70-80 fathoms summer may june july aug sept market size night,fish,2004,may jun jul aug sep,cod,,night,low,70,80,,,22
+26,15,2004 2010 2013 specific fish haddock MONTHS???,fish,2004 2010 2013,,haddock,,,,,,,,23
+26,2_avoid,2010 avoid dec jan night,avoid,2010,jan dec,avoid,,night,,,,,,4
+26,3_avoid,2010 2013 avoid sunny afternoon make short tows jan feb march april day,avoid,2010 2013,jan feb mar apr,avoid,,day,,,,,,7
+26,50GF,2004 2010 2013  groundfishing,fish,2004 2010 2013,,groundfish,,,,,,,,24
+26,5gf,2004 2010 2013  entire groundfishing,fish,2004 2010 2013,,groundfish,,,,,,,,10
+26,6_avoid,2013 avoid aug sept oct nov night,avoid,2013,aug sep oct nov,avoid,,night,,,,,,12
+26,8_avoid,2010 2013 avoid sector couldn't fish there anymore (avoidance?) year-round jan feb march april may june july aug sept oct nov dec (couldn't fish west of 70 15),avoid,2010 2013,jan feb mar apr may jun jul aug sep oct nov dec,avoid,,,,,,,,14
+26,9_avoid,2010 2013 avoid coudln't fish there b/c of sector limits,avoid,2010 2013,,avoid,,,,,,,,16
+27,1,specific fish area 2013,fish,2013,,specific,,,,,,,,1
+27,2,"whole groundfish area all years 2004, 2010, 2013",fish,2004 2010 2013,,groundfish,,,,,,,,2
+27,3,"fishing specific area 2004, 2010",fish,2004 2010,,specific,,,,,,,,3
+27,4,"2004: cod low-medium 80-100F day july, aug, sept, oct gravel/rock large/markets 2010: same info but markets only",fish,2004,jul aug sep oct,cod,,day,low,80,100,,,5
+27,5,"2004: low-medium cod 80-100F day july, aug, sept, oct gravel/rock large/markets 2010:  same info as above but markets only",fish,2004,jul aug sep oct,cod,,day,low,80,100,,,7
+27,6,"2004,2010,2013 60-85F clay, sand, gravel june, july, aug low large/markets cod",fish,2004 2010 2013,jun jul aug,cod,,,low,60,85,,,9
+27,7,fish specific 2004,fish,2004,,specific,,,,,,,,10
+27,8,"2004, 2010, 2013: cod 60-85F clay, sand, gravel june, july, aug low large/markets",fish,2004 2010 2013,jun jul aug,cod,,,low,60,85,,,11
+27,9,fish specific 2013,fish,2013,,specific,,,,,,,,12
+27,10,"2004 sand, gravel, mud day low winter 90-110F cod specific fish TOY?",fish,2004,winter,specific,,day,low,90,110,,,13
+27,10_avoid,2013 avoid winter TOY?,avoid,2013,winter,avoid,,,,,,,,14
+27,3_avoid,2013 avoid TOY? TOD? MONTHS??,avoid,2013,,avoid,,,,,,,,4
+27,4_avoid,"2013 avoid low-medium 80-100F day july, aug, sept, oct gravel/rock",avoid,2013,jul aug sep oct,avoid,,day,low,80,100,,,6
+27,5_avoid,"2013 avoid low-medium 80-100F day july, aug, sept, oct gravel/rock",avoid,2013,jul aug sep oct,avoid,,day,low,80,100,,,8
+28,1,whole groundfish area 2004 2010,fish,2004 2010,,groundfish,,,,,,,,1
+28,2,"2004, 2010 day night less large cod low sand spring spawning cod one deep hole where increased abundance (H) TOY? depth?",fish,2004 2010,spring,cod,,day night,low,,,,,2
+28,3,"cod day/night high hit on way home if need more cod market/scrod hard gravel, clay fishing at depths on chart fall/spring TOY? specific depth? 2004, 2010",fish,2004 2010,fall spring,cod,,day night,high,,,,,4
+28,4,"2004, 2010 cod both day and night fall specific TOY? specific depth? shallow sand high",fish,2004 2010,fall,cod,,day night,high,,,,,6
+28,6,low-high year round spring/fall higher than summer more specific TOY? TOD? scrod/market cod 2013 depth?,fish,2013,jan feb mar apr may jun jul aug sep oct nov dec,cod,,,medium,,,,,8
+28,7,2013 high TOD? TOY? cod depth?,fish,2013,,cod,,,high,,,,,9
+28,8,april high cod scrod/market 2013 depth? TOD?,fish,2013,apr,cod,,,high,,,,,10
+28,9,high cod TOY? TOD? depth? 2013,fish,2013,,cod,,,high,,,,,11
+28,10,"cod 2013 high gravel/mud feb, march early spring depth? TOD?",fish,2013,mar,cod,,,high,,,,,12
+28,11,cod 2013 low-high year round scrod/market summer lower spring/fall higher TOY specifics? depth? TOD?,fish,2013,jan feb mar apr may jun jul aug sep oct nov dec,cod,,,medium,,,,,13
+28,12,whole line up and down closure 2013 low-high (high spots noted) summer spring/fall haddock focused but gets lots of cod try for a haddock focsed with cod bycatch fishery scrod/market summer lower spring/fall higher TOY specific? depth? TOD?,fish,2013,summer spring fall,cod haddock,yes,,medium,,,,,14
+28,13,whole groundfishing area 2013,fish,2013,,groundfish,,,,,,,,15
+28,15,"groundfishing 2004, 2010, 2013",fish,2004 2010 2013,,groundfish,,,,,,,,16
+28,16,"2004, 2010, 2013 cod medium spring TOY specific? day 65F glacial rock hard bottom",fish,2004 2010 2013,spring,cod,,day,medium,65,65,,,17
+28,17,2004  specific fish,fish,2004,,specific,,,,,,,,18
+28,18,"2004, 2010, 2013 medium cod day and night spring sand/hard in 2013-2022 if start catching too much cod have to leave TOY specifc? depth?",fish,2004 2010 2013,spring,cod,,day night,medium,,,,,19
+28,2_avoid,2013 avoid spring?  MONTHS ? TOY? depth?,avoid,2013,spring,avoid,,,,,,,,3
+28,3_avoid,2013 avoid fall/spring day/night TOY? specific depth?,avoid,2013,fall spring,avoid,,day night,,,,,,5
+28,4_avoid,2013 avoid both day and night fall specific TOY? specific depth?,avoid,2013,fall,avoid,,day night,,,,,,7
+23_24,1,2010 high cod hard bottom sept oct nov dec jan feb march markets-large 30-110 fathoms (cliffs) TOD???,fish,2010,jan feb mar sep oct nov dec,cod,,,high,30,110,,,1
+23_24,2,2010 high cod hard bottom sept oct nov dec jan feb march markets-large 30-110 fathoms TOD???,fish,2010,jan feb mar sep oct nov dec,cod,,,high,30,110,,,6
+23_24,3,2010 high cod hard bottom sept oct nov dec jan feb march markets-large 30-110 fathoms TOD????,fish,2010,jan feb mar sep oct nov dec,cod,,,high,30,110,,,8
+23_24,4,2010 high cod hard bottom sept oct nov dec jan feb march markets-large 30-110 fathoms TOD????,fish,2010,jan feb mar sep oct nov dec,cod,,,high,30,110,,,10
+23_24,5,2010 high cod sept oct nov dec jan feb march hard bottom markets-large 30-110F,fish,2010,jan feb mar sep oct nov dec,cod,,,high,30,110,,,12
+23_24,6,2010 high cod hard bottom sept oct nov dec jan feb march markets-large 30-110 fathoms TOD???,fish,2010,jan feb mar sep oct nov dec,cod,,,high,30,110,,,14
+23_24,7,2004 fall winter high cod markets-large 45 fathoms day and night MONTHS???,fish,2004,fall winter,cod,,day night,high,45,45,,,16
+23_24,8,2004 fall winter high cod markets-large 45 fathoms day and night MONTHS???,fish,2004,fall winter,cod,,day night,high,45,45,,,18
+23_24,9,2004 fall winter high cod markets-large 45 fathoms day and night MONTHS???,fish,2004,fall winter,cod,,day night,high,45,45,,,20
+23_24,10,2004 2010 fall winter high cod hard bottom markets-large 45 fathoms day and night MONTHS???,fish,2004 2010,fall winter,cod,,day night,high,45,45,,,22
+23_24,10,2013  specific fish c bycatch low haddock focused short tows night 45 fathoms,fish,2013,,haddock cod,yes,night,low,45,45,,,23
+23_24,10,specific fishing 2010,fish,2010,,specific,,,,,,,,24
+23_24,11,2004 2010 specific fishing,fish,2004 2010,,specific,,,,,,,,25
+23_24,11,specific fishing 2004,fish,2004,,specific,,,,,,,,26
+23_24,12,2004 2010 jan feb march market-large 30-110 fathoms tow up side of cliff high  cod,fish,2004 2010,jan feb mar,cod,,,high,30,110,,,27
+23_24,12,2004 2010 cod high 30-35 fathoms nov dec jan day and night,fish,2004 2010,jan nov dec,cod,,day night,high,30,35,,,28
+23_24,13,2004 2010 high cod year-round jan feb march april may june july aug sept oct nov day night DEPTH,fish,2004 2010,jan feb mar apr may jun jul aug sep oct nov dec,cod,,day night,high,,,,,30
+23_24,13,2004 2010 specific fishing area AND cod high cod jan feb march april may june july aug sept oct nov dec day and night DEPTHS,fish,2004 2010,jan feb mar apr may jun jul aug sep oct nov dec,cod,,day night,high,,,,,31
+23_24,14,2004 2010 high cod year-round jan feb march april may june july aug sept oct nov dec day and night DEPTH,fish,2004 2010,jan feb mar apr may jun jul aug sep oct nov dec,cod,,day night,high,,,,,34
+23_24,14,2004 specific fish AND cod high  cod year-round jan feb march april may june july aug sept oct nov day and night hard and sandy bottom DEPTHS,fish,2004,jan feb mar apr may jun jul aug sep oct nov dec,cod,,day night,high,,,,,35
+23_24,14,2004 specific fish,fish,2004,,specific,,,,,,,,36
+23_24,20,2004 specific fishing AND cod high cod day cobble bottom south harder bottom north 25-45 fathoms SEASON??? MONTHS???,fish,2004,,cod,,day,high,25,45,,,39
+23_24,21,2004 cod cobble at top hard at bottom right day and night 15-110 fathoms spring MONTHS??? ABUNDANCE???,fish,2004,spring,cod,,day night,,15,110,,,40
+23_24,51,2004 morning daytime 30-110 fathoms low bycatch spring summer cod MONTHS???,fish,2004,spring summer,cod,yes,day,low,30,110,,,41
+23_24,52,"2013 specific fish targeting only haddock, no peaks c bycatch",fish,2013,,haddock,yes,,low,,,,,43
+23_24,55,specific fish 2004,fish,2004,,specific,,,,,,,,45
+23_24,56,2004 fall winter high cod markets-large 45 fathoms day and night MONTHS???,fish,2004,fall winter,cod,,day night,high,45,45,,,46
+23_24,1_avoid,2013 sept oct nov dec jan feb march avoid,avoid,2013,jan feb mar sep oct nov dec,avoid,,,,,,,,2
+23_24,12_avoid,2013 avoid nov dec jan day and night,avoid,2013,jan nov dec,avoid,,day night,,,,,,29
+23_24,13_avoid,2013 avoid year-round jan feb march april may june july aug sept oct nov,avoid,2013,jan feb mar apr may jun jul aug sep oct nov dec,avoid,,,,,,,,32
+23_24,13_avoid,2013 avoid year-round jan feb march april may june july aug sept oct nov dec,avoid,2013,jan feb mar apr may jun jul aug sep oct nov dec,avoid,,,,,,,,33
+23_24,14_avoid,2013 avoid year-round jan feb march april may june july aug sept oct nov dec,avoid,2013, jan feb march april may june july aug sept oct nov dec,avoid,,,,,,,,37
+23_24,14_avoid,2013 avoid year-round jan feb march april may june july aug sept oct nov dec,avoid,2013, jan feb march april may june july aug sept oct nov dec,avoid,,,,,,,,38
+23_24,1N,2004 2010 2013 groundfishing edit 2013 gf??? go way further off shore for that time period waht about 2009 poly?,fish,2004 2010 2013,,groundfish,,,,,,,,3
+23_24,1P,2004 2010 2013 groundfishing,fish,2004 2010 2013,,groundfish,,,,,,,,4
+23_24,1Q,2004 groundfishing,fish,2004,,groundfish,,,,,,,,5
+23_24,2_avoid,2013 avoid sept oct nov dec jan feb march,avoid,2013,jan feb mar sep oct nov dec,avoid,,,,,,,,7
+23_24,3_avoid,2013 sept oct nov dec jan feb march avoid,avoid,2013,jan feb mar sep oct nov dec,avoid,,,,,,,,9
+23_24,4_avoid,2013 avoid sept oct nov dec jan feb march,avoid,2013,jan feb mar sep oct nov dec,avoid,,,,,,,,11
+23_24,5_avoid,2013 avoid sept oct nov dec jan feb march,avoid,2013,jan feb mar sep oct nov dec,avoid,,,,,,,,13
+23_24,51_avoid,2013 avoid spring summer 30-110F MONTHS??? Bleeds into larger 2013-present polygon,avoid,2013,spring summer,avoid,,,,30,110,,,42
+23_24,52_avoid,2013 avoid fish deeper no peaks c bycatch DEPTHS???? TOD? TOY?,avoid,2013,,avoid,yes,,low,,,,,44
+23_24,56_avoid,2013 avoid fall winter day and night MONTHS???,avoid,2013,fall winter,avoid,,day night,,,,,,47
+23_24,6_avoid,2013 sept oct nov dec jan feb march avoid,avoid,2013,jan feb mar sep oct nov dec,avoid,,,,,,,,15
+23_24,7_avoid,2013 avoid fall winter MONTHS???,avoid,2013,fall winter,avoid,,,,,,,,17
+23_24,8_avoid,2013 avoid fall winter MONTHS???,avoid,2013,fall winter,avoid,,,,,,,,19
+23_24,9_avoid,2013 fall winter avoid MONTHS???,avoid,2013,fall winter,avoid,,,,,,,,21
+7_8,24,"2010,cod,april",fish,2010,apr,cod,,,,,,,,2
+7_8,25,"2004,cod,high,fall,winter, april, may, june, july, august, sept, oct, nov, dec, jan  2hrs catch few thousand cod, 15-50F day",fish,2004,jan apr may jun jul aug sep oct nov dec,cod,,day,high,15,50,,,4
+7_8,26,"2004,2010,2013, groundfish",fish,2004 2010 2013,,groundfish,,,,,,,,6
+7_8,27,"2010,night, june,july,august,september,october, cod, full day to catch few thousand. 500-1K cod a tow 2 hr tow. low",fish,2010,jun jul aug sep oct,cod,,night,low,,,,,7
+7_8,28,2010 16-18F day april may jun july aug sept oct nov jan cod 500-1K two hour tow low-mid,fish,2010,jan apr may jun jul aug sep oct nov,cod,,day,medium,16,18,,,9
+7_8,31,2013 specific fish,fish,2013,,specific,,,,,,,,19
+7_8,32,"2013, june, july,august,september, specific_fishing",fish,2013,jun jul aug sep,specific,,,,,,,,20
+7_8,33,"2004,november,december,high,cod,day 30-35F 20 min tows 10K lbs",fish,2004,nov dec,cod,,day,high,30,35,,,21
+7_8,34,"2004,cod,high,november, december, day, 30-35F couple thousand in 10 mintow",fish,2004,nov dec,cod,,day,high,30,35,,,23
+7_8,1B,"2004, 2010 groundfish",fish,2004 2010,,groundfish,,,,,,,,1
+7_8,24_avoid,"2013,avoid,april, TOD ABUND DEPTH",avoid,2013,apr,avoid,,,,,,,,3
+7_8,25_avoid,"2013,avoid,fall,winter, april, may, june, july, august, sept, oct, nov, dec, jan  2hrs catch few thousand, 15-50F day",avoid,2013,jan apr may jun jul aug sep oct nov dec,avoid,,day,high,15,50,,,5
+7_8,27_avoid,"2013,night, june,july,august,september,october,avoid",avoid,2010,jun jul aug sep oct,avoid,,night,,,,,,8
+7_8,28_avoid,2013 day avoid april may jun july aug sept oct nov jan,avoid,2013,jan apr may jun jul aug sep oct nov,avoid,,day,,,,,,10
+7_8,29_not_summer,"2010,april,may,june,november,december,january cod day medium few thousand 1-2hrs of fishing",fish,2010,jan apr may jun nov dec,cod,,day,medium,,,,,11
+7_8,29_not_summer_avoid,"2010,april,may,june,november,december,january cod day medium few thousand 1-2hrs of fishing",avoid,2010,jan apr may jun nov dec,cod,,day,medium,,,,,12
+7_8,29_summer,"2010,july,august,september,october cod summer night  few thousand in a few hours high",fish,2010,jul aug sep oct,cod,,night,high,,,,,13
+7_8,29_summer_avoid,"2010,july,august,september,october cod summer night  few thousand in a few hours high",avoid,2010,jul aug sep oct,cod,,night,high,,,,,14
+7_8,30_summer,"2004,high, cod, july, aug, sept, oct  20 min tow catch a 2-5K summer night july-sept",fish,2004,jul aug sep oct,cod,,night,high,,,,,15
+7_8,30_summer_avoid,"2004  july, aug, sept, oct  20 min tow catch a 2-5K avoid summer night july-sept",avoid,2004,jul aug sep oct,avoid,,night,high,,,,,16
+7_8,30_winter,"2004,high, cod  oct, nov, dec, jan, 15-30F, night 20 min tow catch a 2-5K day nov-jan",fish,2004,jan oct nov dec,cod,,night,high,15,30,,,17
+7_8,30_winter_avoid,"2004,high, avoid oct, nov, dec, jan, 15-30F, night 20 min tow catch a 2-5K day nov-jan",avoid,2004,jan oct nov dec,avoid,,night,high,15,30,,,18
+7_8,33_avoid,"2013,november,december, day avoid",avoid,2013,nov dec,avoid,,day,,,,,,22
+7_8,34_avoid,"2013,november, december avoid TIME OF DAY",avoid,2013,nov dec,avoid,,,,,,,,24
+21,52_occasional_catch,2013 bycatch 30-90F mud March,fish,2013,mar,specific,yes,,,30,90,,mud,51
+21,56_occasional catch,2013 bycatch oct nov dec jan mud/sand 48 - 60F daytime 1k per 2 hours,fish,2013,jan oct nov dec,specific,yes,day,,48,60,500,mud/sand,52
+21,58_occasional catc,"2013  bycatch march mud bottom june july day time 50-60F 1,000 per two hours",fish,2013,mar jun jul,specific,yes,day,,50,60,500,mud,53
+21,1_add,2004 cod  10k a day  winter oct-jan  daytime  30-50F high ,fish,2004,jan oct nov dec,cod,no,day,high,30,50,417,,54
+21,add_2,2010 - 2011  cod  dec jan  high  45-49 F daytime,fish,2010,jan dec,cod,no,day,high,45,49,,,55
+21,add_3,500/hour  cod  med  dec  26-32F,fish,,dec,cod,no,,medium,26,32,500,,56
+22,15_avoid,2013 avoid march april  50F,avoid,2013,mar,avoid,no,,,50,50,,,59
+22,18_avoid,2013 40-55 F avoid aug june ,avoid,2013,jun aug,avoid,no,,,40,55,,,60
+22,20_avoid,2013 avoid in below months jan april may june july aug sept oct nov dec,avoid,2013,jan apr may jun jul aug sep ocv nov dec,avoid,no,,,,,,,61
+22,27_avoid,2013 avoid march april  50F,avoid,2013,mar apr,avoid,no,,,50,50,,,62
+22,28_avoid,avoid 2013 march april  50F,avoid,2013,mar apr,avoid,no,,,50,50,,,63
+22,52_avoid,2013 40-55 F avoid aug june ,avoid,2013,jun aug,avoid,no,,,40,55,,,64
+22,53_avoid,2013 40-55 F aug june  avoid,avoid,2013,jun aug,avoid,no,,,40,55,,,65
+22,54_avoid,2013 40-55F aug june  avoid,avoid,2013,jun aug,avoid,no,,,40,55,,,66
+22,66_avoid,2013 40-55 F aug june  avoid,avoid,2013,jun aug,avoid,no,,,40,55,,,67
+22,67_avoid,2013 40-55 F avoid aug june ,avoid,2013,jun aug,avoid,no,,,40,55,,,68
+22,69_avoid,2013 40-55 F avoid aug june ,avoid,2013,jun aug,avoid,no,,,40,55,,,69
+22,closure_redo,"2004, 2010 cod medium day/night aug 80F large rock 200 per hour",fish,2004 2010,aug,cod,no,day night,medium,80,80,200,,70
+22,closure-redo (10),"cod high 2004,2010 feb,march,april, may,june 30-40F night hard/ soft bottom scrod/market 500 an hour",fish,2004 2010,feb mar apr may jun,cod,no,night,high,30,40,500,,71
+22,closure-redo (10)_ avoid,"2013 feb,march,april, may,june 30-40F night hard/ soft bottom scrod/market",avoid,2013,feb mar apr may jun,avoid,no,night,,30,40,,,72
+22,cod_catch,confirmed catch,fish,,,specific,no,,,,,,,73
