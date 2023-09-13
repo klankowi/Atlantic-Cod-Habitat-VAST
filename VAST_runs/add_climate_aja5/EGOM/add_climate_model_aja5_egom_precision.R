@@ -161,8 +161,6 @@ scaled.covars <- data.frame(
   amo         = as.numeric(scaled.covars$amo)
 )
 str(scaled.covars)
-scaled.covars <- select(scaled.covars,
-                        Lon, Lat, Year, amo, nao)
 
 
 #### Make region ####
@@ -179,7 +177,7 @@ colnames(region_shape) <- c("Region", 'geometry')
 # We could just use this same shapefile in the "index_shapes" argument, but to 
 # show off the new functions we wrote, we will also want to have a sf multipolygon
 # shapefiles with areas defined within this general region
-index_areas<- c("EGOM", "GBK", "SNE", "WGOM")
+index_areas<- c("WGOM", "EGOM", "GBK", "SNE")
 
 for(i in seq_along(index_areas)){
   index_area_temp<- st_read(paste0(here::here("", "Data/GIS"), '/', 
@@ -201,7 +199,7 @@ index_area_shapes <- bind_rows(index_area_shapes, region_shape)
 index_area_shapes <- st_make_valid(index_area_shapes)
 
 # Finally, run `vast_make_extrap_grid` function after specifying the strata we want to use
-strata_use<- data.frame(STRATA = c("EGOM", "GBK", "SNE", "WGOM", "ALL"))
+strata_use<- data.frame(STRATA = c("WGOM", "EGOM", "GBK", "SNE", "ALL"))
 vast_extrap_grid<- vast_make_extrap_grid(region_shapefile = region_shape, 
                                          index_shapes = index_area_shapes, 
                                          #strata.limits = strata_use, 
@@ -214,7 +212,7 @@ row.names(vast_extrap_grid) <- NULL
 #                        'vast_extrap_grid')))
 gc()
 
-working_dir <- here::here("VAST_runs/add_climate_aja5/EGOM")
+working_dir <- here::here("VAST_runs/add_climate_aja5/WGOM")
 # Create working directory if it doesn't exist
 if(!dir.exists(working_dir)) {
   dir.create(working_dir)
@@ -243,7 +241,7 @@ if (use_edited_funs) {
 # head(extrap_info_aja_egom$Data_Extrap)
 # write_rds(extrap_info_aja_egom,
 #          here('Data/VAST_input/extrap_info_aja5_egom.RDS'))
-extrap_info_aja_egom <- readRDS(here('Data/VAST_input/extrap_info_aja5_egom.RDS'))
+extrap_info_aja_wgom <- readRDS(here('Data/VAST_input/extrap_info_aja5_wgom.RDS'))
 
 # Remove intermediates
 #rm(list=setdiff(ls(), c("scaled.covars", "settings", 'strata_use', 'survs',
@@ -294,13 +292,13 @@ settings$ObsModel[2] <- 1
 
 # Model formula
 gam_degree<- 3
-hab_formula<- ~ #bs(cobble_P, degree = 3, intercept = FALSE) + 
-  #bs(gravel_P, degree = 3, intercept = FALSE) + 
-  #bs(mud_P, degree = 3, intercept = FALSE) +
-  #bs(sand_P, degree = 3, intercept = FALSE) +
-  #bs(rugos, degree = 3, intercept = FALSE) + 
-  #bs(BATHY.DEPTH, degree = 3, intercept = FALSE) +
-  #bs(h_bt, degree = 3, intercept = FALSE) +
+hab_formula<- ~ bs(cobble_P, degree = 3, intercept = FALSE) + 
+  bs(gravel_P, degree = 3, intercept = FALSE) + 
+  bs(mud_P, degree = 3, intercept = FALSE) +
+  bs(sand_P, degree = 3, intercept = FALSE) +
+  bs(rugos, degree = 3, intercept = FALSE) + 
+  bs(BATHY.DEPTH, degree = 3, intercept = FALSE) +
+  bs(h_bt, degree = 3, intercept = FALSE) +
   bs(nao, degree = 3, intercept = FALSE) +
   bs(amo, degree = 3, intercept = FALSE)
 hab_env_coeffs_n<- length(attributes(terms.formula(hab_formula))$term.labels)
@@ -308,10 +306,10 @@ hab_env_coeffs_n<- length(attributes(terms.formula(hab_formula))$term.labels)
 # Also going to need to adjust our vast_coveff as we will now be including habitat covariates in the X1 and X2 formula. Additionally, some modification as we will be using splines::bs of three degrees
 vast_coveff_habcovs<- vast_make_coveff(X1_coveff_vec = matrix(
                                         data=(rep(rep(rep(3, gam_degree), hab_env_coeffs_n), 3)),
-                                        nrow=3, ncol=6),
+                                        nrow=3, ncol=27),
                                        X2_coveff_vec =  matrix(
                                          data=(rep(rep(rep(3, gam_degree), hab_env_coeffs_n), 3)),
-                                         nrow=3, ncol=6), 
+                                         nrow=3, ncol=27), 
                                        Q1_coveff_vec = NULL, 
                                        Q2_coveff_vec = NULL, 
                                        n_c=3)
@@ -331,17 +329,17 @@ vast_sample_data$Pred_TF <- 0
 spatial_info <- make_spatial_info(n_x = 200,
                                   Lon_i=survs$Lon,
                                   Lat_i=survs$Lat,
-                                  Extrapolation_List = extrap_info_aja_egom,
+                                  Extrapolation_List = extrap_info_aja_wgom,
                                   knot_method = "grid")
 
-spatial_lists_out <- list(extrap_info_aja_egom, spatial_info)
+spatial_lists_out <- list(extrap_info_aja_wgom, spatial_info)
 names(spatial_lists_out) <- c("Extrapolation_List", "Spatial_List")
 
 # Build
 vast0_hab_covs<- vast_build_sdm(settings = settings, 
                                 #extrap_grid = vast_extrap_grid, 
                                 sample_data = vast_sample_data,
-                                "extrapolation_list" = extrap_info_aja_egom,
+                                "extrapolation_list" = extrap_info_aja_wgom,
                                 "spatial_list"= spatial_info,
                                 covariate_data = scaled.covars, 
                                 X1_formula = hab_formula, 
@@ -351,7 +349,7 @@ vast0_hab_covs<- vast_build_sdm(settings = settings,
                                 Xconfig_list = vast_coveff_habcovs, 
                                 X_contrasts = NULL, 
                                 index_shapes = index_area_shapes, 
-                                spatial_info_dir = here("VAST_runs/add_climate_aja5/EGOM"))
+                                spatial_info_dir = here("VAST_runs/add_climate_aja5/WGOM"))
 table(vast0_hab_covs$data_frame$c_iz)
 table(vast0_hab_covs$data_frame$v_i)
 
@@ -360,8 +358,8 @@ vast_fitted_hab_covs<- vast_fit_sdm(vast_build_adjust = vast0_hab_covs,
                                     run_final_model = TRUE,
                                     nice_category_names = "Atlantic_cod_habcovs", 
                                     index_shapes = index_area_shapes, 
-                                    spatial_info_dir = here("VAST_runs/add_climate_aja5/EGOM"), 
-                                    out_dir = here:("VAST_runs/add_climate_aja5/EGOM"))
+                                    spatial_info_dir = here("VAST_runs/add_climate_aja5/WGOM"), 
+                                    out_dir = here:("VAST_runs/add_climate_aja5/WGOM"))
 
 
 # fit = fit_model( 
