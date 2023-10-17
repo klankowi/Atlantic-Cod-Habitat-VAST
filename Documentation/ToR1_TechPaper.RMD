@@ -3,16 +3,16 @@ title: 'Atlantic Cod VAST Model Technical Document'
 author: Katie Lankowicz
 date: "`r format(Sys.time(), '%d %B, %Y')`"
 output:
+  bookdown::word_document2:
+    toc: true
+  bookdown::html_document2: 
+    toc: true
+    toc_float: true
   bookdown::pdf_document2:
     latex_engine: lualatex
     includes: 
        in_header: header1.tex
     keep_tex: true
-  bookdown::html_document2: 
-    toc: true
-    toc_float: true
-  bookdown::word_document2:
-    toc: true
 link-citations: yes
 csl: "american-fisheries-society.csl"
 bibliography: Cod_VAST.bib
@@ -45,7 +45,7 @@ library(sf)
 library(rgdal)
 library(sp)
 library(ggcorrplot)
-library(kableExtra)
+#library(kableExtra)
 library(pander)
 # Add unitless back as possible unit (removed in units package update Mar 2023)
 install_unit(symbol='unitless', def='unitless', name='unitless')
@@ -557,12 +557,12 @@ colnames(modselect.200) <- c('Model name',
                              'AIC', 'converged')
 
 # Print table
-modselect.200 %>% 
-  kable(booktabs=TRUE,
-        caption='Table 1: Model selection step 1 outcomes') %>%
-  kableExtra::kable_styling(
-    latex_options = c("HOLD_position","striped"),
-    stripe_color = "gray!10")
+# modselect.200 %>% 
+#   kable(booktabs=TRUE,
+#         caption='Table 1: Model selection step 1 outcomes') %>%
+#   kableExtra::kable_styling(
+#     latex_options = c("HOLD_position","striped"),
+#     stripe_color = "gray!10")
 ```
 
 ### Density covariate selection
@@ -730,19 +730,19 @@ colnames(modselect.cov2) <- c('Model name',
                               'AIC')
 
 # Print table
-modselect.cov1 %>% 
-  kable(booktabs=TRUE,
-        caption='Table 2a: Model selection step 2 outcomes') %>%
-  kableExtra::kable_styling(
-    latex_options = c("HOLD_position","striped"),
-    stripe_color = "gray!10")
-
-modselect.cov2 %>% 
-  kable(booktabs=TRUE,
-        caption='Table 2b: Model selection step 2 outcomes') %>%
-  kableExtra::kable_styling(
-    latex_options = c("HOLD_position","striped"),
-    stripe_color = "gray!10")
+# modselect.cov1 %>% 
+#   kable(booktabs=TRUE,
+#         caption='Table 2a: Model selection step 2 outcomes') %>%
+#   kableExtra::kable_styling(
+#     latex_options = c("HOLD_position","striped"),
+#     stripe_color = "gray!10")
+# 
+# modselect.cov2 %>% 
+#   kable(booktabs=TRUE,
+#         caption='Table 2b: Model selection step 2 outcomes') %>%
+#   kableExtra::kable_styling(
+#     latex_options = c("HOLD_position","striped"),
+#     stripe_color = "gray!10")
 ```
 
 ## Final model
