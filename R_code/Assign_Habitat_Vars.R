@@ -11,11 +11,11 @@ rm(list=ls())
 library(tidyverse, quietly=T,verbose=F)
 library(sf, quietly=T,verbose=F)
 library(raster, quietly=T, verbose=F)
-library(rgeos, quietly=T, verbose=F)
+#library(rgeos, quietly=T, verbose=F)
 library(here, quietly=T, verbose=F)
 library(viridis, quietly=T, verbose=F)
 library(RColorBrewer, quietly=T, verbose=F)
-library(spatialEco, quietly=T, verbose=F)
+#library(spatialEco, quietly=T, verbose=F)
 library(marmap, quietly=T, verbose=F)
 library(beepr, quietly=T, verbose=F)
 
@@ -58,15 +58,14 @@ ggplot() +
   geom_sf(data=strat_sf, aes(fill=STOCK))
 
 # Remove points on land
-survs_sf <- erase.point(survs_sf, strat_sf, inside=F)
+survs_sf <- st_intersection(survs_sf, strat_sf)
 survs_sf <- st_as_sf(survs_sf)
 
 # Pull NOAA bathymetry data
-Bathy <- getNOAA.bathy(lon1 = -80, lon2 = -60,
-                       lat1 = 30, lat2 = 50, resolution = 1)
+Bathy <- raster(here('Data/Bathymetry/gebco_2023.tif'))
 
 # Convert data to raster
-Bathy_Raster <- marmap::as.raster(Bathy)
+Bathy_Raster <- Bathy
 
 # Remove intermediates
 rm(rugos, sed, survs, survs.n0, Bathy)
@@ -90,6 +89,11 @@ survs_sf <- survs_sf[with(survs_sf,
                           order(DATE, HAUL_ID)),]
 rownames(survs_sf) <- NULL
 head(survs_sf)
+
+# If bathymetry is above water, assign depth to be what is recorded by survey
+hold <- survs_sf
+survs_sf$DEPTH <- survs_sf$DEPTH * -1
+survs_sf$BATHY.DEPTH[survs_sf$BATHY.DEPTH >= 0] <- survs_sf$DEPTH[survs_sf$BATHY.DEPTH >= 0]
 
 # Great. Save this.
 save(survs_sf, 

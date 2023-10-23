@@ -54,7 +54,19 @@ surv$month <- lubridate::month(surv$DATE)
 surv$SEASON <- NA
 surv$SEASON[surv$month %in% c(3,4,5,6,7,8)] <- 'SPRING'
 surv$SEASON[surv$month %in% c(1,2,9,10,11,12)] <- 'FALL'
+
+# Keep fall season temporally continuous (Jan and Feb go with previous year)
+surv$YEAR.SEASON <- surv$YEAR
+for(i in 1:nrow(surv)){
+  if(surv$month[i] %in% c(1,2)){
+    surv$YEAR.SEASON[i] <- surv$YEAR.SEASON[i]-1
+  }
+}
 surv$month <- NULL
+
+# Remove surveys that occurred Jan Feb 1982 (belong to Fall 1981 season)
+surv <- surv[surv$YEAR.SEASON != 1981,]
+
 # Convert character to factor
 facs <- c('INDEX_NAME', 'SURVEY', 'STOCK', 'AREA', 'STRATUM',
           'BOTTOM.TYPE', 'SEASON')
@@ -68,7 +80,7 @@ bioda <- subset(bioda, YEAR>=1982)
 bioda <- dplyr::select(bioda, -SEASON, -TRUE_SEASON)
 
 # Append haul_id and date to bio data
-surv.sub <- dplyr::select(surv, INDEX_NAME, HAUL_ID, DATE, SEASON)
+surv.sub <- dplyr::select(surv, INDEX_NAME, HAUL_ID, DATE, SEASON, YEAR.SEASON)
 bioda <- left_join(bioda, surv.sub, by=c('HAUL_ID'))
 # Remove biodata from hauls without spatial information
 bioda <- bioda[bioda$HAUL_ID %notin% badsurv$HAUL_ID,]
@@ -88,11 +100,11 @@ str(bioda)
 rm(surv.sub, badsurv, facs)
 
 #### von Bertalanffy growth curve ####
-# 
-# # All fish with recorded biodata have length. Weight and age are more variable.
-# # Step one of analysis is to fit a von Bert growth curve to determine age based
-# # on length.
-# 
+
+# All fish with recorded biodata have length. Weight and age are more variable.
+# Step one of analysis is to fit a von Bert growth curve to determine age based
+# on length.
+
 # # Split out data with age and length
 # bioage <- subset(bioda, is.na(bioda$AGE)==FALSE)
 # summary(bioage$AGE); summary(bioage$LENGTH_CM)
@@ -104,7 +116,7 @@ rm(surv.sub, badsurv, facs)
 # # from `FSA`
 # starts <- vbStarts(formula = LENGTH_CM ~ AGE, data = bioage)
 # 
-# # Fit the von Bertalanffy growth function using nonlinear least squares (nls) 
+# # Fit the von Bertalanffy growth function using nonlinear least squares (nls)
 # # optimization
 # mymod <- nls(vbmod, data = bioage, start = starts)
 # summary(mymod)
@@ -641,7 +653,7 @@ summary(test)
 # Create Year-season column
 test$SEASON <- factor(test$SEASON, levels = c('SPRING', 'FALL'),
                       labels = c('A.SPRING', 'B.FALL'))
-test$TIME <- paste0(test$YEAR, test$SEASON)
+test$TIME <- paste0(test$YEAR.SEASON, test$SEASON)
 test$TIME <- as.numeric(as.factor(test$TIME))
 table(test$TIME, test$Data_type)
 
