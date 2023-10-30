@@ -35,7 +35,7 @@ rm(survs_sf)
 
 # Create datestring to merge SST and OISST
 stations$DATE <- as.POSIXct(stations$DATE, 
-                            format = "%m/%d/%Y %H:%M")
+                            format = "%Y-%m-%d")
 stations$month <- substr(stations$DATE, start=6, stop=7)
 stations$day <- substr(stations$DATE, start=9, stop=10)
 stations$yrmody <- paste0(stations$YEAR, stations$month, stations$day)

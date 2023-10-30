@@ -41,49 +41,17 @@ theme_set(theme(panel.grid.major = element_line(color='lightgray'),
 
 #### Read in data ####
 # Survey data
-surv <- read.csv(here("Data/Survey_Data/Survey_Data.csv"))
-surv <- subset(surv, YEAR >=1982)
-surv <- dplyr::select(surv, -SEASON, -TRUE_SEASON)
-# Must have spatial information
-badsurv <- subset(surv, is.na(surv$LON) | is.na(surv$LAT))
-surv <- subset(surv, !is.na(surv$LAT))
-surv <- subset(surv, !is.na(surv$LON))
-# Assign season
-surv$DATE <- as.POSIXct(surv$DATE, format = "%m/%d/%Y %H:%M")
-surv$month <- lubridate::month(surv$DATE)
-surv$SEASON <- NA
-surv$SEASON[surv$month %in% c(3,4,5,6,7,8)] <- 'SPRING'
-surv$SEASON[surv$month %in% c(1,2,9,10,11,12)] <- 'FALL'
-
-# Keep fall season temporally continuous (Jan and Feb go with previous year)
-surv$YEAR.SEASON <- surv$YEAR
-for(i in 1:nrow(surv)){
-  if(surv$month[i] %in% c(1,2)){
-    surv$YEAR.SEASON[i] <- surv$YEAR.SEASON[i]-1
-  }
-}
-surv$month <- NULL
-
-# Remove surveys that occurred Jan Feb 1982 (belong to Fall 1981 season)
-surv <- surv[surv$YEAR.SEASON != 1981,]
-
-# Convert character to factor
-facs <- c('INDEX_NAME', 'SURVEY', 'STOCK', 'AREA', 'STRATUM',
-          'BOTTOM.TYPE', 'SEASON')
-surv[,facs] <- lapply(surv[,facs], factor)  
-surv$SEASON <- factor(surv$SEASON, levels = c("SPRING", "FALL"))
-str(surv)
+surv <- read.csv(here('Data/VAST_input/cod_rawage_VASTdata.csv'))
 
 # Bio data
 bioda <- read.csv(here("Data/Survey_Data/Bio_Data.csv"))
-bioda <- subset(bioda, YEAR>=1982)
-bioda <- dplyr::select(bioda, -SEASON, -TRUE_SEASON)
 
 # Append haul_id and date to bio data
-surv.sub <- dplyr::select(surv, INDEX_NAME, HAUL_ID, DATE, SEASON, YEAR.SEASON)
+surv.sub <- dplyr::select(surv, INDEX_NAME, HAUL_ID, DATE, LAT, LON)
 bioda <- left_join(bioda, surv.sub, by=c('HAUL_ID'))
 # Remove biodata from hauls without spatial information
-bioda <- bioda[bioda$HAUL_ID %notin% badsurv$HAUL_ID,]
+bioda <- bioda[!is.na(bioda$LAT),]
+bioda <- bioda[!is.na(bioda$LON),]
 
 # Combine NA and UKNOWN sex
 bioda$SEX[bioda$SEX == "UNKNOWN"] <- NA
@@ -92,12 +60,12 @@ bioda$SEX <- droplevels(as.factor(bioda$SEX))
 bioda$MATURITY_STAGE[bioda$MATURITY_STAGE == "UNKNOWN"] <- NA
 # Convert character to factor
 facs <- c('SURVEY', 'STOCK', 'SEX', 'MATURITY_STAGE',
-          'INDEX_NAME', 'SEASON')
+          'INDEX_NAME')
 bioda[,facs] <- lapply(bioda[,facs], factor)
 str(bioda)
 
 # Remove intermediates
-rm(surv.sub, badsurv, facs)
+rm(surv.sub, facs)
 
 #### von Bertalanffy growth curve ####
 
@@ -542,7 +510,7 @@ rm(enc.small, enc.small.list, enc.unk, i)
 unaccounted3 <- survey.encounter[survey.encounter$HAUL_ID %notin% test$HAUL_ID,]
 
 sum(unaccounted3$COD_N)
-# There are 2195 tows, representing 214,141.7 fish, that cannot be assigned 
+# There are 2166 tows, representing 212,695.7 fish, that cannot be assigned 
 # age by any method. These will be thrown into the unknown category.
 
 # Some can be grouped in the biomass category. Some are missing biomass, and
@@ -650,26 +618,9 @@ table(test$SURVEY   , test$AGEGROUP)
 table(test$SURVEY   , test$Data_type)
 summary(test)
 
-# Create Year-season column
-test$SEASON <- factor(test$SEASON, levels = c('SPRING', 'FALL'),
-                      labels = c('A.SPRING', 'B.FALL'))
-test$TIME <- paste0(test$YEAR.SEASON, test$SEASON)
-test$TIME <- as.numeric(as.factor(test$TIME))
-table(test$TIME, test$Data_type)
-
-# Set response
-test$RESPONSE <- NA
-for(i in 1:nrow(test)){
-  if(test$Data_type[i] == "Count"){
-    test$RESPONSE[i] <- test$AGE_N[i]
-  }
-  if(test$Data_type[i] == "Biomass_KG"){
-    test$RESPONSE[i] <- test$AGE_KG[i]
-  }
-}
-table(test$Data_type)
-summary(test$RESPONSE)
-
+# Must shift to count data and remove unknown ages
+test <- test[test$AGEGROUP != 'Unknown',]
+test <- dplyr::select(test, -Data_type, -matching, -AGE_KG)
 
 # Save.
 write.csv(test,
