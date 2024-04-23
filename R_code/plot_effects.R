@@ -8,8 +8,7 @@ library(here)
 library(splines)
 
 # load data
-load(here("VAST_runs/add_climate_aja3/add_climate_aja3.Rdata"))
-#load(here("VAST_runs/refine_effort/refine_effort.RData"))
+load(here('VAST_runs/tuna13/usa_first/tuna13_usafirst.RData'))
 
 # Load functions
 source(here("R_code/utilities/vast_functions.R"))
@@ -24,21 +23,17 @@ params <- params[params %notin% c('Lon', 'Lat', 'Year')]
 catnames <- fit$category_names
 ncat = length(catnames)
 
-for(i in 1:length(catnames)){
   vast_habcovs_effs<- get_vast_covariate_effects(vast_fit = fit, 
                                                  params_plot = c(params), 
                                                  params_plot_levels = 100, 
                                                  effects_pad_values = c(), 
-                                                 nice_category_names = paste(catnames[i], "Atlantic cod"), 
-                                                 out_dir = here('VAST_runs/add_climate_aja3/effects'),
-                                                 category_to_use = i,
-                                                 ncat = ncat,
-                                                 strata_to_use = 'GBK')
+                                                 nice_category_names = "USA First", 
+                                                 out_dir = here('VAST_runs/tuna13/usa_first/'),
+                                                 category_to_use = 1,
+                                                 ncat = ncat)
   
-  # Warnings are...interesting....
   vast_habcovs_plot<- plot_vast_covariate_effects(vast_covariate_effects = vast_habcovs_effs, 
                                                   vast_fit = fit, 
-                                                  nice_category_names = paste(catnames[i], "Atlantic cod"),  
-                                                  out_dir = here('VAST_runs/add_climate_aja3/effects'))
-  #vast_habcovs_plot
-}
+                                                  nice_category_names = "USA First",  
+                                                  out_dir = here('VAST_runs/tuna13/usa_first/'))
+

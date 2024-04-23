@@ -30,9 +30,7 @@ theme_set(theme(plot.margin = unit(c(0.5,0.5,0.5,0.5), "cm"),
                 plot.caption=element_text(hjust=0, face='italic', size=12)))
 
 # Load VAST fit data
-load(here("VAST_runs/refine_effort/refine_effort.Rdata"))
-rm(ex3, ex4, scaled.covars, strata_use, survs, user_region,
-   cat.labs, seas.labs, year.labs, settings)
+load(here("VAST_runs/add_climate_aja4/ALL/add_climate_aja4_all.RData"))
 
 # Load sediment grids
 load(here('Data/Density_Covariates/Sediment/sediment_grids.RData'))
@@ -45,6 +43,10 @@ hard.agg <- st_union(hard)
 hard.agg <- st_transform(hard.agg, "EPSG:4326")
 mix.agg <- st_union(mix)
 mix.agg <- st_transform(mix.agg, "EPSG:4326")
+
+# Load WEA
+wea <- st_read(here('Data/GIS/Final_WEA_Poly.shp'))
+wea <- st_transform(wea, st_crs(sedgrid))
 
 # Pull vector of years
 years <- fit$year_labels
@@ -103,18 +105,8 @@ D.3 <- merge(D_gt.3, mdl$PlotDF, by.x='cell', by.y='x2i')
 #D.3 <- separate(D.3, Year, into = c("Year", "Season"), sep = " (?=[^ ]+$)")
 D.3$Cat <- 3
 
-# Category 4
-D_gt.4 <- fit$Report$D_gct[,4,] # drop the category
-dimnames(D_gt.4) <- list(cell=1:nrow(D_gt.4), year=years)
-D_gt.4 <- D_gt.4 %>% as.data.frame() %>%
-  tibble::rownames_to_column(var = "cell") %>%
-  pivot_longer(-cell, names_to = "Year", values_to='D')
-D.4 <- merge(D_gt.4, mdl$PlotDF, by.x='cell', by.y='x2i')
-#D.4 <- separate(D.4, Year, into = c("Year", "Season"), sep = " (?=[^ ]+$)")
-D.4$Cat <- 4
-
 # Rebind to new shape
-D <- rbind(D.1, D.2, D.3, D.4)
+D <- rbind(D.1, D.2, D.3)
 
 # Adjust data to log abundance, strip units
 D$D <- strip_units(D$D)
@@ -122,7 +114,7 @@ D$logD <- log(D$D)
 
 #Rebind to list
 D.list <- split(D, f=D$Cat)
-names(D.list) <- c("Small", "Medium", "Large", "Unknown size")
+names(D.list) <- c("Small", "Medium", "Large")
 
 # Set CRS 
 projargs <- fit$extrapolation_list$projargs
@@ -130,7 +122,7 @@ CRS_orig = sp::CRS("+proj=longlat")
 CRS_proj = sp::CRS(projargs)
 
 # Outer loop: Categories
-for(i in c(2:3)){
+for(i in c(1:3)){
   Cat.sub <- D.list[[i]]
   
   # Sum for total abundance
@@ -139,19 +131,18 @@ for(i in c(2:3)){
     separate(Year, c("Year", "Season"), " ")
   Cat.sub$loc <- paste0(Cat.sub$loc, "-", Cat.sub$Season)
   
-  Year <-  Cat.sub$Year[1]
-  Season <- Cat.sub$Season[1]
+  Cat.sub <- Cat.sub %>% 
+    filter(Year >=2012)
   
-  Tot.ab <- Cat.sub[Cat.sub$Year == Year & Season ==Season,]
-  
-  Sum <- Tot.ab %>% 
+  Sum <- Cat.sub %>% 
     group_by(loc) %>% 
     summarise(Sum=sum(D, na.rm=T))
   Sum <- Sum %>% as.data.frame()
   
   # Merge
-  tot <- merge(Tot.ab, Sum, by=c('loc'))
+  tot <- merge(Cat.sub, Sum, by=c('loc'))
   tot <- dplyr::select(tot, Lat, Lon, Season, Sum)
+  tot <- unique(tot)
     
     loc_g <- cbind(tot$Lon, 
                    tot$Lat)
@@ -241,6 +232,8 @@ for(i in c(2:3)){
       geom_sf(data=area.outline, fill=NA, col='black', pch=19, cex=0.5)+
       geom_sf(data=coast, fill='gray')+
       
+      geom_sf(data=wea, fill=NA, col='red') +
+      
       coord_sf(xlim=c(-76, -66),
                ylim=c(36.5,45),
                crs="EPSG:4326")+
@@ -294,6 +287,8 @@ for(i in c(2:3)){
       geom_sf(data=area.outline, fill=NA, col='black', pch=19, cex=0.5)+
       geom_sf(data=coast, fill='gray')+
       
+      geom_sf(data=wea, fill=NA, col='red') +
+      
       coord_sf(xlim=c(-76, -66),
                ylim=c(36.5,45),
                crs="EPSG:4326")+
@@ -314,7 +309,7 @@ for(i in c(2:3)){
                                                         ' size class (',
                                                        size_dist[i],
                                                        'cm)\n',
-                                                       'Total abundance 1982 - 2021'),
+                                                       'Total abundance 2012 - 2021'),
                                                 color='black',
                                                 #face='bold',
                                                 size=16,
@@ -332,8 +327,8 @@ for(i in c(2:3)){
     ggsave(both, 
            filename = 
              paste0(here(),
-                    '/Plot_output/',
-                    names(D.list)[i], "_total_spatialdensity.png"),
+                    '/Plot_output_wea/',
+                    names(D.list)[i], "_total_spatialdensity_wea_last10.png"),
            device="png",
            width = 11, height = 8.5, units='in'
            )
