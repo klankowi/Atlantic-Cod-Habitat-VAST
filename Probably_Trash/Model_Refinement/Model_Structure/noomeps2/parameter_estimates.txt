@@ -1,0 +1,60 @@
+$par
+  ln_H_input   ln_H_input   L_omega1_z L_epsilon1_z    logkappa1    logSigmaM 
+ 0.031634795  0.178312685  2.132558156  1.091287527 -3.400460616 -0.005546688 
+
+$objective
+[1] 30918.54
+attr(,"logarithm")
+[1] TRUE
+
+$iterations
+[1] 1
+
+$evaluations
+function gradient 
+       2        1 
+
+$time_for_MLE
+Time difference of 6.609488 secs
+
+$max_gradient
+[1] 1.370563e-08
+
+$Convergence_check
+[1] "There is no evidence that the model is not converged"
+
+$number_of_coefficients
+ Total  Fixed Random 
+ 20979      6  20973 
+
+$AIC
+[1] 61849.08
+attr(,"logarithm")
+[1] TRUE
+
+$diagnostics
+         Param starting_value     Lower          MLE     Upper final_gradient
+1   ln_H_input     0.03163474 -5.000000  0.031634795  5.000000  -8.755974e-11
+2   ln_H_input     0.17831271 -5.000000  0.178312685  5.000000  -7.094503e-11
+3   L_omega1_z     2.13256025      -Inf  2.132558156       Inf   5.985839e-09
+4 L_epsilon1_z     1.09128744      -Inf  1.091287527       Inf   2.521830e-09
+5    logkappa1    -3.40046058 -6.004945 -3.400460616 -1.848221   1.370563e-08
+6    logSigmaM    -0.00554669      -Inf -0.005546688 10.000000  -3.343814e-11
+
+$SD
+sdreport(.) result
+                 Estimate  Std. Error
+ln_H_input    0.031634795 0.095363178
+ln_H_input    0.178312685 0.094989353
+L_omega1_z    2.132558156 0.189456678
+L_epsilon1_z  1.091287527 0.032860092
+logkappa1    -3.400460616 0.069219247
+logSigmaM    -0.005546688 0.008606629
+Maximum gradient component: 1.370563e-08 
+
+$time_for_sdreport
+Time difference of 30.38856 secs
+
+$time_for_run
+Time difference of 69.09056 secs
+
