@@ -23,8 +23,8 @@ theme_set(theme(panel.grid.major = element_line(color='lightgray'),
 '%notin%' <- function(x,y)!('%in%'(x,y))
 
 # Root
-root <- here('VAST_runs/medium/GMRF/')
-ending <- '_medcod_wholearea_natsplin.RData'
+root <- here('VAST_runs/small/GMRF/')
+ending <- '_smallcod_wholearea_natsplin.RData'
 
 # Covariates
 covuse <- c('OFF', 'ON')

@@ -31,7 +31,7 @@ centroid <- st_centroid(gom)
 
 #### Center of gravity ####
 # Root
-root <- here('VAST_runs/medium/SingleCovs')
+root <- here('VAST_runs/small/SingleCovs')
 ending <- '/COG_ALL.csv'
 
 # Covariates
@@ -195,19 +195,19 @@ e.fall <- ggplot() +
         legend.title = element_text(size=8)) +
   guides(color = guide_legend(nrow = 2))
 
-ggsave(filename=paste0(here('VAST_runs/medium/SingleCovs/Testing Results', 
+ggsave(filename=paste0(here('VAST_runs/small/SingleCovs/Testing Results', 
                             '/cogshifts_northing_spring.png')),
        n.spring, width = 8.5, height=4.25, units='in')
 
-ggsave(filename=paste0(here('VAST_runs/medium/SingleCovs/Testing Results', 
+ggsave(filename=paste0(here('VAST_runs/small/SingleCovs/Testing Results', 
                             '/cogshifts_northing_fall.png')),
        n.fall, width = 8.5, height=4.25, units='in')
 
-ggsave(filename=paste0(here('VAST_runs/medium/SingleCovs/Testing Results', 
+ggsave(filename=paste0(here('VAST_runs/small/SingleCovs/Testing Results', 
                             '/cogshifts_easting_spring.png')),
        e.spring, width = 8.5, height=4.25, units='in')
 
-ggsave(filename=paste0(here('VAST_runs/medium/SingleCovs/Testing Results', 
+ggsave(filename=paste0(here('VAST_runs/small/SingleCovs/Testing Results', 
                             '/cogshifts_easting_fall.png')),
        e.fall, width = 8.5, height=4.25, units='in')
 
@@ -269,19 +269,19 @@ spring.vis <- ggplot() +
     guide = guide_colourbar(nbin = 100, draw.ulim = FALSE, draw.llim = FALSE)
   )+
   facet_wrap(vars(Model)) +
-  coord_sf(xlim=c(-71, -66),
-           ylim=c(41, 43),
+  coord_sf(xlim=c(-72, -68),
+           ylim=c(41, 43.5),
            crs="EPSG:4326") +
   xlab("Longitude") + ylab("Latitude") +
   ggtitle('Spring Center of Gravity') +
   theme(legend.position = 'bottom',
-        axis.text.x=element_text(size=8),
+        axis.text.x=element_text(size=8, angle=20),
         axis.text.y=element_text(size=8),
         strip.text=element_text(size=8))
 
-ggsave(here("VAST_runs/medium/SingleCovs/Testing Results/Spatial_COG_Spring.png"),
+ggsave(here("VAST_runs/small/SingleCovs/Testing Results/Spatial_COG_Spring.png"),
        spring.vis,
-       width=11, height=6)
+       width=8, height=6)
 
 # Fall
 SD_plotting.fall <- subset(cog.sf, Season =='Fall')
@@ -329,25 +329,25 @@ fall.vis <- ggplot() +
     guide = guide_colourbar(nbin = 100, draw.ulim = FALSE, draw.llim = FALSE)
   )+
   facet_wrap(vars(Model)) +
-  coord_sf(xlim=c(-71, -66),
-           ylim=c(41, 43),
+  coord_sf(xlim=c(-72, -68),
+           ylim=c(41, 43.5),
            crs="EPSG:4326") +
   xlab("Longitude") + ylab("Latitude") +
   ggtitle('Fall Center of Gravity') +
   theme(legend.position = 'bottom',
-        axis.text.x=element_text(size=8),
+        axis.text.x=element_text(size=8, angle=20),
         axis.text.y=element_text(size=8),
         strip.text=element_text(size=8))
 
-ggsave(here("VAST_runs/medium/SingleCovs/Testing Results/Spatial_COG_Fall.png"),
+ggsave(here("VAST_runs/small/SingleCovs/Testing Results/Spatial_COG_Fall.png"),
        fall.vis,
-       width=11, height=6)
+       width=8, height=6)
 
 rm(list=setdiff(ls(), c('coast', 'gom')))
 
 #### Range edges ####
 # Root
-root <- here('VAST_runs/medium/SingleCovs')
+root <- here('VAST_runs/small/SingleCovs')
 ending <- '/RangeEdges_ALL.csv'
 
 # Covariates
@@ -444,19 +444,19 @@ easting.fall <- ggplot() +
         legend.title = element_text(size=8)) +
   guides(color = guide_legend(nrow = 2)) 
 
-ggsave(filename=paste0(here('VAST_runs/medium/SingleCovs/Testing Results', 
+ggsave(filename=paste0(here('VAST_runs/small/SingleCovs/Testing Results', 
                             '/re_northing_spring.png')),
        northing.spring, width = 8.5, height=4.25, units='in')
 
-ggsave(filename=paste0(here('VAST_runs/medium/SingleCovs/Testing Results', 
+ggsave(filename=paste0(here('VAST_runs/small/SingleCovs/Testing Results', 
                             '/re_northing_fall.png')),
        northing.fall, width = 8.5, height=4.25, units='in')
 
-ggsave(filename=paste0(here('VAST_runs/medium/SingleCovs/Testing Results', 
+ggsave(filename=paste0(here('VAST_runs/small/SingleCovs/Testing Results', 
                             '/re_easting_spring.png')),
        easting.spring, width = 8.5, height=4.25, units='in')
 
-ggsave(filename=paste0(here('VAST_runs/medium/SingleCovs/Testing Results', 
+ggsave(filename=paste0(here('VAST_runs/small/SingleCovs/Testing Results', 
                             '/re_easting_fall.png')),
        easting.fall, width = 8.5, height=4.25, units='in')
 
@@ -530,7 +530,7 @@ spring.vis <- ggplot() +
         axis.text.y=element_text(size=6),
         strip.text=element_text(size=8))
 
-ggsave(here("VAST_runs/medium/SingleCovs/Testing Results/Spatial_RangeEdge_SW_Spring.png"),
+ggsave(here("VAST_runs/small/SingleCovs/Testing Results/Spatial_RangeEdge_SW_Spring.png"),
        spring.vis,
        width=8, height=6)
 rm(SD_list, SD_plotting.spring)
@@ -592,7 +592,7 @@ fall.vis <- ggplot() +
         axis.text.y=element_text(size=6),
         strip.text=element_text(size=8))
 
-ggsave(here("VAST_runs/medium/SingleCovs/Testing Results/Spatial_RangeEdge_SW_Fall.png"),
+ggsave(here("VAST_runs/small/SingleCovs/Testing Results/Spatial_RangeEdge_SW_Fall.png"),
        fall.vis,
        width=8, height=6)
 
@@ -637,7 +637,7 @@ spring.vis <- ggplot() +
   guides(col=guide_legend(title="Stock", nrow=2,byrow=TRUE)) +
   ggnewscale::new_scale_color() +
   geom_sf(data=yeartracks.spring, 
-          aes(col=Year), pch=19, cex=0.5, lwd=0.7, alpha=0.7) +
+          aes(col=Year), pch=19, cex=0.5, lwd=0.5, alpha=0.7) +
   scale_color_continuous(
     limits = c(1982,2021), 
     breaks = c(1982,1990, 2000, 2010, 2021),
@@ -645,8 +645,8 @@ spring.vis <- ggplot() +
     guide = guide_colourbar(nbin = 100, draw.ulim = FALSE, draw.llim = FALSE)
   )+
   facet_wrap(vars(Model)) +
-  coord_sf(xlim=c(-67.5, -64.5),
-           ylim=c(42.5, 44.5),
+  coord_sf(xlim=c(-70, -66),
+           ylim=c(42, 45),
            crs="EPSG:4326") +
   xlab("Longitude") + ylab("Latitude") +
   ggtitle('Spring Northeastern Range Edge (95% Quantile)') +
@@ -655,9 +655,9 @@ spring.vis <- ggplot() +
         axis.text.y=element_text(size=6),
         strip.text=element_text(size=8))
 
-ggsave(here("VAST_runs/medium/SingleCovs/Testing Results/Spatial_RangeEdge_NE_Spring.png"),
+ggsave(here("VAST_runs/small/SingleCovs/Testing Results/Spatial_RangeEdge_NE_Spring.png"),
        spring.vis,
-       width=8, height=6)
+       width=8, height=7)
 rm(SD_list, SD_plotting.spring)
 
 # Fall
@@ -699,7 +699,7 @@ fall.vis <- ggplot() +
   guides(col=guide_legend(title="Stock", nrow=2,byrow=TRUE)) +
   ggnewscale::new_scale_color() +
   geom_sf(data=yeartracks.fall, 
-          aes(col=Year), pch=19, cex=0.5, lwd=0.7, alpha=0.7) +
+          aes(col=Year), pch=19, cex=0.5, lwd=0.5, alpha=0.7) +
   scale_color_continuous(
     limits = c(1982,2021), 
     breaks = c(1982,1990, 2000, 2010, 2021),
@@ -707,8 +707,8 @@ fall.vis <- ggplot() +
     guide = guide_colourbar(nbin = 100, draw.ulim = FALSE, draw.llim = FALSE)
   )+
   facet_wrap(vars(Model)) +
-  coord_sf(xlim=c(-67.5, -64.5),
-           ylim=c(42.5, 44.5),
+  coord_sf(xlim=c(-70, -66),
+           ylim=c(42, 45),
            crs="EPSG:4326") +
   xlab("Longitude") + ylab("Latitude") +
   ggtitle('Fall Northeastern Range Edge (95% Quantile)') +
@@ -717,6 +717,7 @@ fall.vis <- ggplot() +
         axis.text.y=element_text(size=6),
         strip.text=element_text(size=8))
 
-ggsave(here("VAST_runs/medium/SingleCovs/Testing Results/Spatial_RangeEdge_NE_Fall.png"),
+ggsave(here("VAST_runs/small/SingleCovs/Testing Results/Spatial_RangeEdge_NE_Fall.png"),
        fall.vis,
-       width=8, height=6)
+       width=8, height=7)
+rm(SD_list, SD_plotting.fall)

@@ -10,7 +10,7 @@ library(sf)
 install_unit(symbol='unitless', def='unitless', name='unitless')
 
 # Load VAST fit data
-load(here('VAST_runs/medium/Overall_BC/Overall_BC_medcod_allstrat_natsplin_fsON.RData'))
+load(here('VAST_runs/medium/Overall_BC/ALL/Overall_BC_medcod_allstrat_natsplin_fsON_ALL.RData'))
 
 # Set GGplot auto theme
 theme_set(theme(panel.grid.major = element_line(color='lightgray'),
@@ -32,7 +32,7 @@ map_list = make_map_info(Region = fit$extrapolation_list$Area_km2_x,
                          Extrapolation_List = fit$extrapolation_list)
 panel_labels = fit$year_labels
 file_name = "density"
-working_dir = here('VAST_runs/medium/Overall_BC')
+working_dir = here('VAST_runs/medium/Overall_BC/ALL')
 setwd(working_dir)
 fun = mean
 
@@ -169,8 +169,8 @@ grid = sf::st_make_grid(Points_sf, cellsize = cell.size)
 grid_i = sf::st_intersects(Points_sf, grid)
 grid = sf::st_sf(grid, y = tapply(Points_sf$y, INDEX = factor(as.numeric(grid_i), 
                                                               levels = 1:length(grid)), FUN = mean, na.rm = TRUE))
-
-tspd <- ggplot() +
+grid$Season <- 'Spring'
+tspd.s <- ggplot() +
   geom_sf(data=grid, 
           aes(fill=y, col=y)) +
   scale_fill_viridis_c(option='viridis', alpha=0.8, direction=1,
@@ -184,17 +184,17 @@ tspd <- ggplot() +
   coord_sf(xlim=c(st_bbox(grid)[1], st_bbox(grid)[3]),
            ylim=c(st_bbox(grid)[2], st_bbox(grid)[4])) +
   labs(col='log(Abund.)', fill='log(Abund.)') +
-  theme(legend.position = 'right',
-        axis.text.x = element_text(size=6, angle=20),
-        axis.text.y = element_text(size=6),
+  theme(legend.position = 'bottom',
+        axis.text.x = element_text(size=8, angle=20),
+        axis.text.y = element_text(size=8),
         strip.text.x=element_text(margin=margin(0.1,0,0.1,0, "cm")),
         legend.title = element_text(size=8),
         legend.text = element_text(size=8)) +
-  ggtitle('Spring Summed spatial density, Medium Cod')
+  facet_wrap(vars(Season))
 
-ggsave(plot=tspd,
-       filename='spring_total_spatial_density.png',
-       height=8.5, width=11, units = 'in')
+ggsave(plot=tspd.s,
+       filename='summed_spatial_density_spring.png',
+       height=4, width=3.5, units = 'in')
 
 Y_total.fall <- Y_total %>% dplyr::select(contains('Fall'))
 Y_total.fall <- rowSums(Y_total.fall)
@@ -215,8 +215,8 @@ grid = sf::st_make_grid(Points_sf, cellsize = cell.size)
 grid_i = sf::st_intersects(Points_sf, grid)
 grid = sf::st_sf(grid, y = tapply(Points_sf$y, INDEX = factor(as.numeric(grid_i), 
                                                               levels = 1:length(grid)), FUN = mean, na.rm = TRUE))
-
-tspd <- ggplot() +
+grid$Season <- 'Fall'
+tspd.f <- ggplot() +
   geom_sf(data=grid, 
           aes(fill=y, col=y)) +
   scale_fill_viridis_c(option='viridis', alpha=0.8, direction=1,
@@ -230,14 +230,15 @@ tspd <- ggplot() +
   coord_sf(xlim=c(st_bbox(grid)[1], st_bbox(grid)[3]),
            ylim=c(st_bbox(grid)[2], st_bbox(grid)[4])) +
   labs(col='log(Abund.)', fill='log(Abund.)') +
-  theme(legend.position = 'right',
-        axis.text.x = element_text(size=6, angle=20),
-        axis.text.y = element_text(size=6),
+  theme(legend.position = 'bottom',
+        axis.text.x = element_text(size=8, angle=20),
+        axis.text.y = element_text(size=8),
         strip.text.x=element_text(margin=margin(0.1,0,0.1,0, "cm")),
         legend.title = element_text(size=8),
         legend.text = element_text(size=8)) +
-  ggtitle('Fall Summed spatial density, Medium Cod')
+  facet_wrap(vars(Season))
 
-ggsave(plot=tspd,
-       filename='fall_total_spatial_density.png',
-       height=8.5, width=11, units = 'in')
+ggsave(plot=tspd.f,
+       filename='summed_spatial_density_fall.png',
+       height=4, width=3.5, units = 'in')
+
