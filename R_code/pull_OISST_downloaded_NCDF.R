@@ -23,14 +23,14 @@ source(here("R_code/utilities/raster_to_sstdf_func.R"))
 varname <- 'sst'
 
 # Set period of years to work with
-years <- 1982:2022
+years <- 2023
 
 # Loop through years
 for(i in years) {
   # Set file name of .nc file
-  name <- paste0("sst.day.mean.", i, ".nc")
+  name <- paste0(here('Data/OISST/'), '/sst.day.mean.', i, '.nc')
   # Set file name of output .gri, .grd files
-  filename <- here::here("Data","Density_Covariates", "SST", 
+  filename <- here::here("Data","OISST", 
                          paste0("test_", i, ".grd"))
   # Convert specified NetCDF file to raster
   text <- knitr::knit_expand(text = "test_{{year}} <- nc_to_raster(nc = name, varname = varname)
@@ -42,7 +42,7 @@ for(i in years) {
   # Set file name of raster (.gri, .grd files)
   name <- get(paste0("test_",i))
   # Set file name of output .rds files
-  filename <- here::here("Data","Density_Covariates", "SST", 
+  filename <- here::here("Data","OISST", 
                          paste0("sst", i, ".rds"))
   # Save rasters as .rds files
   text <- knitr::knit_expand(text = "sst{{year}} <- raster_to_sstdf(brick = name)

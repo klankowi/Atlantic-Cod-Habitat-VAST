@@ -23,12 +23,20 @@ theme_set(theme(panel.grid.major = element_line(color='lightgray'),
 '%notin%' <- function(x,y)!('%in%'(x,y))
 
 # Root
-root <- here('VAST_runs/small/AIC/')
-ending <- '_smallcod_wholearea_natsplin_fsOFF.RData'
+root <- here('VAST_runs/large/AIC/')
+ending <- '_largecod_wholearea_natsplin_fsOFF.RData'
 
 # Covariates
-covuse <- c('amo', 'bathy', 'bottomtemp', 'cobble', 'gravel',
-            'mud', 'nao', 'rugos', 'sand')
+covuse <- c('amo', 
+            'bathy', 
+            'bottomtemp', 
+            #'cobble', 
+            'gravel',
+            #'mud', 
+            'nao', 
+            'rugos'#, 
+            #'sand'
+            )
 
 # Baseline Mods
 load(paste0(root, '/all/allcovs', ending))
@@ -36,7 +44,7 @@ all <- fit
 load(paste0(root, '/none/nonecovs', ending))
 none <- fit
 
-# Singlfitted.values()# Single Covs
+# Single Covs
 for(i in 1:length(covuse)){
   load(paste0(root, '/', covuse[i], 
                      '/no', covuse[i], ending))
@@ -51,19 +59,26 @@ rm(list=setdiff(ls(), c('all', 'none',
                         'nao', 'rugos', 'sand')))
 
 aiccomp <- data.frame(
-  model=c('amo', 'bathy', 'bottomtemp',
-          'cobble', 'gravel', 'mud',
-          'nao', 'rugos', 'sand',
-          'none', 'all'),
+  model=c('amo', 
+          'bathy', 
+          'bottomtemp',
+          #'cobble', 
+          'gravel', 
+          #'mud',
+          'nao', 
+          'rugos', 
+          #'sand',
+          'none', 
+          'all'),
   aic = c(amo$parameter_estimates$AIC,
           bathy$parameter_estimates$AIC,
           bottomtemp$parameter_estimates$AIC,
-          cobble$parameter_estimates$AIC,
+          #cobble$parameter_estimates$AIC,
           gravel$parameter_estimates$AIC,
-          mud$parameter_estimates$AIC,
+          #mud$parameter_estimates$AIC,
           nao$parameter_estimates$AIC,
           rugos$parameter_estimates$AIC,
-          sand$parameter_estimates$AIC,
+          #sand$parameter_estimates$AIC,
           none$parameter_estimates$AIC,
           all$parameter_estimates$AIC)
 )
@@ -79,19 +94,27 @@ aiccomp$delta.aic[1] <- 0
 aiccomp
 
 devcomp <- data.frame(
-  model=c('amo', 'bathy', 'bottomtemp',
-          'cobble', 'gravel', 'mud',
-          'nao', 'rugos', 'sand',
-          'none', 'all'),
-  deviance = c(amo$Report$deviance,
+  model=c('amo', 
+          'bathy', 
+          'bottomtemp',
+          #'cobble', 
+          'gravel', 
+          #'mud',
+          'nao', 
+          'rugos', 
+          #'sand',
+          'none', 
+          'all'),
+  deviance = c(
+          amo$Report$deviance,
           bathy$Report$deviance,
           bottomtemp$Report$deviance,
-          cobble$Report$deviance,
+          #cobble$Report$deviance,
           gravel$Report$deviance,
-          mud$Report$deviance,
+          #mud$Report$deviance,
           nao$Report$deviance,
           rugos$Report$deviance,
-          sand$Report$deviance,
+          #sand$Report$deviance,
           none$Report$deviance,
           all$Report$deviance)
 )

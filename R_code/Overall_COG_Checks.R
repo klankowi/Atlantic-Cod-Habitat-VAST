@@ -9,20 +9,35 @@ library(wesanderson)
 # Negate function
 '%notin%' <- function(x,y)!('%in%'(x,y))
 
+# Set GGplot auto theme
+theme_set(theme(panel.grid.major = element_line(color='lightgray'),
+                panel.grid.minor = element_blank(),
+                panel.background = element_blank(),
+                panel.border = element_rect(color='black', linewidth=1, fill=NA),
+                legend.position = "inside",
+                legend.background = element_rect(fill='transparent', colour = 'transparent'),
+                axis.text.x=element_text(size=10),
+                axis.text.y=element_text(size=10),
+                axis.title.x=element_text(size=11),
+                axis.title.y=element_text(size=11, angle=90, vjust=2),
+                plot.title=element_text(size=12, hjust = 0, vjust = 1.2),
+                plot.caption=element_text(hjust=0, face='italic', size=12)))
+
 # Shapefiles and centroid calculation
 gom <- st_read(here("Data/GIS/codstox.shp"), quiet=T)
 gom <- st_make_valid(gom)
 coast <- st_transform(ecodata::coast, crs=st_crs(gom))
-centroid <- st_centroid(gom[gom$STOCK == 'WGOM',])
+centroid <- st_centroid(gom)
 
 #### Center of gravity ####
-cog.wgom <- read.csv(here("VAST_runs/medium/Overall_BC/WGOM/COG_WGOM.csv"))
-cog.egom <- read.csv(here('VAST_runs/medium/Overall_BC/EGOM/COG_EGOM.csv'))
-cog.gbk <- read.csv(here("VAST_runs/medium/Overall_BC/GBK/COG_GBK.csv"))
-cog.sne <- read.csv(here('VAST_runs/medium/Overall_BC/SNE/COG_SNE.csv'))
-cog.all <- read.csv(here("VAST_runs/medium/Overall_BC/ALL/COG_ALL.csv"))
+cog.wgom <- read.csv(here("VAST_runs/small/Overall_BC/WGOM/COG_WGOM.csv"))
+cog.egom <- read.csv(here('VAST_runs/small/Overall_BC/EGOM/COG_EGOM.csv'))
+cog.gbk <- read.csv(here("VAST_runs/small/Overall_BC/GBK/COG_GBK.csv"))
+cog.sne <- read.csv(here('VAST_runs/small/Overall_BC/SNE/COG_SNE.csv'))
+cog.all <- read.csv(here("VAST_runs/small/Overall_BC/ALL/COG_ALL.csv"))
 
-cog <- rbind(cog.wgom, cog.egom, cog.gbk, cog.sne, cog.all)
+cog <- rbind(cog.wgom, cog.egom, cog.gbk, cog.sne, 
+             cog.all)
 
 rm(list=setdiff(ls(), c('cog', 'gom', 'centroid', 'coast')))
 
@@ -71,14 +86,14 @@ wgom.cog <- ggplot() +
            crs="EPSG:4326")+
   theme(legend.position = 'right')
 
-ggsave(here("VAST_runs/medium/Overall_BC/SF_COG.png"),
+ggsave(here("VAST_runs/small/Overall_BC/SF_COG.png"),
        wgom.cog,
        width = 11, height=8.5) 
 
 
 rm(list=setdiff(ls(), c('coast', 'gom', 'cog')))
 
-all.cog <- ggplot() + 
+all.cog.n <- ggplot() + 
   geom_line(data=cog,
             aes(x=Year, y=northing.km, col=strata)) +
   geom_point(data=cog,
@@ -89,18 +104,37 @@ all.cog <- ggplot() +
                   ymax=northing.km + n.sd.km,
                   fill=strata), alpha=0.4) +
   facet_wrap(vars(Season), ncol=1) +
+  labs(y='Northing (km)') +
   theme(legend.position = 'bottom')
 
-ggsave(here("VAST_runs/medium/Overall_BC/COG_AllStrata.png"),
-       all.cog,
+ggsave(here("VAST_runs/small/Overall_BC/COG_northing_AllStrata.png"),
+       all.cog.n,
+       width = 11, height=8.5) 
+
+all.cog.e <- ggplot() + 
+  geom_line(data=cog,
+            aes(x=Year, y=easting.km, col=strata)) +
+  geom_point(data=cog,
+             aes(x=Year, y=easting.km, col=strata),
+             alpha=0.3, cex=0.4) +
+  geom_ribbon(data=cog,
+              aes(x=Year, ymin=easting.km - e.sd.km,
+                  ymax=easting.km + e.sd.km,
+                  fill=strata), alpha=0.4) +
+  facet_wrap(vars(Season), ncol=1) +
+  labs(y='Easting (km)') +
+  theme(legend.position = 'bottom')
+
+ggsave(here("VAST_runs/small/Overall_BC/COG_easting_AllStrata.png"),
+       all.cog.e,
        width = 11, height=8.5) 
 
 #### Range edges ####
-re.wgom <- read.csv(here("VAST_runs/medium/Overall_BC/WGOM/RangeEdges_WGOM.csv"))
-re.egom <- read.csv(here('VAST_runs/medium/Overall_BC/EGOM/RangeEdges_EGOM.csv'))
-re.gbk <- read.csv(here("VAST_runs/medium/Overall_BC/GBK/RangeEdges_GBK.csv"))
-re.sne <- read.csv(here('VAST_runs/medium/Overall_BC/SNE/RangeEdges_SNE.csv'))
-re.all <- read.csv(here("VAST_runs/medium/Overall_BC/ALL/RangeEdges_ALL.csv"))
+re.wgom <- read.csv(here("VAST_runs/small/Overall_BC/WGOM/RangeEdges_WGOM.csv"))
+re.egom <- read.csv(here('VAST_runs/small/Overall_BC/EGOM/RangeEdges_EGOM.csv'))
+re.gbk <- read.csv(here("VAST_runs/small/Overall_BC/GBK/RangeEdges_GBK.csv"))
+re.sne <- read.csv(here('VAST_runs/small/Overall_BC/SNE/RangeEdges_SNE.csv'))
+re.all <- read.csv(here("VAST_runs/small/Overall_BC/ALL/RangeEdges_ALL.csv"))
 
 re <- rbind(re.wgom, re.egom, re.gbk, re.sne, re.all)
 
@@ -138,14 +172,14 @@ wgom.re <- ggplot() +
            crs="EPSG:4326") +
   theme(legend.position = 'bottom')
 
-ggsave(here('VAST_runs/medium/Overall_BC/SF_RangeEdges_WGOM.png'),
+ggsave(here('VAST_runs/small/Overall_BC/SF_RangeEdges_WGOM.png'),
        wgom.re,
        width = 11, height = 8.5)
 
 # Seasonal indices of abundance
 rm(list=setdiff(ls(), c('coast', 'gom')))
 
-ind <- read.csv(here("VAST_runs/medium/Overall_BC/Index.csv"))
+ind <- read.csv(here("VAST_runs/small/Overall_BC/ALL/Index.csv"))
 ind <- ind %>% 
   separate(Time, into=c('Year', 'Season')) %>% 
   mutate(Year = as.numeric(Year),
@@ -153,7 +187,7 @@ ind <- ind %>%
   dplyr::select(-Units, -Category) %>% 
   rename(Std.Err = Std..Error.for.Estimate,
          Std.Err.ln = Std..Error.for.ln.Estimate.)
-load(here('VAST_runs/medium/Overall_BC/Overall_BC_mediumcod_allstrat_natsplin_fsON.RData'))
+load(here('VAST_runs/small/Overall_BC/ALL/Overall_BC_medcod_allstrat_natsplin_fsON_ALL.RData'))
 strats <- data.frame(
   Stratum = unique(ind$Stratum),
   Stock = fit$settings$strata.limits
@@ -165,7 +199,7 @@ ind <- ind %>%
   dplyr::select(-Stratum) %>% 
   rename(Stratum = STRATA)
 
-ggplot() + 
+tot.ind <- ggplot() + 
   geom_line(data=ind[ind$Stratum != 'ALL',], 
             aes(x=Year, y=Estimate, col=Stratum)) + 
   geom_point(data=ind[ind$Stratum != 'ALL',], 
@@ -179,5 +213,8 @@ ggplot() +
   facet_wrap(vars(Season), ncol=1, scales='free_y') +
   theme(legend.position = 'bottom')
 
+ggsave(here('VAST_runs/small/Overall_BC/Indices.png'),
+       tot.ind,
+       width = 11, height = 8.5)
 
 

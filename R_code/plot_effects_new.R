@@ -21,10 +21,10 @@ theme_set(theme(panel.grid.major = element_line(color='lightgray'),
                 plot.caption=element_text(hjust=0, face='italic', size=12)))
 
 # load data
-load(here("VAST_runs/medium/Overall_BC/Overall_BC_medcod_allstrat_natsplin_fsON.Rdata"))
+load(here("VAST_runs/large/Overall_BC/EGOM/Overall_BC_larcod_allstrat_natsplin_fsON_EGOM.Rdata"))
 
 # Set WD for plotting
-out_dir = here("VAST_runs/medium/Overall_BC/")
+out_dir = here("VAST_runs/large/Overall_BC/EGOM")
 
 # Load functions
 source(here("R_code/utilities/vast_functions.R"))
@@ -43,7 +43,7 @@ ncat = length(catnames)
                                                  params_plot = c(params), 
                                                  params_plot_levels = 100, 
                                                  effects_pad_values = c(), 
-                                                 nice_category_names = 'Medium Cod',
+                                                 nice_category_names = 'Large Cod',
                                                  out_dir = out_dir,
                                                  category_to_use = 1,
                                                  ncat = ncat)
@@ -142,7 +142,7 @@ ncat = length(catnames)
 
   plot_out2
 
-  ggsave(here('VAST_runs/medium/Overall_BC/Medium_Cod_Effects_X1.png'),
+  ggsave(here('VAST_runs/large/Overall_BC/Large_Cod_Effects_X1.png'),
          plot_out2,
          height=8.5, width = 10)  
   rm(plot_out, plot_out2)
@@ -167,7 +167,7 @@ ncat = length(catnames)
   
   plot_out2
   
-  ggsave(here('VAST_runs/medium/Overall_BC/Medium_Cod_Effects_X2.png'),
+  ggsave(here('VAST_runs/large/Overall_BC/Large_Cod_Effects_X2.png'),
          plot_out2,
          height=8.5, width = 10)
   

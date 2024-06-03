@@ -31,7 +31,7 @@ centroid <- st_centroid(gom)
 
 #### Center of gravity ####
 # Root
-root <- here('VAST_runs/small/SingleCovs')
+root <- here('VAST_runs/large/SingleCovs')
 ending <- '/COG_ALL.csv'
 
 # Covariates
@@ -195,19 +195,19 @@ e.fall <- ggplot() +
         legend.title = element_text(size=8)) +
   guides(color = guide_legend(nrow = 2))
 
-ggsave(filename=paste0(here('VAST_runs/small/SingleCovs/Testing Results', 
+ggsave(filename=paste0(here('VAST_runs/large/SingleCovs/Testing Results', 
                             '/cogshifts_northing_spring.png')),
        n.spring, width = 8.5, height=4.25, units='in')
 
-ggsave(filename=paste0(here('VAST_runs/small/SingleCovs/Testing Results', 
+ggsave(filename=paste0(here('VAST_runs/large/SingleCovs/Testing Results', 
                             '/cogshifts_northing_fall.png')),
        n.fall, width = 8.5, height=4.25, units='in')
 
-ggsave(filename=paste0(here('VAST_runs/small/SingleCovs/Testing Results', 
+ggsave(filename=paste0(here('VAST_runs/large/SingleCovs/Testing Results', 
                             '/cogshifts_easting_spring.png')),
        e.spring, width = 8.5, height=4.25, units='in')
 
-ggsave(filename=paste0(here('VAST_runs/small/SingleCovs/Testing Results', 
+ggsave(filename=paste0(here('VAST_runs/large/SingleCovs/Testing Results', 
                             '/cogshifts_easting_fall.png')),
        e.fall, width = 8.5, height=4.25, units='in')
 
@@ -279,7 +279,7 @@ spring.vis <- ggplot() +
         axis.text.y=element_text(size=8),
         strip.text=element_text(size=8))
 
-ggsave(here("VAST_runs/small/SingleCovs/Testing Results/Spatial_COG_Spring.png"),
+ggsave(here("VAST_runs/large/SingleCovs/Testing Results/Spatial_COG_Spring.png"),
        spring.vis,
        width=8, height=6)
 
@@ -339,7 +339,7 @@ fall.vis <- ggplot() +
         axis.text.y=element_text(size=8),
         strip.text=element_text(size=8))
 
-ggsave(here("VAST_runs/small/SingleCovs/Testing Results/Spatial_COG_Fall.png"),
+ggsave(here("VAST_runs/large/SingleCovs/Testing Results/Spatial_COG_Fall.png"),
        fall.vis,
        width=8, height=6)
 
@@ -347,7 +347,7 @@ rm(list=setdiff(ls(), c('coast', 'gom')))
 
 #### Range edges ####
 # Root
-root <- here('VAST_runs/small/SingleCovs')
+root <- here('VAST_runs/large/SingleCovs')
 ending <- '/RangeEdges_ALL.csv'
 
 # Covariates
@@ -444,19 +444,19 @@ easting.fall <- ggplot() +
         legend.title = element_text(size=8)) +
   guides(color = guide_legend(nrow = 2)) 
 
-ggsave(filename=paste0(here('VAST_runs/small/SingleCovs/Testing Results', 
+ggsave(filename=paste0(here('VAST_runs/large/SingleCovs/Testing Results', 
                             '/re_northing_spring.png')),
        northing.spring, width = 8.5, height=4.25, units='in')
 
-ggsave(filename=paste0(here('VAST_runs/small/SingleCovs/Testing Results', 
+ggsave(filename=paste0(here('VAST_runs/large/SingleCovs/Testing Results', 
                             '/re_northing_fall.png')),
        northing.fall, width = 8.5, height=4.25, units='in')
 
-ggsave(filename=paste0(here('VAST_runs/small/SingleCovs/Testing Results', 
+ggsave(filename=paste0(here('VAST_runs/large/SingleCovs/Testing Results', 
                             '/re_easting_spring.png')),
        easting.spring, width = 8.5, height=4.25, units='in')
 
-ggsave(filename=paste0(here('VAST_runs/small/SingleCovs/Testing Results', 
+ggsave(filename=paste0(here('VAST_runs/large/SingleCovs/Testing Results', 
                             '/re_easting_fall.png')),
        easting.fall, width = 8.5, height=4.25, units='in')
 
@@ -530,7 +530,7 @@ spring.vis <- ggplot() +
         axis.text.y=element_text(size=6),
         strip.text=element_text(size=8))
 
-ggsave(here("VAST_runs/small/SingleCovs/Testing Results/Spatial_RangeEdge_SW_Spring.png"),
+ggsave(here("VAST_runs/large/SingleCovs/Testing Results/Spatial_RangeEdge_SW_Spring.png"),
        spring.vis,
        width=8, height=6)
 rm(SD_list, SD_plotting.spring)
@@ -592,7 +592,7 @@ fall.vis <- ggplot() +
         axis.text.y=element_text(size=6),
         strip.text=element_text(size=8))
 
-ggsave(here("VAST_runs/small/SingleCovs/Testing Results/Spatial_RangeEdge_SW_Fall.png"),
+ggsave(here("VAST_runs/large/SingleCovs/Testing Results/Spatial_RangeEdge_SW_Fall.png"),
        fall.vis,
        width=8, height=6)
 
@@ -655,7 +655,7 @@ spring.vis <- ggplot() +
         axis.text.y=element_text(size=6),
         strip.text=element_text(size=8))
 
-ggsave(here("VAST_runs/small/SingleCovs/Testing Results/Spatial_RangeEdge_NE_Spring.png"),
+ggsave(here("VAST_runs/large/SingleCovs/Testing Results/Spatial_RangeEdge_NE_Spring.png"),
        spring.vis,
        width=8, height=7)
 rm(SD_list, SD_plotting.spring)
@@ -717,7 +717,7 @@ fall.vis <- ggplot() +
         axis.text.y=element_text(size=6),
         strip.text=element_text(size=8))
 
-ggsave(here("VAST_runs/small/SingleCovs/Testing Results/Spatial_RangeEdge_NE_Fall.png"),
+ggsave(here("VAST_runs/large/SingleCovs/Testing Results/Spatial_RangeEdge_NE_Fall.png"),
        fall.vis,
        width=8, height=7)
 rm(SD_list, SD_plotting.fall)

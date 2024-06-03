@@ -31,51 +31,22 @@ centroid <- st_centroid(gom)
 
 #### Center of gravity ####
 # Root
-root <- here('VAST_runs/medium/AIC')
+root <- here('VAST_runs/large/GMRF')
 ending <- '/COG_ALL.csv'
 
 # Covariates
-covuse <- c(#'amo', 
-            'bathy', 
-            #'bottomtemp', 
-            #'cobble', 
-            'gravel',
-            'mud', 
-            'nao', 
-            'rugos', 
-            'sand')
+covuse <- c('ON', 'OFF')
 
 # Baseline Mods
-all <- read.csv(paste0(root, '/all', ending))
-none <- read.csv(paste0(root, '/none', ending))
-all$Model <- 'All Covars'
-none$Model <- 'No Covars'
+on <- read.csv(paste0(root, '/ON', ending))
+off <- read.csv(paste0(root, '/OFF', ending))
+on$Model <- 'GMRF ON'
+off$Model <- 'GMRF OFF'
 
-# Single Covs
-for(i in 1:length(covuse)){
-  dat <- read.csv(paste0(root, '/', covuse[i], ending))
-  dat$Model <- str_to_title(paste0('No ', covuse[i]))
-  newName <- covuse[i]
-  assign(newName, dat, envir=.GlobalEnv)
-  rm(dat, newName)
-}
+rm(list=setdiff(ls(), c('on', 'off', 'gom', 'coast',
+                        'centroid')))
 
-rm(list=setdiff(ls(), c('all', 'none', 
-                        'amo', 'bathy', 'bottomtemp',
-                        'cobble', 'gravel', 'mud',
-                        'nao', 'rugos', 'sand', 
-                        'gom', 'coast', 'centroid')))
-
-cog <- rbind(all, none, 
-             #amo, 
-             bathy, 
-             #bottomtemp,
-             #cobble, 
-             gravel, 
-             mud, 
-             nao, 
-             rugos, 
-             sand)
+cog <- rbind(on, off)
 
 rm(list=setdiff(ls(), c('cog', 'gom', 'centroid', 'coast')))
 
@@ -88,16 +59,7 @@ cog <- cog %>%
 
 
 cog$Model <- factor(cog$Model,
-                    levels=c('All Covars', 'No Covars',
-                             #'No Cobble', 
-                             'No Gravel', 
-                             'No Mud', 
-                             'No Sand',
-                             'No Bathy', 
-                             #'No Bottomtemp', 
-                             'No Rugos',
-                             #'No Amo', 
-                             'No Nao'))
+                    levels=c('GMRF ON', 'GMRF OFF'))
 
 ccord <- sfheaders::sf_to_df(centroid, fill=T)
 ccord <- ccord %>% 
@@ -162,7 +124,7 @@ n.spring <- ggplot() +
             aes(x=Year, y=center.lat, col=Model),
             lwd=1, alpha=0.7) +
   labs(x='Year', y='Distance from northing centroid (km)') +
-  ggtitle('Spring center of gravity northing - drop-one covariate models') +
+  ggtitle('Spring center of gravity northing - GMRF models') +
   theme(legend.position = 'bottom',
         legend.text = element_text(size=6),
         legend.title = element_text(size=8)) +
@@ -178,7 +140,7 @@ n.fall <- ggplot() +
   #scale_color_manual(values=c('black',
   #                            wes_palette('Darjeeling1', n=5))) +
   labs(x='Year', y='Distance from northing centroid (km)') +
-  ggtitle('Fall center of gravity northing - drop-one covariate models') +
+  ggtitle('Fall center of gravity northing - GMRF models') +
   theme(legend.position = 'bottom',
         legend.text = element_text(size=6),
         legend.title = element_text(size=8)) +
@@ -194,7 +156,7 @@ e.spring <- ggplot() +
   # scale_color_manual(values=c('black',
   #                             wes_palette('Darjeeling1', n=5))) +
   labs(x='Year', y='Distance from easting centroid (km)') +
-  ggtitle('Spring center of gravity easting - drop-one covariate models') +
+  ggtitle('Spring center of gravity easting - GMRF models') +
   theme(legend.position = 'bottom',
         legend.text = element_text(size=6),
         legend.title = element_text(size=8)) +
@@ -210,25 +172,25 @@ e.fall <- ggplot() +
   # scale_color_manual(values=c('black',
   #                             wes_palette('Darjeeling1', n=5))) +
   labs(x='Year', y='Distance from easting centroid (km)') +
-  ggtitle('Fall center of gravity easting - drop-one covariate models') +
+  ggtitle('Fall center of gravity easting - GMRF models') +
   theme(legend.position = 'bottom',
         legend.text = element_text(size=6),
         legend.title = element_text(size=8)) +
   guides(color = guide_legend(nrow = 2))
 
-ggsave(filename=paste0(here('VAST_runs/medium/AIC/Testing_Results', 
+ggsave(filename=paste0(here('VAST_runs/large/GMRF/Testing_Results', 
                             '/cogshifts_northing_spring.png')),
        n.spring, width = 8.5, height=4.25, units='in')
 
-ggsave(filename=paste0(here('VAST_runs/medium/AIC/Testing_Results', 
+ggsave(filename=paste0(here('VAST_runs/large/GMRF/Testing_Results', 
                             '/cogshifts_northing_fall.png')),
        n.fall, width = 8.5, height=4.25, units='in')
 
-ggsave(filename=paste0(here('VAST_runs/medium/AIC/Testing_Results', 
+ggsave(filename=paste0(here('VAST_runs/large/GMRF/Testing_Results', 
                             '/cogshifts_easting_spring.png')),
        e.spring, width = 8.5, height=4.25, units='in')
 
-ggsave(filename=paste0(here('VAST_runs/medium/AIC/Testing_Results', 
+ggsave(filename=paste0(here('VAST_runs/large/GMRF/Testing_Results', 
                             '/cogshifts_easting_fall.png')),
        e.fall, width = 8.5, height=4.25, units='in')
 
@@ -298,7 +260,7 @@ spring.vis <- ggplot() +
         axis.text.y=element_text(size=8),
         strip.text=element_text(size=8))
 
-ggsave(here("VAST_runs/medium/AIC/Testing_Results/Spatial_COG_Spring.png"),
+ggsave(here("VAST_runs/large/GMRF/Testing_Results/Spatial_COG_Spring.png"),
        spring.vis,
        width=10, height=10)
 
@@ -333,7 +295,6 @@ for(i in 1:length(SD_list)){
 }
 yeartracks <- do.call(rbind, SD_list)
 
-
 # Plot
 fall.vis <- ggplot() +
   geom_sf(data=coast, fill='gray') +
@@ -358,7 +319,7 @@ fall.vis <- ggplot() +
         axis.text.y=element_text(size=8),
         strip.text=element_text(size=8))
 
-ggsave(here("VAST_runs/medium/AIC/Testing_Results/Spatial_COG_Fall.png"),
+ggsave(here("VAST_runs/large/GMRF/Testing_Results/Spatial_COG_Fall.png"),
        fall.vis,
        width=10, height=10)
 
@@ -366,65 +327,24 @@ rm(list=setdiff(ls(), c('coast', 'gom')))
 
 #### Range edges ####
 # Root
-root <- here('VAST_runs/medium/AIC')
+root <- here('VAST_runs/large/GMRF')
 ending <- '/RangeEdges_ALL.csv'
 
-# Covariates
-covuse <- c(#'amo', 
-            'bathy', 
-            #'bottomtemp', 
-            #'cobble', 
-            'gravel',
-            'mud', 
-            'nao', 
-            'rugos', 
-            'sand')
-
 # Baseline Mods
-all <- read.csv(paste0(root, '/all', ending))
-none <- read.csv(paste0(root, '/none', ending))
-all$Model <- 'All Covars'
-none$Model <- 'No Covars'
+on <- read.csv(paste0(root, '/ON/', ending))
+off <- read.csv(paste0(root, '/OFF/', ending))
+on$Model <- 'GMRF ON'
+off$Model <- 'GMRF OFF'
 
-# Single Covs
-for(i in 1:length(covuse)){
-  dat <- read.csv(paste0(root, '/', covuse[i], ending))
-  dat$Model <- str_to_title(paste0('No ', covuse[i]))
-  newName <- covuse[i]
-  assign(newName, dat, envir=.GlobalEnv)
-  rm(dat, newName)
-}
-
-rm(list=setdiff(ls(), c('all', 'none', 
-                        'amo', 'bathy', 'bottomtemp',
-                        'cobble', 'gravel', 'mud',
-                        'nao', 'rugos', 'sand', 
+rm(list=setdiff(ls(), c('on', 'off',
                         'gom', 'coast', 'centroid')))
 
-re <- rbind(all, none, 
-            #amo, 
-            bathy, 
-            #bottomtemp,
-            #cobble, 
-            gravel, 
-            mud, 
-            nao, 
-            rugos, 
-            sand)
+re <- rbind(on, off)
 
 rm(list=setdiff(ls(), c('re', 'gom', 'centroid', 'coast')))
 
 re$Model <- factor(re$Model,
-                    levels=c('All Covars', 'No Covars',
-                             #'No Cobble', 
-                             'No Gravel', 
-                             'No Mud', 
-                             'No Sand',
-                             'No Bathy', 
-                             #'No Bottomtemp', 
-                             'No Rugos',
-                             #'No Amo', 
-                             'No Nao'))
+                    levels=c('GMRF ON', 'GMRF OFF'))
 re$Quantile <- as.factor(re$Quantile)
 
 # Spaghetti plots
@@ -484,19 +404,19 @@ easting.fall <- ggplot() +
         legend.title = element_text(size=8)) +
   guides(color = guide_legend(nrow = 2)) 
 
-ggsave(filename=paste0(here('VAST_runs/medium/AIC/Testing_Results', 
+ggsave(filename=paste0(here('VAST_runs/large/GMRF/Testing_Results', 
                             '/re_northing_spring.png')),
        northing.spring, width = 8.5, height=4.25, units='in')
 
-ggsave(filename=paste0(here('VAST_runs/medium/AIC/Testing_Results', 
+ggsave(filename=paste0(here('VAST_runs/large/GMRF/Testing_Results', 
                             '/re_northing_fall.png')),
        northing.fall, width = 8.5, height=4.25, units='in')
 
-ggsave(filename=paste0(here('VAST_runs/medium/AIC/Testing_Results', 
+ggsave(filename=paste0(here('VAST_runs/large/GMRF/Testing_Results', 
                             '/re_easting_spring.png')),
        easting.spring, width = 8.5, height=4.25, units='in')
 
-ggsave(filename=paste0(here('VAST_runs/medium/AIC/Testing_Results', 
+ggsave(filename=paste0(here('VAST_runs/large/GMRF/Testing_Results', 
                             '/re_easting_fall.png')),
        easting.fall, width = 8.5, height=4.25, units='in')
 
@@ -570,7 +490,7 @@ spring.vis <- ggplot() +
         axis.text.y=element_text(size=6),
         strip.text=element_text(size=8))
 
-ggsave(here("VAST_runs/medium/AIC/Testing_Results/Spatial_RangeEdge_SW_Spring.png"),
+ggsave(here("VAST_runs/large/GMRF/Testing_Results/Spatial_RangeEdge_SW_Spring.png"),
        spring.vis,
        width=8, height=6)
 rm(SD_list, SD_plotting.spring)
@@ -632,7 +552,7 @@ fall.vis <- ggplot() +
         axis.text.y=element_text(size=6),
         strip.text=element_text(size=8))
 
-ggsave(here("VAST_runs/medium/AIC/Testing_Results/Spatial_RangeEdge_SW_Fall.png"),
+ggsave(here("VAST_runs/large/GMRF/Testing_Results/Spatial_RangeEdge_SW_Fall.png"),
        fall.vis,
        width=8, height=6)
 
@@ -695,7 +615,7 @@ spring.vis <- ggplot() +
         axis.text.y=element_text(size=6),
         strip.text=element_text(size=8))
 
-ggsave(here("VAST_runs/medium/AIC/Testing_Results/Spatial_RangeEdge_NE_Spring.png"),
+ggsave(here("VAST_runs/large/GMRF/Testing_Results/Spatial_RangeEdge_NE_Spring.png"),
        spring.vis,
        width=8, height=6)
 rm(SD_list, SD_plotting.spring)
@@ -757,6 +677,6 @@ fall.vis <- ggplot() +
         axis.text.y=element_text(size=6),
         strip.text=element_text(size=8))
 
-ggsave(here("VAST_runs/medium/AIC/Testing_Results/Spatial_RangeEdge_NE_Fall.png"),
+ggsave(here("VAST_runs/large/GMRF/Testing_Results/Spatial_RangeEdge_NE_Fall.png"),
        fall.vis,
        width=8, height=6)

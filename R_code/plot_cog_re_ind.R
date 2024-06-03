@@ -22,29 +22,29 @@ theme_set(theme(panel.grid.major = element_line(color='lightgray'),
 '%notin%' <- function(x,y)!('%in%'(x,y))
 
 # Data
-load(here('VAST_runs/medium/Overall_BC/Overall_BC_medcod_allstrat_natsplin_fsON.RData'))
+load(here('VAST_runs/large/Overall_BC/ALL/Overall_BC_larcod_allstrat_natsplin_fsON_ALL.RData'))
 rm(list=setdiff(ls(), c('fit', '%notin%')))
 
-cog <- read.csv(here('VAST_runs/medium/Overall_BC/COG_WGOM.csv'))
+cog.wgom <- read.csv(here("VAST_runs/large/Overall_BC/WGOM/COG_WGOM.csv"))
+cog.egom <- read.csv(here('VAST_runs/large/Overall_BC/EGOM/COG_EGOM.csv'))
+cog.gbk <- read.csv(here("VAST_runs/large/Overall_BC/GBK/COG_GBK.csv"))
+cog.sne <- read.csv(here('VAST_runs/large/Overall_BC/SNE/COG_SNE.csv'))
+cog.all <- read.csv(here("VAST_runs/large/Overall_BC/ALL/COG_ALL.csv"))
 
-re <- read.csv(here('VAST_runs/medium/Overall_BC/RangeEdges_WGOM.csv'))
+cog <- rbind(cog.wgom, cog.egom, cog.gbk, cog.sne, 
+             cog.all)
 
-ind <- read.csv(here('VAST_runs/medium/Overall_BC/Index.csv'))
+re <- read.csv(here('VAST_runs/large/Overall_BC/ALL/RangeEdges_ALL.csv'))
+
+ind <- read.csv(here('VAST_runs/large/Overall_BC/ALL/Index.csv'))
 ind <- ind %>% 
   separate(Time, into=c('Year', 'Season')) %>% 
   mutate(Year = as.numeric(Year)) %>% 
   mutate(Season = factor(Season,
-                         levels=c('Spring', 'Fall')))
-strata <- fit$settings$strata.limits
-strata$Stratum <- c('Stratum_1', 'Stratum_2', 'Stratum_3', 'Stratum_4', 'Stratum_5')
-ind <- left_join(ind, strata, by=c('Stratum'))
-ind <- ind %>% 
-  dplyr::select(-Stratum) %>% 
-  rename(Stratum = STRATA) %>% 
-  mutate(Stratum = factor(Stratum,
-                          levels=c('ALL', 'WGOM', 'SNE', 'EGOM', 'GBK')))
+                         levels=c('Spring', 'Fall')),
+         Stratum = factor(Stratum, levels=c('ALL','EGOM','GBK','SNE','WGOM')))
 
-arrocc <- read.csv(here('VAST_runs/medium/Overall_BC/AreaOcc.csv'))
+arrocc <- read.csv(here('VAST_runs/large/Overall_BC/ALL/AreaOcc.csv'))
 
 cog <- cog %>% 
   mutate(easting = easting / 1000,
@@ -58,20 +58,25 @@ arrocc <- arrocc %>%
          std.err = std.err / 1000) %>% 
   dplyr::select(-units)
 
-lm(northing ~ Year, data=cog[cog$Season == 'Spring',])
-lm(northing ~ Year, data=cog[cog$Season == 'Fall',])
+cogshifts <- cog %>% 
+  group_by(strata, Season) %>% 
+  mutate(movmod.n = lm(northing ~ Year)$coefficients[2],
+         movmod.e = lm(easting ~ Year)$coefficients[2]) %>% 
+  dplyr::select(strata, Season, movmod.n, movmod.e) %>% 
+  unique() %>% 
+  as.data.frame()
 
-lm(easting ~ Year, data=cog[cog$Season == 'Spring',])
-lm(easting ~ Year, data=cog[cog$Season == 'Fall',])
+cogshifts$dist <- sqrt((cogshifts$movmod.n^2) +
+                         (cogshifts$movmod.e^2))
 
 cog.northing <- ggplot() +
   # geom_point(data=cog,
   #            aes(x=Year, y=northing),
   #            cex=0.6) +
-  geom_line(data=cog,
+  geom_line(data=cog[cog$strata == 'ALL',],
             aes(x=Year, y=northing),
             lwd=0.5) +
-  geom_ribbon(data=cog,
+  geom_ribbon(data=cog[cog$strata == 'ALL',],
               aes(x=Year, ymin = northing - n.sd,
                   ymax=northing + n.sd),
               alpha=0.2) +
@@ -84,10 +89,10 @@ cog.easting <- ggplot() +
   # geom_point(data=cog,
   #            aes(x=Year, y=easting),
   #            cex=0.6) +
-  geom_line(data=cog,
+  geom_line(data=cog[cog$strata == 'ALL',],
             aes(x=Year, y=easting),
             lwd=0.5) +
-  geom_ribbon(data=cog,
+  geom_ribbon(data=cog[cog$strata == 'ALL',],
               aes(x=Year, ymin = easting - e.sd,
                   ymax=easting + e.sd),
               alpha=0.2) +
@@ -98,19 +103,16 @@ cog.easting <- ggplot() +
 
 re$Quantile <- as.factor(re$Quantile)
 
-lm(Northing.Est ~ Year, data=re[re$Quantile == '0.05' & re$Season == 'Spring',])
-lm(Northing.Est ~ Year, data=re[re$Quantile == '0.5'& re$Season == 'Spring',])
-lm(Northing.Est ~ Year, data=re[re$Quantile == '0.95' & re$Season == 'Spring',])
-lm(Easting.Est ~ Year, data=re[re$Quantile == '0.05' & re$Season == 'Spring',])
-lm(Easting.Est ~ Year, data=re[re$Quantile == '0.5'& re$Season == 'Spring',])
-lm(Easting.Est ~ Year, data=re[re$Quantile == '0.95' & re$Season == 'Spring',])
+reshifts <- re %>% 
+  group_by(Quantile, Season) %>% 
+  mutate(movmod.n = lm(Northing.Est ~ Year)$coefficients[2],
+         movmod.e = lm(Easting.Est ~ Year)$coefficients[2]) %>% 
+  dplyr::select(Quantile, Season, movmod.n, movmod.e) %>% 
+  unique() %>% 
+  as.data.frame()
 
-lm(Northing.Est ~ Year, data=re[re$Quantile == '0.05' & re$Season == 'Fall',])
-lm(Northing.Est ~ Year, data=re[re$Quantile == '0.5'& re$Season == 'Fall',])
-lm(Northing.Est ~ Year, data=re[re$Quantile == '0.95' & re$Season == 'Fall',])
-lm(Easting.Est ~ Year, data=re[re$Quantile == '0.05' & re$Season == 'Fall',])
-lm(Easting.Est ~ Year, data=re[re$Quantile == '0.5'& re$Season == 'Fall',])
-lm(Easting.Est ~ Year, data=re[re$Quantile == '0.95' & re$Season == 'Fall',])
+reshifts$dist <- sqrt((reshifts$movmod.n^2) +
+                         (reshifts$movmod.e^2))
 
 re.northing <- ggplot() +
   geom_line(data=re,
@@ -152,25 +154,34 @@ re.easting <- ggplot() +
   ggtitle('Range Edges, Easting')+
   theme(legend.position = 'bottom')
 
+ind$Stratum <- factor(ind$Stratum,
+                      levels=c('EGOM', 'GBK', 'SNE', 'WGOM', 'ALL'))
+
 rel.abund <- ggplot() +
-  geom_line(data=ind,
+  geom_line(data=ind[ind$Stratum != 'ALL',],
             aes(x=Year, y=Estimate, col=Stratum)) +
-  geom_ribbon(data=ind,
-              aes(x=Year, ymin=Estimate-`Std..Error.for.Estimate`,
-                  ymax=Estimate + `Std..Error.for.Estimate`,
+  geom_ribbon(data=ind[ind$Stratum != 'ALL',],
+              aes(x=Year, ymin=Estimate-Std.Err.Est,
+                  ymax=Estimate + Std.Err.Est,
                   fill=Stratum),
               alpha=0.2) +
   facet_wrap(vars(Season), ncol=2) +
   ggtitle('Relative Abundance') +
   theme(legend.position='bottom')
 
-lm(area.occ ~ Year, data=arrocc[arrocc$strata == 'ALL' & arrocc$Season == 'Fall',])
-lm(area.occ ~ Year, data=arrocc[arrocc$strata == 'ALL' & arrocc$Season == 'Spring',])
+arrocc$strata <- factor(arrocc$strata,
+                        levels = c('EGOM', 'GBK', 'SNE', 'WGOM', 'ALL'))
+aoshifts <- arrocc %>% 
+  group_by(strata, Season) %>% 
+  mutate(ao = lm(area.occ ~ Year)$coefficients[2]) %>% 
+  dplyr::select(strata, Season, ao) %>% 
+  unique() %>% 
+  as.data.frame()
 
 eff.arr.oc <- ggplot() +
-  geom_line(data=arrocc,
+  geom_line(data=arrocc[arrocc$strata != 'ALL',],
             aes(x=Year, y=area.occ, col=strata)) +
-  geom_ribbon(data=arrocc,
+  geom_ribbon(data=arrocc[arrocc$strata != 'ALL',],
               aes(x=Year, 
                   ymin=area.occ-std.err,
                   ymax=area.occ+std.err,
@@ -185,7 +196,7 @@ eff.arr.oc <- ggplot() +
 rm(list=setdiff(ls(), c('cog.easting', 'cog.northing',
                         're.easting', 're.northing', 
                         'rel.abund', 'eff.arr.oc')))
-setwd(here('VAST_runs/medium/Overall_BC'))
+setwd(here('VAST_runs/large/Overall_BC'))
 # Save plots
 ggsave('cog_easting.png', cog.easting, width=8, height=4)
 ggsave('cog_northing.png', cog.northing, width=8, height=4)

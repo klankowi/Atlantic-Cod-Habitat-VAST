@@ -10,7 +10,7 @@ library(sf)
 install_unit(symbol='unitless', def='unitless', name='unitless')
 
 # Load VAST fit data
-load(here('VAST_runs/medium/Overall_BC/ALL/Overall_BC_medcod_allstrat_natsplin_fsON_ALL.RData'))
+load(here('VAST_runs/medium/Overall_BC/ALL/Overall_BC_mediumcod_allstrat_natsplin_fsON_ALL.RData'))
 
 # Set GGplot auto theme
 theme_set(theme(panel.grid.major = element_line(color='lightgray'),

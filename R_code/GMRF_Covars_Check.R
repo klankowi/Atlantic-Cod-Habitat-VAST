@@ -21,27 +21,27 @@ theme_set(theme(panel.grid.major = element_line(color='lightgray'),
 # Negate function
 '%notin%' <- function(x,y)!('%in%'(x,y))
 
-cog.c <- read.csv(here('VAST_runs/small/GMRF/OFF/COG_ALL.csv'))
+cog.c <- read.csv(here('VAST_runs/large/GMRF/OFF/COG_ALL.csv'))
 cog.c$Model <- 'No GMRF'
-cog.f<- read.csv(here('VAST_runs/small/GMRF/ON/COG_ALL.csv'))
+cog.f<- read.csv(here('VAST_runs/large/GMRF/ON/COG_ALL.csv'))
 cog.f$Model <- 'GMRF'
 cog <- rbind(cog.c, cog.f)
 
-re.c <- read.csv(here('VAST_runs/small/GMRF/OFF/RangeEdges_ALL.csv'))
+re.c <- read.csv(here('VAST_runs/large/GMRF/OFF/RangeEdges_ALL.csv'))
 re.c$Model <- 'No GMRF'
-re.f<- read.csv(here('VAST_runs/small/GMRF/ON/RangeEdges_ALL.csv'))
+re.f<- read.csv(here('VAST_runs/large/GMRF/ON/RangeEdges_ALL.csv'))
 re.f$Model <- 'GMRF'
 re <- rbind(re.c, re.f)
 
-ind.c <- read.csv(here('VAST_runs/small/GMRF/OFF/Index.csv'))
+ind.c <- read.csv(here('VAST_runs/large/GMRF/OFF/Index.csv'))
 ind.c$Model <- 'No GMRF'
-ind.f<- read.csv(here('VAST_runs/small/GMRF/ON/Index.csv'))
+ind.f<- read.csv(here('VAST_runs/large/GMRF/ON/Index.csv'))
 ind.f$Model <- 'GMRF'
 ind <- rbind(ind.c, ind.f)
 
-arrocc.c <- read.csv(here('VAST_runs/small/GMRF/OFF/AreaOcc.csv'))
+arrocc.c <- read.csv(here('VAST_runs/large/GMRF/OFF/AreaOcc.csv'))
 arrocc.c$Model <- 'No GMRF'
-arrocc.f<- read.csv(here('VAST_runs/small/GMRF/ON/AreaOcc.csv'))
+arrocc.f<- read.csv(here('VAST_runs/large/GMRF/ON/AreaOcc.csv'))
 arrocc.f$Model <- 'GMRF'
 arrocc <- rbind(arrocc.c, arrocc.f)
 
@@ -197,7 +197,7 @@ eff.arr.oc <- ggplot() +
 rm(list=setdiff(ls(), c('cog.easting', 'cog.northing',
                         're.easting', 're.northing', 
                         'rel.abund', 'eff.arr.oc')))
-setwd(here('VAST_runs/small/GMRF/Testing Results'))
+setwd(here('VAST_runs/large/GMRF/Testing Results'))
 # Save plots
 ggsave('cog_easting.png', cog.easting, width=11, height=8.5)
 ggsave('cog_northing.png', cog.northing, width=11, height=8.5)
