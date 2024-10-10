@@ -21,10 +21,11 @@ theme_set(theme(panel.grid.major = element_line(color='lightgray'),
                 plot.caption=element_text(hjust=0, face='italic', size=12)))
 
 # load data
-load(here("VAST_runs/large/Overall_BC/EGOM/Overall_BC_larcod_allstrat_natsplin_fsON_EGOM.Rdata"))
+load(here("VAST_runs/medium/Overall_BC/ALL/Overall_BC_mediumcod_allstrat_natsplin_fsON_ALL.Rdata"))
+#fit <- reload_model(x=fit)
 
 # Set WD for plotting
-out_dir = here("VAST_runs/large/Overall_BC/EGOM")
+out_dir = here("VAST_runs/medium/Overall_BC/ALL")
 
 # Load functions
 source(here("R_code/utilities/vast_functions.R"))
@@ -32,8 +33,10 @@ source(here("R_code/utilities/vast_functions.R"))
 '%notin%' <- function(x,y)!('%in%'(x,y))
 
 # Call parameter names
-params <- colnames(scaled.covars)
+params <- colnames(fit$covariate_data)
 params <- params[params %notin% c('Lon', 'Lat', 'Year')]
+#params <- params[params %notin% c('amo')]
+
 
 # Call category names
 catnames <- fit$category_names
@@ -43,7 +46,7 @@ ncat = length(catnames)
                                                  params_plot = c(params), 
                                                  params_plot_levels = 100, 
                                                  effects_pad_values = c(), 
-                                                 nice_category_names = 'Large Cod',
+                                                 nice_category_names = 'Medium Cod',
                                                  out_dir = out_dir,
                                                  category_to_use = 1,
                                                  ncat = ncat)
@@ -57,7 +60,7 @@ ncat = length(catnames)
     Covariate = c('cobble_P', 'gravel_P', 'mud_P', 'sand_P', 'rugos', 'BATHY.DEPTH',
                   'h_bt', 'nao', 'amo'),
     Better = c('Cobble', 'Gravel', 'Mud', 'Sand', 'Rugosity', 'Depth (m)', 
-               'Bottom Temp (C)', 'Monthly NAO', 'Annual AMO')
+               'Bottom Temp (C)', 'Daily NAO', 'Monthly AMO')
   )
   
   vast_cov_eff_l <- vast_covariate_effects %>%
@@ -77,7 +80,7 @@ ncat = length(catnames)
   
   colnames(fit$covariate_data)[4:12] <- c('Cobble', 'Gravel', 'Mud', 'Sand',
                                           'Rugosity', 'Depth (m)', 'Bottom Temp (C)',
-                                          'Monthly NAO', 'Annual AMO')
+                                          'Daily NAO', 'Monthly AMO')
   
   samp_dat <- fit$covariate_data %>% dplyr::select({
     {
@@ -107,20 +110,28 @@ ncat = length(catnames)
   vast_cov_eff_l$Covariate <- factor(vast_cov_eff_l$Covariate,
                                      levels = c('Cobble', 'Gravel', 'Sand', 'Mud',
                                                 'Depth (m)', 'Bottom Temp (C)',
-                                                'Rugosity', 'Monthly NAO', 
-                                                'Annual AMO'))
+                                                'Rugosity', 'Daily NAO', 
+                                                'Monthly AMO'))
   
   samp_quants$Covariate <- factor(samp_quants$Covariate,
-                                  levels = c('Cobble', 'Gravel', 'Sand', 'Mud',
+                                  levels = c('Cobble', 
+                                             'Gravel', 
+                                             'Sand', 'Mud',
                                              'Depth (m)', 'Bottom Temp (C)',
-                                             'Rugosity', 'Monthly NAO', 
-                                             'Annual AMO'))
+                                             'Rugosity', 
+                                             'Daily NAO', 
+                                             'Monthly AMO'
+                                             ))
   
   samp_dat$Covariate <- factor(samp_dat$Covariate,
-                               levels = c('Cobble', 'Gravel', 'Sand', 'Mud',
+                               levels = c('Cobble', 
+                                          'Gravel', 
+                                          'Sand', 'Mud',
                                           'Depth (m)', 'Bottom Temp (C)',
-                                          'Rugosity', 'Monthly NAO', 
-                                          'Annual AMO'))
+                                          'Rugosity', 
+                                          'Daily NAO', 
+                                          'Monthly AMO'
+                                          ))
   
   plot_out <- ggplot() +
     geom_ribbon(data = vast_cov_eff_l[vast_cov_eff_l$Lin_pred == 'X1',], 
@@ -142,7 +153,7 @@ ncat = length(catnames)
 
   plot_out2
 
-  ggsave(here('VAST_runs/large/Overall_BC/Large_Cod_Effects_X1.png'),
+  ggsave(here('VAST_runs/medium/Overall_BC/Medium_Cod_Effects_X1.png'),
          plot_out2,
          height=8.5, width = 10)  
   rm(plot_out, plot_out2)
@@ -167,7 +178,7 @@ ncat = length(catnames)
   
   plot_out2
   
-  ggsave(here('VAST_runs/large/Overall_BC/Large_Cod_Effects_X2.png'),
+  ggsave(here('VAST_runs/medium/Overall_BC/Medium_Cod_Effects_X2.png'),
          plot_out2,
          height=8.5, width = 10)
   

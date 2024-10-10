@@ -25,27 +25,34 @@ source(here('R_code/utilities/extract_fit_eff.R'))
 source(here('R_code/utilities/extract_fit_index.R'))
 
 # Covariate
-covuse <- c('amo',
-            #'bathy',
-            #'bottomtemp',
-            #'cobble',
-            #'gravel',
-            #'mud',
-            'nao',
-            'rugos'#,
-            #'sand'
-            )
-#covuse <- c('ALL', 'EGOM', 'GBK', 'SNE', 'WGOM')
+ covuse <- c(#'amo',
+             'bathy',
+             'bottomtemp',
+#'             #'cobble',
+             'gravel'
+#'             #'mud',
+#'             'nao',
+#'             'rugos'#,
+#'             #'sand'
+             )
+covuse <- c(#'ALL', 
+            'EGOM', 
+           #'GBK', 
+           'SNE' 
+           #'WGOM'
+           )
 
 for(i in 1:length(covuse)){
   message(covuse[i])
   # Load VAST fit data
-  load(here(paste0('VAST_runs/large/AIC/', covuse[i],
-            '/no', covuse[i], '_largecod_wholearea_natsplin_fsOFF',
-            #covuse[i], 
+  load(here(paste0('VAST_runs/large/Overall_BC/', covuse[i],
+            #'/no', covuse[i], 
+            '/Overall_BC',
+            '_larcod_allstrat_natsplin_fsON_',
+            covuse[i], 
             '.RData')))
   
-  setwd(here(paste0("VAST_runs/large/AIC/", covuse[i], '/')))
+  setwd(here(paste0("VAST_runs/large/Overall_BC/", covuse[i], '/')))
   
   extract_fit_cog(fit=fit)
   extract_fit_eff(fit=fit)
@@ -54,8 +61,8 @@ for(i in 1:length(covuse)){
                           quantvals = c(0.05, 0.5, 0.95))
   
   plot_results(fit, plot_set = c(1, 2, 3, 6, 7, 8, 9,
-                                 11, 12, 13, 14, 15, 16, 17, 18,
-                                 19, 20, 21))
+                                  11, 12, 13, 14, 15, 16, 17, 18,
+                                  19, 20, 21))
   
   rm(list=setdiff(ls(), c('covuse', 
                           'extract_fit_cog',
