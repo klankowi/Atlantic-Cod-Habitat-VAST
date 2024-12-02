@@ -1,0 +1,335 @@
+Year,Season,Class,neighborhood,y,name
+1982,Fall,Cold,1,0.135093103,Southern New England
+1982,Fall,Cold,2,0.639557955,Georges Shoals
+1982,Spring,Cold,1,2.596885649,Southern New England
+1982,Fall,Hot,1,6.209232194,Stellwagen and Cashes
+1982,Fall,Hot,2,8.354723761,Northeast Peak
+1982,Spring,Hot,1,33.14105616,Georges Shoals
+1982,Spring,Hot,2,62.28211527,Northeast Peak
+1982,Spring,Hot,3,40.62736087,Stellwagen and Cashes
+1983,Fall,Cold,1,0.151426742,Southern New England
+1983,Fall,Cold,2,0.439078882,Central Georges
+1983,Spring,Cold,1,1.565136441,Southern New England
+1983,Fall,Hot,1,7.080775404,Stellwagen and Cashes and Georges Shoals
+1983,Fall,Hot,2,12.5615874,Northeast Peak
+1983,Spring,Hot,1,37.92473273,Georges Bank
+1983,Spring,Hot,2,33.48102352,Stellwagen and Cashes
+1984,Fall,Cold,1,0.175706054,Southern New England
+1984,Fall,Cold,2,0.754717288,Eastern Gulf of Maine
+1984,Spring,Cold,1,0.75076349,Southern New England
+1984,Fall,Hot,1,7.336137259,Georges Shoals
+1984,Fall,Hot,2,12.53957618,Northeast Peak
+1984,Fall,Hot,3,7.985043854,Stellwagen and Cashes
+1984,Fall,Hot,4,5.508310227,Jordan Basin
+1984,Spring,Hot,1,23.99655035,Georges Bank
+1984,Spring,Hot,2,17.1853143,Stellwagen and Cashes
+1985,Fall,Cold,1,0.093001058,Southern New England
+1985,Fall,Cold,2,0.503944861,Eastern Gulf of Maine
+1985,Spring,Cold,1,1.433250604,Southern New England
+1985,Spring,Cold,2,3.242779274,Eastern Gulf of Maine
+1985,Fall,Hot,1,8.12867785,Georges Shoals
+1985,Fall,Hot,2,13.95248957,Northeast Peak
+1985,Fall,Hot,3,7.309098403,Stellwagen Bank
+1985,Fall,Hot,4,5.246955559,Davis Swell
+1985,Fall,Hot,5,6.506556443,Jordan Basin
+1985,Spring,Hot,1,75.07133604,Georges Bank
+1986,Fall,Cold,1,0.084586411,Southern New England
+1986,Spring,Cold,1,0.902696789,Southern New England
+1986,Spring,Cold,2,0.893769599,Southwest Georges
+1986,Spring,Cold,3,1.940108307,Eastern Gulf of Maine
+1986,Fall,Hot,1,8.921350952,Georges Shoals
+1986,Fall,Hot,2,16.14541423,Northeast Peak
+1986,Fall,Hot,3,9.011300033,Stellwagen Bank
+1986,Spring,Hot,1,56.26242125,Georges Bank
+1987,Fall,Cold,1,0.034098893,Southern New England
+1987,Fall,Cold,2,0.147018303,Eastern Gulf of Maine
+1987,Spring,Cold,1,0.461190932,Southern New England
+1987,Spring,Cold,2,0.71420734,Eastern Gulf of Maine
+1987,Fall,Hot,1,3.453552685,Georges Shoals
+1987,Fall,Hot,2,6.804891287,Northeast Peak
+1987,Fall,Hot,3,3.725363709,Stellwagen Bank
+1987,Spring,Hot,1,33.36245272,Georges Bank
+1988,Fall,Cold,1,0.096336714,Southern New England
+1988,Fall,Cold,2,0.485958956,Eastern Gulf of Maine
+1988,Fall,Cold,3,0.808299905,Eastern Gulf of Maine
+1988,Spring,Cold,1,0.643656318,Southern New England
+1988,Spring,Cold,2,1.316335867,Eastern Gulf of Maine
+1988,Fall,Hot,1,41.52626684,Northeast Peak
+1988,Spring,Hot,1,49.52432277,Georges Bank
+1989,Fall,Cold,1,0.389144208,Southern New England
+1989,Fall,Cold,2,1.055842373,Eastern Gulf of Maine
+1989,Spring,Cold,1,0.470081615,Southern New England
+1989,Spring,Cold,2,0.847265592,Cashes Ledge
+1989,Spring,Cold,3,1.184082297,Jeffreys Ledge
+1989,Spring,Cold,4,1.004967257,Eastern Gulf of Maine
+1989,Fall,Hot,1,51.81905625,Georges Shoals
+1989,Fall,Hot,2,135.8923001,Northeast Peak
+1989,Spring,Hot,1,38.66956392,Georges Bank
+1990,Fall,Cold,1,0.199835065,Southern New England
+1990,Fall,Cold,2,0.870234274,Eastern Gulf of Maine
+1990,Spring,Cold,1,0.705216366,Southern New England
+1990,Spring,Cold,2,0.996297662,Wilkinson Basin
+1990,Spring,Cold,3,1.827554614,Eastern Gulf of Maine
+1990,Fall,Hot,1,65.08886141,Georges Bank
+1990,Spring,Hot,1,59.1292363,Georges Bank
+1991,Fall,Cold,1,0.07030059,Southern New England
+1991,Fall,Cold,2,0.357643603,Central Georges
+1991,Fall,Cold,3,0.373062992,Eastern Gulf of Maine
+1991,Spring,Cold,1,0.550212708,Southern New England
+1991,Spring,Cold,2,1.564463942,Eastern Gulf of Maine
+1991,Fall,Hot,1,40.97803208,Northeast Peak
+1991,Fall,Hot,2,17.22456127,Stellwagen Bank
+1991,Spring,Hot,1,35.91730771,Georges Shoals
+1991,Spring,Hot,2,80.16411079,Northeast Peak
+1991,Spring,Hot,3,50.01415948,Stellwagen Bank
+1992,Fall,Cold,1,0.060761363,Southern New England
+1992,Fall,Cold,2,0.224004887,Eastern Gulf of Maine
+1992,Spring,Cold,1,0.752926562,Southern New England
+1992,Spring,Cold,2,1.833915663,Eastern Gulf of Maine
+1992,Fall,Hot,1,6.767928786,Georges Shoals
+1992,Fall,Hot,2,17.56208667,Northeast Peak
+1992,Fall,Hot,3,16.43837239,Stellwagen Bank
+1992,Spring,Hot,1,86.06238029,Northeast Peak
+1992,Spring,Hot,2,85.03435977,Stellwagen Bank
+1993,Fall,Cold,1,0.063690746,Southern New England
+1993,Spring,Cold,1,0.426805363,Southern New England
+1993,Spring,Cold,2,0.89191461,Eastern Gulf of Maine
+1993,Fall,Hot,1,33.96259637,Northeast Peak
+1993,Fall,Hot,2,15.49049664,Stellwagen Bank
+1993,Spring,Hot,1,76.70476972,Northeast Peak
+1993,Spring,Hot,2,49.2369475,Stellwagen Bank
+1994,Fall,Cold,1,0.0420034,Southern New England
+1994,Fall,Cold,2,0.133560886,Eastern Gulf of Maine
+1994,Spring,Cold,1,0.151052532,Southern New England
+1994,Spring,Cold,2,0.132213405,Southern New England
+1994,Spring,Cold,3,0.352543768,Eastern Gulf of Maine
+1994,Fall,Hot,1,31.6743184,Northeast Peak
+1994,Fall,Hot,2,13.04590437,Stellwagen Bank
+1994,Spring,Hot,1,30.2753666,Northeast Peak
+1994,Spring,Hot,2,15.88262175,Stellwagen Bank
+1995,Fall,Cold,1,0.056436819,Southern New England
+1995,Fall,Cold,2,0.285865734,Eastern Gulf of Maine
+1995,Spring,Cold,1,0.155167115,Southern New England
+1995,Spring,Cold,2,0.381691998,Eastern Gulf of Maine
+1995,Fall,Hot,1,63.47657422,Northeast Peak
+1995,Fall,Hot,2,1.168343137,Stellwagen Bank
+1995,Fall,Hot,3,30.69279238,Stellwagen Bank
+1995,Spring,Hot,1,43.3144453,Northeast Peak
+1995,Spring,Hot,2,25.29768255,Stellwagen Bank
+1996,Fall,Cold,1,0.090172503,Southern New England
+1996,Fall,Cold,2,0.318298881,Eastern Gulf of Maine
+1996,Spring,Cold,1,0.226498718,Southern New England
+1996,Spring,Cold,2,0.451193017,Eastern Gulf of Maine
+1996,Fall,Hot,1,55.26180514,Northeast Peak
+1996,Fall,Hot,2,28.13336016,Stellwagen Bank
+1996,Spring,Hot,1,45.20308182,Northeast Peak
+1996,Spring,Hot,2,34.96243285,Stellwagen Bank
+1997,Fall,Cold,1,0.043353357,Southern New England
+1997,Fall,Cold,2,0.192034795,Eastern Gulf of Maine
+1997,Spring,Cold,1,0.321120322,Southern New England
+1997,Spring,Cold,2,0.93092524,Eastern Gulf of Maine
+1997,Fall,Hot,1,46.69741669,Northeast Peak
+1997,Fall,Hot,2,24.128621,Stellwagen Bank
+1997,Spring,Hot,1,109.2878918,Northeast Peak
+1997,Spring,Hot,2,69.77458855,Stellwagen Bank
+1998,Fall,Cold,1,0.037324646,Southern New England
+1998,Fall,Cold,2,0.102787182,Central Georges
+1998,Fall,Cold,3,0.144260637,Eastern Gulf of Maine
+1998,Spring,Cold,1,0.214664801,Southern New England
+1998,Spring,Cold,2,0.599702747,Eastern Gulf of Maine
+1998,Fall,Hot,1,40.22131169,Northeast Peak
+1998,Fall,Hot,2,19.06410257,Stellwagen Bank
+1998,Spring,Hot,1,78.29867667,Northeast Peak
+1998,Spring,Hot,2,45.601519,Stellwagen Bank
+1999,Fall,Cold,1,0.019220145,Southern New England
+1999,Fall,Cold,2,0.230747452,Eastern Gulf of Maine
+1999,Spring,Cold,1,0.172657528,Southern New England
+1999,Spring,Cold,2,0.451894667,Eastern Gulf of Maine
+1999,Fall,Hot,1,51.01687489,Northeast Peak
+1999,Fall,Hot,2,29.61422508,Stellwagen Bank
+1999,Spring,Hot,1,66.37081356,Northeast Peak
+1999,Spring,Hot,2,46.9549016,Stellwagen Bank
+2000,Fall,Cold,1,0.05341995,Southern New England
+2000,Fall,Cold,2,0.123607962,Eastern Gulf of Maine
+2000,Spring,Cold,1,0.158474843,Southern New England
+2000,Spring,Cold,2,0.419751795,Eastern Gulf of Maine
+2000,Fall,Hot,1,82.18757737,Northeast Peak
+2000,Fall,Hot,2,38.47557622,Stellwagen Bank
+2000,Spring,Hot,1,66.14624756,Northeast Peak
+2000,Spring,Hot,2,45.3064221,Stellwagen Bank
+2001,Fall,Cold,1,0.085183971,Southern New England
+2001,Fall,Cold,2,0.330110287,Eastern Gulf of Maine
+2001,Spring,Cold,1,0.235401851,Southern New England
+2001,Spring,Cold,2,0.530060008,Eastern Gulf of Maine
+2001,Fall,Hot,1,87.53016941,Northeast Peak
+2001,Fall,Hot,2,68.526586,Stellwagen Bank
+2001,Spring,Hot,1,76.92963281,Northeast Peak
+2001,Spring,Hot,2,73.8730404,Stellwagen Bank
+2002,Fall,Cold,1,0.114989619,Southern New England
+2002,Fall,Cold,2,0.284831909,Eastern Gulf of Maine
+2002,Spring,Cold,1,0.204137688,Southern New England
+2002,Spring,Cold,2,0.474021829,Eastern Gulf of Maine
+2002,Fall,Hot,1,69.43007518,Northeast Peak
+2002,Fall,Hot,2,57.52624847,Stellwagen Bank
+2002,Spring,Hot,1,70.89336935,Northeast Peak
+2002,Spring,Hot,2,85.79727713,Stellwagen Bank
+2003,Fall,Cold,1,0.053383313,Southern New England
+2003,Fall,Cold,2,0.207648272,Eastern Gulf of Maine
+2003,Spring,Cold,1,0.480916808,Southern New England
+2003,Spring,Cold,2,0.801600455,Eastern Gulf of Maine
+2003,Fall,Hot,1,51.67731216,Northeast Peak
+2003,Fall,Hot,2,41.31532551,Stellwagen Bank
+2003,Spring,Hot,1,155.5190242,Northeast Peak
+2003,Spring,Hot,2,174.6596337,Stellwagen Bank
+2004,Fall,Cold,1,0.061937452,Southern New England
+2004,Fall,Cold,2,0.232855761,Central Georges
+2004,Fall,Cold,3,0.153955729,Eastern Gulf of Maine
+2004,Spring,Cold,1,0.201471463,Southern New England
+2004,Spring,Cold,2,0.496427351,Eastern Gulf of Maine
+2004,Fall,Hot,1,84.15808448,Northeast Peak
+2004,Fall,Hot,2,53.94824913,Stellwagen Bank
+2004,Spring,Hot,1,89.40538422,Northeast Peak
+2004,Spring,Hot,2,80.93311808,Stellwagen Bank
+2005,Fall,Cold,1,0.037396234,Southern New England
+2005,Fall,Cold,2,0.050469738,Central Georges
+2005,Fall,Cold,3,0.075675645,Eastern Gulf of Maine
+2005,Spring,Cold,1,0.124589819,Southern New England
+2005,Spring,Cold,2,0.238227062,Eastern Gulf of Maine
+2005,Fall,Hot,1,71.08523166,Northeast Peak
+2005,Fall,Hot,2,41.92095448,Stellwagen Bank
+2005,Spring,Hot,1,78.68189492,Northeast Peak
+2005,Spring,Hot,2,57.74203157,Stellwagen Bank
+2006,Fall,Cold,1,0.014452014,Southern New England
+2006,Fall,Cold,2,0.061319537,Eastern Gulf of Maine
+2006,Spring,Cold,1,0.192210716,Southern New England
+2006,Spring,Cold,2,0.402413221,Eastern Gulf of Maine
+2006,Fall,Hot,1,41.59878605,Northeast Peak
+2006,Fall,Hot,2,30.13884465,Stellwagen Bank
+2006,Spring,Hot,1,161.8056887,Northeast Peak
+2006,Spring,Hot,2,116.0023549,Stellwagen Bank
+2007,Fall,Cold,1,0.008539512,Southern New England
+2007,Fall,Cold,2,0.010044258,Central Georges
+2007,Fall,Cold,3,0.021044728,Eastern Gulf of Maine
+2007,Spring,Cold,1,0.049987195,Southern New England
+2007,Spring,Cold,2,0.107805311,Eastern Gulf of Maine
+2007,Fall,Hot,1,11.47754545,Northeast Peak
+2007,Fall,Hot,2,12.04100289,Stellwagen Bank
+2007,Spring,Hot,1,44.61181768,Northeast Peak
+2007,Spring,Hot,2,36.82002763,Stellwagen Bank
+2008,Fall,Cold,1,0.015233276,Southern New England
+2008,Fall,Cold,2,0.015164248,Central Georges
+2008,Fall,Cold,3,0.054185968,Eastern Gulf of Maine
+2008,Spring,Cold,1,0.092966385,Southern New England
+2008,Spring,Cold,2,0.20948859,Eastern Gulf of Maine
+2008,Fall,Hot,1,52.93976658,Northeast Peak
+2008,Fall,Hot,2,29.83866527,Stellwagen Bank
+2008,Spring,Hot,1,123.7190523,Northeast Peak
+2008,Spring,Hot,2,106.1372604,Stellwagen Bank
+2009,Fall,Cold,1,0.022650262,Southern New England
+2009,Fall,Cold,2,0.030433424,Eastern Gulf of Maine
+2009,Spring,Cold,1,0.09661362,Southern New England
+2009,Spring,Cold,2,0.20481815,Eastern Gulf of Maine
+2009,Fall,Hot,1,69.12020204,Northeast Peak
+2009,Fall,Hot,2,42.69380074,Stellwagen Bank
+2009,Spring,Hot,1,103.938126,Northeast Peak
+2009,Spring,Hot,2,90.32140982,Stellwagen Bank
+2010,Fall,Cold,1,0.023878125,Southern New England
+2010,Fall,Cold,2,0.073821526,Eastern Gulf of Maine
+2010,Spring,Cold,1,0.093144858,Southern New England
+2010,Spring,Cold,2,0.192223963,Eastern Gulf of Maine
+2010,Fall,Hot,1,94.69258112,Northeast Peak
+2010,Fall,Hot,2,55.96083286,Stellwagen Bank
+2010,Spring,Hot,1,86.63911083,Northeast Peak
+2010,Spring,Hot,2,70.97914544,Stellwagen Bank
+2011,Fall,Cold,1,0.015046418,Southern New England
+2011,Fall,Cold,2,0.043025434,Eastern Gulf of Maine
+2011,Spring,Cold,1,0.087576438,Southern New England
+2011,Spring,Cold,2,0.156285961,Eastern Gulf of Maine
+2011,Fall,Hot,1,27.75682682,Northeast Peak
+2011,Fall,Hot,2,36.94109782,Stellwagen Bank
+2011,Spring,Hot,1,80.2277333,Northeast Peak
+2011,Spring,Hot,2,78.08063598,Stellwagen Bank
+2012,Fall,Cold,1,0.006139494,Southern New England
+2012,Fall,Cold,2,0.015083392,Eastern Gulf of Maine
+2012,Spring,Cold,1,0.03771875,Southern New England
+2012,Spring,Cold,2,0.089784927,Eastern Gulf of Maine
+2012,Fall,Hot,1,15.2953257,Northeast Peak
+2012,Fall,Hot,2,13.69889958,Stellwagen Bank
+2012,Spring,Hot,1,50.65263035,Northeast Peak
+2012,Spring,Hot,2,63.00016571,Stellwagen Bank
+2013,Fall,Cold,1,0.003200651,Southern New England
+2013,Fall,Cold,2,0.017591551,Eastern Gulf of Maine
+2013,Spring,Cold,1,0.022878319,Southern New England
+2013,Spring,Cold,2,0.055279246,Eastern Gulf of Maine
+2013,Fall,Hot,1,17.39347713,Northeast Peak
+2013,Fall,Hot,2,10.90897213,Stellwagen Bank
+2013,Spring,Hot,1,20.12958446,Northeast Peak
+2013,Spring,Hot,2,28.24141047,Stellwagen Bank
+2013,Spring,Hot,3,7.496038678,Stout Swell
+2014,Fall,Cold,1,0.00366862,Southern New England
+2014,Fall,Cold,2,0.028318386,Eastern Gulf of Maine
+2014,Spring,Cold,1,0.032781843,Southern New England
+2014,Spring,Cold,2,0.064612407,Eastern Gulf of Maine
+2014,Fall,Hot,1,11.15717717,Northeast Peak to Lindenkohl
+2014,Fall,Hot,2,9.693516186,Stellwagen and Cashes
+2014,Spring,Hot,1,28.92933857,Northeast Peak
+2014,Spring,Hot,2,21.58954306,Stellwagen Bank
+2014,Spring,Hot,3,7.517819065,Wright Swell
+2015,Fall,Cold,1,0.0109939,Southern New England
+2015,Fall,Cold,2,0.075316639,Eastern Gulf of Maine
+2015,Spring,Cold,1,0.04602117,Southern New England
+2015,Spring,Cold,2,0.100508887,Eastern Gulf of Maine
+2015,Fall,Hot,1,67.84374478,Northeast Peak
+2015,Fall,Hot,2,12.20884142,South of Lindenkohl
+2015,Fall,Hot,3,27.7371797,Stellwagen Bank
+2015,Fall,Hot,4,32.34215647,Cashes Ledge
+2015,Spring,Hot,1,61.04601692,Northeast Peak
+2015,Spring,Hot,2,32.18306756,Stellwagen Bank
+2016,Fall,Cold,1,0.015210195,Southern New England
+2016,Fall,Cold,2,0.02585967,Eastern Gulf of Maine
+2016,Spring,Cold,1,0.036590678,Southern New England
+2016,Spring,Cold,2,0.115988337,Eastern Gulf of Maine
+2016,Fall,Hot,1,22.30256273,Stellwagen and Cashes and Northeast Peak and Lindenkohl
+2016,Spring,Hot,1,36.32937105,Northeast Peak
+2016,Spring,Hot,2,24.2696718,Stellwagen and Cashes
+2017,Fall,Cold,1,0.007548588,Southern New England
+2017,Fall,Cold,2,0.061895195,Eastern Gulf of Maine
+2017,Spring,Cold,1,0.062802971,Southern New England
+2017,Spring,Cold,2,0.173036613,Eastern Gulf of Maine
+2017,Fall,Hot,1,22.74214606,Northeast Peak to Jordan Basin
+2017,Fall,Hot,2,21.87418545,Stellwagen and Cashes
+2017,Spring,Hot,1,46.05760373,Northeast Peak
+2017,Spring,Hot,2,32.58260978,Stellwagen and Cashes
+2018,Fall,Cold,1,0.025390232,Southern New England
+2018,Fall,Cold,2,0.048252373,Eastern Gulf of Maine
+2018,Spring,Cold,1,0.078077361,Southern New England
+2018,Spring,Cold,2,0.278555047,Eastern Gulf of Maine
+2018,Fall,Hot,1,47.32106471,Northeast Peak
+2018,Fall,Hot,2,46.77911507,Stellwagen and Cashes
+2018,Fall,Hot,3,34.78151282,Sewell Ridge to Jordan Basin
+2018,Spring,Hot,1,55.58661685,Northeast Peak to Sewell Ridge
+2018,Spring,Hot,2,39.3094477,Stellwagen and Cashes
+2019,Fall,Cold,1,0.009379368,Southern New England
+2019,Fall,Cold,2,0.059179721,Eastern Gulf of Maine
+2019,Spring,Cold,1,0.030226448,Southern New England
+2019,Spring,Cold,2,0.097755276,Eastern Gulf of Maine
+2019,Fall,Hot,1,26.60541443,Northeast Peak to Jordan Basin
+2019,Fall,Hot,2,23.97498571,Stellwagen and Cashes
+2019,Spring,Hot,1,22.86447762,Northeast Peak
+2019,Spring,Hot,2,14.30914157,Stellwagen and Cashes
+2020,Fall,Cold,1,0.011181938,Southern New England
+2020,Fall,Cold,2,0.049390958,Eastern Gulf of Maine
+2020,Spring,Cold,1,0.013272232,Southern New England
+2020,Spring,Cold,2,0.03286177,Eastern Gulf of Maine
+2020,Fall,Hot,1,18.1582433,Northeast Peak to Jordan Basin
+2020,Fall,Hot,2,23.65150684,Stellwagen and Cashes
+2020,Spring,Hot,1,15.18063728,Northeast Peak to Jordan Basin
+2020,Spring,Hot,2,9.404686666,Cashes Ledge
+2021,Fall,Cold,1,0.003431144,Southern New England
+2021,Fall,Cold,2,0.028674832,Southern New England
+2021,Fall,Cold,3,0.007135198,Eastern Gulf of Maine
+2021,Spring,Cold,1,0.007274514,Southern New England
+2021,Spring,Cold,2,0.019963843,Eastern Gulf of Maine
+2021,Fall,Hot,1,5.238883779,Stellwagen and Cashes and Northeast Peak and Jordan Basin
+2021,Spring,Hot,1,13.43695331,Northeast Peak
+2021,Spring,Hot,2,8.467461036,Cashes Ledge
