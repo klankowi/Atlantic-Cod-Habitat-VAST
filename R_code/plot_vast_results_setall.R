@@ -25,34 +25,50 @@ source(here('R_code/utilities/extract_fit_eff.R'))
 source(here('R_code/utilities/extract_fit_index.R'))
 
 # Covariate
- covuse <- c(#'amo',
-             'bathy',
-             'bottomtemp',
+# covuse <- c(#'amo',
+#             'bathy',
+#             'bottomtemp',
 #'             #'cobble',
-             'gravel'
+#             'gravel'
 #'             #'mud',
 #'             'nao',
 #'             'rugos'#,
 #'             #'sand'
-             )
-covuse <- c(#'ALL', 
-            'EGOM', 
-           #'GBK', 
-           'SNE' 
-           #'WGOM'
-           )
+#             )
+#' covuse <- c(#'ALL', 
+#'             'EGOM', 
+#'            #'GBK', 
+#'            'SNE' 
+#'            #'WGOM'
+#'            )
+
+covuse <- c('ASMFC Shrimp Trawl', 
+            'NEFSC BLLS',
+            'NEFSC BTS', 
+            'DFO Trawl',
+            #'GSO Trawl',
+            'MADMF Industry',
+            #'MADMF Trawl',
+            'ME-NH Inshore Trawl'#,
+            #'RIDEM Trawl',
+            #'SMAST Video Trawl'
+            )
 
 for(i in 1:length(covuse)){
   message(covuse[i])
   # Load VAST fit data
-  load(here(paste0('VAST_runs/large/Overall_BC/', covuse[i],
-            #'/no', covuse[i], 
-            '/Overall_BC',
-            '_larcod_allstrat_natsplin_fsON_',
-            covuse[i], 
-            '.RData')))
+  load(here(paste0('VAST_runs/sensitivity/small/',
+                   'small no ', covuse[i],
+                   '.Rdata')))
   
-  setwd(here(paste0("VAST_runs/large/Overall_BC/", covuse[i], '/')))
+  working_dir <- paste0(here::here("VAST_runs/sensitivity/small/",
+                                   '/', covuse[i]))
+  # Create working directory if it doesn't exist
+  if(!dir.exists(working_dir)) {
+    dir.create(working_dir)
+  }
+  
+  setwd(working_dir)
   
   extract_fit_cog(fit=fit)
   extract_fit_eff(fit=fit)

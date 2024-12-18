@@ -4,7 +4,7 @@ remove.packages('VAST')
 
 rstudioapi::restartSession()
 
-working_dir <- 'C:/Users/klankowicz/AppData/Local/R/win-library/4.3/VAST'
+working_dir <- 'C:/Users/klankowicz/AppData/Local/R/win-library/4.4/VAST'
 # Create working directory if it doesn't exist
 if(!dir.exists(working_dir)) {
   dir.create(working_dir)
