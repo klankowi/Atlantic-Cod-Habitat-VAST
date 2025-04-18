@@ -38,25 +38,25 @@ sizes <- c('small', 'medium', 'large')
 for(i in 1:length(sizes)){
   on <- read.csv(paste0(here('VAST_runs'), '/',
                         sizes[i], 
-                        '/GMRF/ON/COG_ALL.csv'))
+                        '/GMRF/OFF/COG_ALL.csv'))
   on$Size <- paste0(str_to_sentence(sizes[i]))
   on <- on %>% 
     mutate(northing = northing / 1000,
            easting = easting / 1000,
            n.sd = n.sd / 1000,
            e.sd = e.sd / 1000)
-  on$Model <- 'On'
+  on$Model <- 'All effects'
   
   off <- read.csv(paste0(here('VAST_runs'), '/',
                         sizes[i], 
-                        '/GMRF/OFF/COG_ALL.csv'))
+                        '/GMRF/FULL_OFF/COG_ALL.csv'))
   off$Size <- paste0(str_to_sentence(sizes[i]))
   off <- off %>% 
     mutate(northing = northing / 1000,
            easting = easting / 1000,
            n.sd = n.sd / 1000,
            e.sd = e.sd / 1000)
-  off$Model <- 'Off'
+  off$Model <- 'No spatial or spatiotemporal effects'
   
   cog <- rbind(on, off)
   
@@ -73,7 +73,7 @@ cog <- cog %>%
   rename(northing.sd = n.sd,
          easting.sd = e.sd) %>% 
   mutate(Size = factor(Size, levels=c('Small', 'Medium', 'Large')),
-         Model = factor(Model, levels=c('On', 'Off'))) %>% 
+         Model = factor(Model, levels=c('All effects', 'No spatial or spatiotemporal effects'))) %>% 
   mutate(Year = as.numeric(Year),
          Season = factor(Season, levels=c('Spring', 'Fall'))) %>% 
   dplyr::select(Size, Year, Season, Model,
@@ -102,7 +102,7 @@ fig8a <- ggplot(data=cog[cog$Direction == 'northing',]) +
                   fill=Model), alpha=0.4) +
   labs(y='Northing (km)', x='') +
   scale_x_continuous(limits=c(1982, 2021), expand=c(0.01,0.01)) +
-  scale_y_continuous(limits=c(4575, 4825), expand=c(0,0)) +
+  scale_y_continuous(limits=c(4500, 4825), expand=c(0,0)) +
   facet_grid2(c("Size", "Season"))+
   
   ggtitle('Northing') +
@@ -132,7 +132,7 @@ fig8b <- ggplot(data=cog[cog$Direction == 'easting',]) +
   labs(col = 'Model', fill='Model',
        y='Easting (km)') +
   scale_x_continuous(limits=c(1982, 2021), expand=c(0.02,0.02)) +
-  scale_y_continuous(limits=c(350, 675), expand=c(0,0)) +
+  scale_y_continuous(limits=c(300, 675), expand=c(0,0)) +
   facet_grid2(c("Size", "Season")) +
   
   ggtitle('Easting') +
@@ -159,13 +159,13 @@ fig8 <- ggarrange(fig8a, fig8b,
                   align='v')
 
 # Save local
-ggsave(here('Documentation/Figures/Supplementary/Supp Fig 8.pdf'),
+ggsave(here('Documentation/CJFAS/Figures/Supplementary/Supp Fig 9.pdf'),
        fig8,
        height=23.7, width=18.2, units='cm',
        dpi = 600)
 
 # Save to collaborators
-ggsave("C:/Users/klankowicz/Box/Katie Lankowicz/Data_Analysis/Cod/Writings/CJFAS/Figures/Supplementary/Supp Fig 8.pdf",
+ggsave("C:/Users/klankowicz/Box/Katie Lankowicz/Data_Analysis/Cod/Writings/CJFAS/Figures/Supplementary/Supp Fig 9.pdf",
        fig8,
        height=23.7, width=18.2, units='cm',
        dpi = 600)

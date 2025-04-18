@@ -35,13 +35,13 @@ root <- here('VAST_runs/large/GMRF')
 ending <- '/COG_ALL.csv'
 
 # Covariates
-covuse <- c('ON', 'OFF')
+covuse <- c('FULL_OFF', 'OFF')
 
 # Baseline Mods
-on <- read.csv(paste0(root, '/ON', ending))
-off <- read.csv(paste0(root, '/OFF', ending))
+on <- read.csv(paste0(root, '/OFF', ending))
+off <- read.csv(paste0(root, '/FULL_OFF', ending))
+off$Model <- 'GMRF FULL_OFF'
 on$Model <- 'GMRF ON'
-off$Model <- 'GMRF OFF'
 
 rm(list=setdiff(ls(), c('on', 'off', 'gom', 'coast',
                         'centroid')))
@@ -59,7 +59,7 @@ cog <- cog %>%
 
 
 cog$Model <- factor(cog$Model,
-                    levels=c('GMRF ON', 'GMRF OFF'))
+                    levels=c('GMRF ON', 'GMRF FULL_OFF'))
 
 ccord <- sfheaders::sf_to_df(centroid, fill=T)
 ccord <- ccord %>% 
@@ -179,19 +179,19 @@ e.fall <- ggplot() +
   guides(color = guide_legend(nrow = 2))
 
 ggsave(filename=paste0(here('VAST_runs/large/GMRF/Testing_Results', 
-                            '/cogshifts_northing_spring.png')),
+                            '/cogshifts_northing_spring2.png')),
        n.spring, width = 8.5, height=4.25, units='in')
 
 ggsave(filename=paste0(here('VAST_runs/large/GMRF/Testing_Results', 
-                            '/cogshifts_northing_fall.png')),
+                            '/cogshifts_northing_fall2.png')),
        n.fall, width = 8.5, height=4.25, units='in')
 
 ggsave(filename=paste0(here('VAST_runs/large/GMRF/Testing_Results', 
-                            '/cogshifts_easting_spring.png')),
+                            '/cogshifts_easting_spring2.png')),
        e.spring, width = 8.5, height=4.25, units='in')
 
 ggsave(filename=paste0(here('VAST_runs/large/GMRF/Testing_Results', 
-                            '/cogshifts_easting_fall.png')),
+                            '/cogshifts_easting_fall2.png')),
        e.fall, width = 8.5, height=4.25, units='in')
 
 rm(list=setdiff(ls(), c('cog', 'coast', 'gom')))
@@ -260,7 +260,7 @@ spring.vis <- ggplot() +
         axis.text.y=element_text(size=8),
         strip.text=element_text(size=8))
 
-ggsave(here("VAST_runs/large/GMRF/Testing_Results/Spatial_COG_Spring.png"),
+ggsave(here("VAST_runs/large/GMRF/Testing_Results/Spatial_COG_Spring2.png"),
        spring.vis,
        width=10, height=10)
 
@@ -319,7 +319,7 @@ fall.vis <- ggplot() +
         axis.text.y=element_text(size=8),
         strip.text=element_text(size=8))
 
-ggsave(here("VAST_runs/large/GMRF/Testing_Results/Spatial_COG_Fall.png"),
+ggsave(here("VAST_runs/large/GMRF/Testing_Results/Spatial_COG_Fall2.png"),
        fall.vis,
        width=10, height=10)
 
@@ -331,9 +331,9 @@ root <- here('VAST_runs/large/GMRF')
 ending <- '/RangeEdges_ALL.csv'
 
 # Baseline Mods
-on <- read.csv(paste0(root, '/ON/', ending))
+on <- read.csv(paste0(root, '/FULL_OFF/', ending))
 off <- read.csv(paste0(root, '/OFF/', ending))
-on$Model <- 'GMRF ON'
+on$Model <- 'GMRF FULL_OFF'
 off$Model <- 'GMRF OFF'
 
 rm(list=setdiff(ls(), c('on', 'off',
@@ -344,7 +344,7 @@ re <- rbind(on, off)
 rm(list=setdiff(ls(), c('re', 'gom', 'centroid', 'coast')))
 
 re$Model <- factor(re$Model,
-                    levels=c('GMRF ON', 'GMRF OFF'))
+                    levels=c('GMRF FULL_OFF', 'GMRF OFF'))
 re$Quantile <- as.factor(re$Quantile)
 
 # Spaghetti plots

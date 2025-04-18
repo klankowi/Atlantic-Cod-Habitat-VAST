@@ -50,11 +50,11 @@ summary(ind)
 '%notin%' <- function(x,y)!('%in%'(x,y))
 
 # Load data
-surveys <- read.csv(here("Data/Survey_Data/Bio_Data_Agesep.csv"))
+surveys <- read.csv(here("Data/Survey_Data/Bio_Data_Agesep_withSentinel.csv"))
 surveys$month <- month(as.POSIXct(surveys$DATE, format='%Y-%m-%d'))
 
 # Only smalls
-surveys <- surveys[surveys$AGEGROUP == 'Age0-2',]
+surveys <- surveys[surveys$AGEGROUP == 'Age5+',]
 
 # Add seasonality
 surveys$season[surveys$month %in% c(1,2,9,10,11,12)] <- 'BFall'
@@ -91,7 +91,7 @@ surveys <- surveys[!is.na(surveys$rugos) &
                      !is.na(surveys$h_bt),]
 
 # Remove survey
-surveys <- surveys[surveys$SURVEY == 'MADMF Inshore Trawl',]
+surveys <- surveys[surveys$SURVEY == 'Sentinel',]
 
 surveys$season[surveys$season == 'BFall'] <- 'Fall'
 surveys$season[surveys$season == 'ASpring'] <- 'Spring'
@@ -104,20 +104,6 @@ surveys <- st_as_sf(surveys, coords=c('LON', 'LAT'), crs='EPSG:4326')
 surveys <- st_intersection(surveys, codstox)
 table(surveys$STOCK, surveys$SURVEY)
 
-surveys <- surveys %>% 
-  mutate(NCat = NA)
-
-surveys$NCat[surveys$AGE_N==0] <- 0
-surveys$NCat[surveys$AGE_N %in% seq(1, 10, 1)] <- 10
-surveys$NCat[surveys$AGE_N %in% seq(11, 50, 1)] <- 50
-surveys$NCat[surveys$AGE_N %in% seq(51, 100,1)] <- 100
-surveys$NCat[surveys$AGE_N %in% seq(101, 200,1)] <- 200
-surveys$NCat[surveys$AGE_N %in% seq(201, 300,1)] <- 300
-surveys$NCat[surveys$AGE_N %in% seq(301, 400,1)] <- 400
-surveys$NCat[surveys$AGE_N %in% seq(401, 500,1)] <- 500
-surveys$NCat[surveys$AGE_N %in% seq(501, 750,1)] <- 750
-surveys$NCat[surveys$AGE_N %in% seq(751, 1000,1)] <- 1000
-surveys$NCat[surveys$AGE_N %in% seq(1001, 2000,1)] <- 1500
 
 ggplot(data=ind#[ind$Stratum == 'WGOM' & ind$Season == 'Spring',]
        ) +
@@ -129,16 +115,6 @@ ggplot(data=ind#[ind$Stratum == 'WGOM' & ind$Season == 'Spring',]
                   ymax=Estimate + Std.Err.Est, fill=Mod),
               alpha=0.4) +
   ggh4x::facet_grid2(Stratum~Season, scales='free')
-
-ggplot() +
-  geom_sf(data=surveys[surveys$YEAR %in% c(2014:2021) &
-                         surveys$season =='Spring' &
-                         surveys$AGE_N != 0,],
-          aes(size = NCat)) +
-  geom_sf(data=codstox, aes(fill=STOCK), alpha=0.2) +
-  coord_sf(xlim=c(st_bbox(surveys)[1], st_bbox(surveys)[3]), 
-           ylim=c(st_bbox(surveys)[2], st_bbox(surveys)[4])) +
-  facet_wrap(vars(YEAR), nrow=2)
 
 #### Calc years with sig dif ####
 dif <- indno_mi$Estimate / indall$Estimate

@@ -23,11 +23,11 @@ theme_set(theme(panel.grid.major = element_line(color='lightgray'),
 '%notin%' <- function(x,y)!('%in%'(x,y))
 
 # Root
-root <- here('VAST_runs/small/GMRF/')
-ending <- '_smallcod_wholearea_natsplin.RData'
+root <- here('VAST_runs/medium/GMRF/')
+ending <- '_mediumcod_wholearea_natsplin.RData'
 
 # Covariates
-covuse <- c('OFF', 'ON')
+covuse <- c('OFF', 'FULL_OFF')
 
 # Singlfitted.values()# Single Covs
 for(i in 1:length(covuse)){
@@ -38,12 +38,12 @@ for(i in 1:length(covuse)){
   rm(fit, newName)
 }
 
-rm(list=setdiff(ls(), c('OFF', 'ON')))
+rm(list=setdiff(ls(), c('OFF', 'FULL_OFF')))
 
 aiccomp <- data.frame(
-  model=c('OFF', 'ON'),
+  model=c('OFF', 'FULL_OFF'),
   aic = c(OFF$parameter_estimates$AIC,
-          ON$parameter_estimates$AIC)
+          FULL_OFF$parameter_estimates$AIC)
 )
 
 aiccomp <- aiccomp[with(aiccomp, order(aic)),]
@@ -57,10 +57,10 @@ aiccomp$delta.aic[1] <- 0
 aiccomp
 
 devcomp <- data.frame(
-  model=c('OFF','ON'),
+  model=c('OFF','FULL_OFF'),
   deviance = c(
           OFF$Report$deviance,
-          ON$Report$deviance)
+          FULL_OFF$Report$deviance)
 )
 
 devcomp <- devcomp[with(devcomp, order(deviance, decreasing = T)),]

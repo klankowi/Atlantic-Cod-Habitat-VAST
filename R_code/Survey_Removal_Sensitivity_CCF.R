@@ -31,18 +31,32 @@ indall <- indall %>%
 mods <- c('ASMFC Shrimp Trawl', 
           'NEFSC BLLS',
           'NEFSC BTS', 
-          #'DFO Trawl',
-          #'GSO Trawl',
-          #'MADMF Industry',
-          #'MADMF Trawl',
-          #'ME-NH Inshore Trawl',
-          #'RIDEM Trawl',
+          'DFO Trawl',
+          'GSO Trawl',
+          'MADMF Industry',
+          'MADMF Trawl',
+          'ME-NH Inshore Trawl',
+          'RIDEM Trawl',
           'SMAST Video Trawl'
           )
 
+short <- c('ASMFC', 
+           'BLLS', 
+           'BTS',
+           'DFO', 
+           'GSO', 
+           'MADMF Industry',
+           'MADMF Inshore', 
+           'ME-NH', 
+           'RIDEM',
+           'SMAST')
+
+short <- data.frame(cbind(mods, short))
+colnames(short) <- c('Mod', 'Short')
+
 for(i in 1:length(mods)){
   indno_mi <- read.csv(here('VAST_runs/sensitivity/medium/', mods[i], 
-                            '/Medium_Index.csv'))
+                            '/medium_Index.csv'))
   indno_mi$Mod <- mods[i]
   indno_mi <- indno_mi %>% 
     dplyr::select(-Category, -Std.Err.ln.Est)
@@ -52,10 +66,16 @@ for(i in 1:length(mods)){
 
 ind <- indall %>% 
   mutate(Season = factor(Season, levels=c('Spring', 'Fall'))) %>% 
-  mutate(Mod = factor(Mod, levels=c('All', 'ASMFC Shrimp Trawl', #'DFO Trawl',
-                                    #'GSO Trawl', 'MADMF Trawl',
-                                    #'MADMF Industry', 'ME-NH Inshore Trawl',
-                                    'NEFSC BLLS', 'NEFSC BTS', #'RIDEM Trawl',
+  mutate(Mod = factor(Mod, levels=c('All', 
+                                    'ASMFC Shrimp Trawl', 
+                                    'DFO Trawl',
+                                    'GSO Trawl', 
+                                    'MADMF Trawl',
+                                    'MADMF Industry', 
+                                    'ME-NH Inshore Trawl',
+                                    'NEFSC BLLS', 
+                                    'NEFSC BTS', 
+                                    'RIDEM Trawl',
                                     'SMAST Video Trawl')),
          Size = as.factor('Medium'),
          Stratum = factor(Stratum, levels=c('ALL', 'EGOM', 'GBK', 
@@ -65,11 +85,14 @@ ind <- indall %>%
   mutate(High = Estimate + Std.Err.Est,
          Low = Estimate - Std.Err.Est) %>% 
   as.data.frame()
+
+ind <- merge(ind, short, by=c('Mod'), all=T)
+
 summary(ind)
 
 ggplot(data=ind[ind$Mod != 'NEFSC BTS' & 
                 ind$Mod != 'All',]) +
-  geom_line(aes(x=Year, y=Estimate, col=Mod)) +
+  geom_line(aes(x=Year, y=Estimate, col=Short)) +
   
   geom_line(data=ind[ind$Mod == 'All',], aes(x=Year, y=Estimate),
             col='black') +
@@ -141,20 +164,43 @@ lag0 <- lag0 %>%
   mutate(Stock = factor(Stock, levels=c('ALL', 'EGOM', 'GBK','SNE','WGOM')),
          Season = factor(Season, levels=c('Spring', 'Fall')))
 
+lag0 <- merge(lag0, short, by=c("Mod"), all=T)
+
+confint.poly <- data.frame(
+  x=c(-1, -1, 6, 6),
+  y=c(lag0$lowerCI[1], lag0$upperCI[1],
+      lag0$upperCI[1], lag0$lowerCI[1])
+)
+
+lag0 <- lag0[lag0$Stock != 'ALL' &
+             lag0$Mod != 'NEFSC BTS',]
+lag0$Stock <- droplevels(lag0$Stock)
+
 lagplot <- ggplot(data=lag0) +
-  geom_point(aes(x=as.factor(lag), y=acf, col=Stock),
-             cex=2, alpha=0.8) +
-  ggh4x::facet_grid2(Season ~ Mod) +
-  geom_hline(yintercept = 0.9, col='red', lty=2, lwd=0.3) +
-  geom_hline(yintercept = lag0$upperCI[1], col='blue', lty=2, lwd=0.3) +
-  labs(x='Lag', y='Correlation') +
-  ylim(0, 1)+
-  theme(strip.text.x = element_text(size=5))
+  geom_segment(aes(x=as.numeric(Stock),
+                   xend=as.numeric(Stock),
+                   y=0,
+                   yend=acf,
+                   col=Stock),
+               lwd=2) +
+  ggh4x::facet_grid2(Season ~ Short) +
+  geom_hline(yintercept = 0.8, col='red', lty=2, lwd=0.3) +
+  
+  geom_polygon(data=confint.poly,
+               aes(x=x, y=y), fill='black',
+               alpha=0.1) +
+  labs(x='Stock', y='Cross-Correlation at Lag 0') +
+  coord_cartesian(ylim=c(-0.5, 1.05),
+                  xlim=c(0.5, 4.5)) +
+  theme(strip.text.x = element_text(size=7),
+        panel.grid.major.x = element_blank(),
+        axis.ticks.x = element_blank(),
+        axis.text.x = element_blank())
 lagplot
 
-# ggsave(plot=lagplot,
-#        here('VAST_runs/sensitivity/medium/lag0_corr.png'),
-#        width = 8.5, height = 3, units='in') 
+ggsave(plot=lagplot,
+       here('VAST_runs/sensitivity/medium/lag0_corr.png'),
+       width = 8.5, height = 3, units='in', dpi=600)
 
 rm(indall, indno_mi, indd.ts, lag0, lagplot, i, j, mods, ct)
 
@@ -216,12 +262,82 @@ rats <- rats %>%
   mutate(Stock = factor(Stock, levels=c('ALL', 'EGOM', 'GBK','SNE','WGOM')),
          Season = factor(Season, levels=c('Spring', 'Fall')))
 
+rats <- merge(rats, short, by=c('Mod'), all=T)
+
+all <- ind %>% 
+  filter(Mod == 'All') %>% 
+  rename(Stock = Stratum) %>% 
+  mutate(Short = as.factor('All'),
+         Upper = Estimate + Std.Err.Est,
+         Lower = Estimate - Std.Err.Est) %>% 
+  dplyr::select(-NAME) %>% 
+  mutate(ratio = 1,
+         AbsDif = 0,
+         Mag = 0,
+         TimeOut = 0) %>% 
+  dplyr::select(Mod, Season, Stock, ratio, Year, Upper,
+                Lower, Estimate, AbsDif, Mag, TimeOut, Short)
+
+rats <- rbind(all, rats)
+
 ratgroup <- rats %>% 
-  group_by(Season, Stock, Mod) %>% 
-  summarise(Mag = sum(Mag[TimeOut ==1]),
+  group_by(Season, Stock, Short) %>% 
+  summarise(Rat = mean(ratio),
+            Mag = sum(Mag[TimeOut ==1]),
             AbsDif = sum(AbsDif[TimeOut == 1]),
             TimeOut = sum(TimeOut)) %>% 
-  as.data.frame()
+  as.data.frame() %>% 
+  mutate(Size = 'Medium')
+
+write.csv(ratgroup, here('VAST_runs/sensitivity/medium/medium_Ratios.csv'),
+          row.names = F)
+
+rats <- rats[rats$Stock != 'ALL',]
+
+for(i in 1:nrow(short)){
+  use <- short$Short[i]
+  print(
+  ggplot() +
+    geom_ribbon(data=rats[rats$Mod == 'All',],
+                aes(x=Year, ymin=Lower, ymax=Upper),
+                alpha=0.4) +
+    geom_line(data=rats[rats$Short == paste0(use) &
+                          rats$Stock != 'ALL',],
+              aes(x=Year, y=Estimate), col='red', lwd=0.2) +
+    geom_point(data=rats[rats$Short == paste0(use) &
+                           rats$TimeOut ==1,],
+               aes(x=Year, y=Estimate), col='red', cex=0.4) +
+    # geom_polygon(data=survuse.poly4,
+    #              aes(x=x, y=y), fill='black',
+    #              alpha=0.1) +
+    ggh4x::facet_grid2(Stock ~ Season, scales = 'free') +
+    ggtitle(paste0(use, ' survey removed'))
+  )
+    
+}
+
+ggplot() +
+  geom_ribbon(data=rats[rats$Mod == 'All',],
+              aes(x=Year, ymin=Lower, ymax=Upper),
+              alpha=0.4) +
+  geom_line(data=rats[rats$Short == 'DFO',],
+            aes(x=Year, y=Estimate), col='red', lwd=0.2) +
+  geom_point(data=rats[rats$Short == 'DFO' &
+                       rats$TimeOut ==1,],
+             aes(x=Year, y=Estimate), col='red', cex=0.4) +
+  ggh4x::facet_grid2(Stock ~ Season, scales = 'free')
+
+
+ggplot(data=ratgroup[ratgroup$Short != 'BTS' & ratgroup$TimeOut>2,]) +
+  geom_point(aes(x=as.numeric(as.factor(Stock)), 
+                  y=Mag, col=Stock)) +
+  ggh4x::facet_grid2(Season ~ Short) +
+  #ylim(0, 2) + 
+  labs(x='') +
+  scale_x_continuous(limits=c(0.5, 5.5),
+                     breaks=0) +
+  theme(axis.text.x = element_text(size=7)) +
+  labs(y='Mean Ratio')
 
 ggplot() +
   geom_ribbon(data=rats[rats$Season == 'Spring' & rats$Mod != 'NEFSC BTS' &
@@ -235,7 +351,7 @@ ggplot() +
   geom_point(data=rats[rats$Season == 'Spring' & rats$Mod != 'NEFSC BTS' &
                         rats$Stock == 'ALL' & rats$TimeOut == 1,],
             aes(x=Year, y=Estimate), col='red', cex=0.4) +
-  facet_wrap(vars(Mod)) +
+  facet_wrap(vars(Short)) +
   ggtitle('Spring, all biological stock areas')
 
 ggplot() +
@@ -298,4 +414,5 @@ ggplot() +
              aes(x=Year, y=Estimate), col='red', cex=0.4) +
   facet_wrap(vars(Mod)) +
   ggtitle('Spring, GBK biological stock area')
+
 
