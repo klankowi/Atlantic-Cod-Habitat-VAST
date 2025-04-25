@@ -24,8 +24,8 @@ theme_set(theme(panel.grid.major = element_line(color='lightgray'),
                 plot.caption=element_text(hjust=0, face='italic', size=12)))
 
 # Load data
-load(here('VAST_runs/medium/Overall_BC/ALL/Overall_BC_mediumcod_allstrat_natsplin_fsON_ALL.RData'))
-setwd(here("VAST_runs/medium/Overall_BC/ALL"))
+load(here('VAST_runs/small/Overall_BC/ALL_Catchability2/Overall_BC_smallcod_allstrat_natsplin_fsON_ALL_Catchability.RData'))
+setwd(here("VAST_runs/small/Overall_BC/ALL_Catchability2"))
 rm(list=setdiff(ls(), c("fit")))
 
 # Reload model
@@ -68,7 +68,7 @@ Y_gt = Y_gt[map_list$PlotDF[which(map_list$PlotDF[, "Include"] >
                                     0), "x2i"], , drop = FALSE]
 panel_labels = fit$year_labels
 file_name = "quantile_residuals_on_map"
-working_dir = here('VAST_runs/medium/Overall_BC/ALL')
+working_dir = here('VAST_runs/small/Overall_BC/ALL_Catchability2')
 setwd(working_dir)
 fun = aggregate_pvalues
 col = col_function
@@ -254,12 +254,12 @@ supfig1b <- ggplot() +
         legend.text = element_text(size=8)) + 
   guides(fill=guide_colorbar(ticks.colour = "transparent"))
 
-ggsave(here('Documentation/Figures/Supplementary/Supp Fig 2a.pdf'),
+ggsave(here('Documentation/CJFAS/Figures/Supplementary/Supp Fig 2a.pdf'),
        supfig1a,
        height=8.5, width=11, units='in',
        dpi = 300)
 
-ggsave(here('Documentation/Figures/Supplementary/Supp Fig 2b.pdf'),
+ggsave(here('Documentation/CJFAS/Figures/Supplementary/Supp Fig 2b.pdf'),
        supfig1b,
        height=8.5, width=11, units='in',
        dpi = 300)
