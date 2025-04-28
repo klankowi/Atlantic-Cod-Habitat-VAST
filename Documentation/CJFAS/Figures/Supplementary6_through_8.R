@@ -10,7 +10,7 @@ library(sf)
 #install_unit(symbol='unitless', def='unitless', name='unitless')
 
 # Load VAST fit data
-load(here('VAST_runs/medium/Overall_BC/ALL/Overall_BC_mediumcod_allstrat_natsplin_fsON_ALL.RData'))
+load(here('VAST_runs/small/Overall_BC/ALL_Catchability2/Overall_BC_smallcod_allstrat_natsplin_fsON_ALL_Catchability.RData'))
 rm(list=setdiff(ls(), c('fit')))
 
 # Set GGplot auto theme
@@ -33,7 +33,7 @@ map_list = make_map_info(Region = fit$extrapolation_list$Area_km2_x,
                          Extrapolation_List = fit$extrapolation_list)
 panel_labels = fit$year_labels
 file_name = "density"
-working_dir = here('VAST_runs/medium/Overall_BC/ALL')
+working_dir = here('VAST_runs/small/Overall_BC/ALL_Catchability2')
 setwd(working_dir)
 fun = mean
 
@@ -120,7 +120,7 @@ supfiga <- ggplot() +
         legend.text = element_text(size=8)) +
   ggtitle('Spring spatial density')
 
-ggsave(here('Documentation/Figures/Supplementary/Supp Fig 6a.pdf'),
+ggsave(here('Documentation/CJFAS/Figures/Supplementary/Supp Fig 6a.pdf'),
        supfiga,
        height=10, width=8.5, units='in',
        dpi = 300)
@@ -157,7 +157,7 @@ supfigb <- ggplot() +
         legend.text = element_text(size=8)) +
   ggtitle('Fall spatial density')
 
-ggsave(here('Documentation/Figures/Supplementary/Supp Fig 6b.pdf'),
+ggsave(here('Documentation/CJFAS/Figures/Supplementary/Supp Fig 6b.pdf'),
        supfigb,
        height=10, width=8.5, units='in',
        dpi = 300)
