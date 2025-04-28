@@ -33,7 +33,7 @@ map_list = make_map_info(Region = fit$extrapolation_list$Area_km2_x,
                          Extrapolation_List = fit$extrapolation_list)
 panel_labels = fit$year_labels
 file_name = "density"
-working_dir = here('VAST_runs/medium/Overall_BC/ALL')
+working_dir = here('VAST_runs/medium/Overall_BC/ALL_Catchability2')
 setwd(working_dir)
 fun = mean
 
@@ -56,9 +56,34 @@ Big_Data <- vector("list", length=length(panel_labels))
 
 # Call other spatial data
 coast <- st_transform(ecodata::coast, CRS_proj)
-regions <- st_read(here("Data/GIS/codstox.shp"), quiet=T)
-regions <- st_transform(regions, CRS_proj)
-regions <- st_make_valid(regions)
+region_shape<- st_read(here("Data/GIS/cod_region_UTM.shp"), quiet=T)
+region_shape <- st_transform(region_shape, "EPSG:4326")
+region_shape <- st_make_valid(region_shape)
+region_shape <- dplyr::select(region_shape, OBJECTID, geometry)
+# First, we need our region shapefile
+region_shape$OBJECTID <- 'ALL'
+colnames(region_shape) <- c("Region", 'geometry')
+# Second, get our index area shapefile
+# We could just use this same shapefile in the "index_shapes" argument, but to 
+# show off the new functions we wrote, we will also want to have a sf multipolygon
+# shapefiles with areas defined within this general region
+index_areas<- c("WGOM", "EGOM", "GBK", "SNE")
+for(i in seq_along(index_areas)){
+  index_area_temp<- st_read(paste0(here("Data/GIS"), '/', 
+                                   index_areas[i], "_UTM.shp"), quiet=T)
+  index_area_temp <- st_transform(index_area_temp, "EPSG:4326")
+  index_area_temp <- st_make_valid(index_area_temp)
+  index_area_temp <- dplyr::select(index_area_temp, STOCK, geometry)
+  colnames(index_area_temp) <- c("Region", 'geometry')
+  
+  if(i == 1){
+    index_area_shapes<- index_area_temp
+  } else {
+    index_area_shapes<- bind_rows(index_area_shapes, index_area_temp)
+  }
+}
+index_area_shapes <- bind_rows(region_shape, index_area_shapes)
+index_area_shapes <- st_make_valid(index_area_shapes)
 
 for (tI in 1: ncol(Y_gt)) {
   print(tI)
@@ -120,7 +145,7 @@ supfiga <- ggplot() +
         legend.text = element_text(size=8)) +
   ggtitle('Spring spatial density')
 
-ggsave(here('Documentation/Figures/Supplementary/Supp Fig 6a.pdf'),
+ggsave(here('Documentation/CJFAS/Figures/Supplementary/Supp Fig 7a.pdf'),
        supfiga,
        height=10, width=8.5, units='in',
        dpi = 300)
@@ -157,7 +182,7 @@ supfigb <- ggplot() +
         legend.text = element_text(size=8)) +
   ggtitle('Fall spatial density')
 
-ggsave(here('Documentation/Figures/Supplementary/Supp Fig 6b.pdf'),
+ggsave(here('Documentation/CJFAS/Figures/Supplementary/Supp Fig 7b.pdf'),
        supfigb,
        height=10, width=8.5, units='in',
        dpi = 300)
